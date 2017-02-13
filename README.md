@@ -1,0 +1,47 @@
+###  目录结构
+
+- app
+  - easy
+    - controllers
+      - Index.php
+    - logics
+      - HttpException.php
+    - models
+      - Index.php
+    - views
+      - components
+      - pages
+  - config
+    - easy
+      - common.php
+      - database.php
+- doc
+- framework
+ - config
+    - common.php
+    - database.php
+ - handles
+    - Handle.php
+    - ErrorHandle.php
+    - ExceptionHandle.php
+    - RouterHandle.php
+ - orm
+    - Interpreter.php
+    - Db.php
+    - db
+      - Mysql.php
+ - nosql
+    - Redis.php
+ - App.php
+ - Load.php
+ - Request.php
+ - Response.php
+ - run.php
+- public
+  - index.php
+- tests
+  - easy
+    - IndexTest.php
+  - TestCase.php
+- .env
+- .gitignore
