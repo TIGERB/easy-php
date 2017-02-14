@@ -1,47 +1,53 @@
-###  目录结构
+###  Project Directory Structure
 
-- app
-  - easy
-    - controllers
-      - Index.php
-    - logics
-      - HttpException.php
-    - models
-      - Index.php
-    - views
-      - components
-      - pages
-  - config
-    - easy
-      - common.php
-      - database.php
-- doc
-- framework
- - config
-    - common.php
-    - database.php
- - handles
-    - Handle.php
-    - ErrorHandle.php
-    - ExceptionHandle.php
-    - RouterHandle.php
- - orm
-    - Interpreter.php
-    - Db.php
-    - db
-      - Mysql.php
- - nosql
-    - Redis.php
- - App.php
- - Load.php
- - Request.php
- - Response.php
- - run.php
-- public
-  - index.php
-- tests
-  - easy
-    - IndexTest.php
-  - TestCase.php
-- .env
-- .gitignore
+```
+- backend                       [application backend directory]
+  + easy                        [module directory]
+    ~ controllers               [controller directory]
+      > Index.php               [default controller class file]
+    ~ logics                    [logic directory]
+      > HttpException.php       [logic class file]
+    ~ models                    [model directory]
+      > Index.php               [model class file]
+  + config                      [config directory]
+    ~ easy                      [module config directory]
+      > common.php              [common config file]
+      > database.php            [database config file]
+- doc                           [api document directory]
+- framework                     [easy-php framework directory]
+  + config                      [config directory]
+    > common.php                [default common config file]
+    > database.php              [default database config file]
+  + handles                     [handle class file be used by app run]
+    > Handle.php                [handle interface]
+    > ErrorHandle.php           [error handle class]
+    > ExceptionHandle.php       [exception handle class]
+    > RouterHandle.php          [router handle class]
+  + orm                         [datebase object relation map class directory]
+    > Interpreter.php           [sql Interpreter class]
+    > DB.php                    [database operation class]
+    ~ db                        [db type directory]
+      > Mysql.php               [mysql class file]
+  + nosql                       [nosql directory]
+    ~ Redis.php                 [redis class file]
+  + App.php                     [this application class file]
+  + Load.php                    [autoload class file]
+  + Request.php                 [request object class file]
+  + Response.php                [response object class file]
+  + run.php                     [run this application script file]
+- www                           [this is a resource directory to expose service resource]
+  + frontend                    [application frontend directory]
+    ~ src                       [frontend resource directory]
+      -- components              [frontend component directory]
+      -- views                   [frontend view directory]
+      -- images                  [frontend image directory]
+    ~ dist                      [frontend build destination]
+  + index.php                   [entrance php script file]
+- tests                         [unit test directory]
+  + easy                        [module name]
+    > IndexTest.php             [test class file]
+  + TestCase.php                [phpunit test case class file]
+- .env                          [the environment variables file]
+- .gitignore                    [git ignore config file]
+
+```
