@@ -19,18 +19,22 @@ class App
   public static $handlesList = [];
 
   /**
+   * [$handlesList description]
+   * @var [type]
+   */
+  public static $App = '';
+
+  /**
    * [__construct description]
    */
   public function __construct()
   {
-    foreach (self::$handlesList as $handle) {
-      $handle->register($this);
-    }
+
   }
 
-  public function load($load)
+  public function load($handle)
   {
-    $load->register();
+    $handle()->register();
   }
 
 }
