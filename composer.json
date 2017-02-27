@@ -1,0 +1,14 @@
+{
+    "name": "TIGERB/easy-php",
+    "description": "a light php framework for study",
+    "type": "project",
+    "authors": [
+        {
+            "name": "tigerb",
+            "email": "624661874@qq.com"
+        }
+    ],
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*"
+    }
+}
