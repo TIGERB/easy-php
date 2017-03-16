@@ -1,8 +1,12 @@
+<h1 align="center">Easy PHP</h1>
+
+<p align="center"> A light php framework for study<p>
+
 ###  Project Directory Structure
 
 ```
 app                             [application backend directory]
-├── easy                        [module directory]
+├── demo                        [module directory]
 │   ├── controllers             [controller directory]
 │   ├── Index.php               [default controller class file]
 │   ├── logics                  [logic directory]
@@ -10,7 +14,7 @@ app                             [application backend directory]
 │   └── models                  [model directory]
 │       └── Index.php           [model class file]
 ├── config                      [config directory]
-│    └── easy                   [module config directory]
+│    └── demo                   [module config directory]
 │        ├── common.php         [common config file]
 │        └── database.php       [database config file]
 doc                             [api document directory]
@@ -37,20 +41,41 @@ framework                       [easy-php framework directory]
 ├── run.php                     [run this application script file]
 public                          [this is a resource directory to expose service resource]
 ├── frontend                    [application frontend directory]
-│    └── src                    [frontend resource directory]
+│    ├── src                    [frontend resource directory]
 │    │   ├── components         [frontend component directory]
 │    │   ├── views              [frontend view directory]
 │    │   ├── images             [frontend image directory]
 │    └── dist                   [frontend build destination]
 ├── index.php                   [entrance php script file]
 tests                           [unit test directory]
-├── easy                        [module name]
+├── demo                        [module name]
 │      └── IndexTest.php        [test class file]
 ├── TestCase.php                [phpunit test case class file]
 vendor                          [composer vendor directory]
 .git-hooks                      [git hooks directory]
-└── pre-commit                  [git pre-commit example file]
+├── pre-commit                  [git pre-commit example file]
+└── commit-msg                  [git commit-msg example file]
 .env                            [the environment variables file]
 .gitignore                      [git ignore config file]
 
 ```
+
+###  Autoload Module
+
+###  Error&Exception Handle Module
+
+###  Route Handle Module
+
+###  MVC To MVCL
+
+###  Using Vue For View
+
+###  ORM
+
+###  Nosql Support
+
+###  Api Doc
+
+###  PHPunit
+
+###  Git Hooks

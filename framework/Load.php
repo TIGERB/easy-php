@@ -12,10 +12,7 @@
  */
 class Load
 {
-    public function __construct()
-    {
-        $this->register();
-    }
+    public static $map = [];
 
     /**
      * 应用启动注册.
@@ -24,7 +21,7 @@ class Load
      */
     public function register()
     {
-        spl_autoload_register([$this, 'autoload']);
+        spl_autoload_register(['Load', 'autoload']);
     }
 
    /**
@@ -34,20 +31,25 @@ class Load
     *
     * @return [type]        [description]
     */
-    private function autoload($class)
+    private static function autoload($class)
     {
+        $classOrigin = $class;
         if (empty($class)) {
-            throw new Exception("Error Processing Request", 1);
+            throw new Exception("autoload empty Not Found", 404);
         }
-        $class_info = explode('\\', $class);
-        $class_name = array_pop($class_info);
-        foreach ($class_info as &$v) {
+        $classInfo = explode('\\', $class);
+        $className = array_pop($classInfo);
+        foreach ($classInfo as &$v) {
             $v = strtolower($v);
         }
         unset($v);
-        array_push($class_info, $class_name);
-        $class = implode('\\', $class_info);
-
-        require ROOT_PATH.'/'.str_replace('\\', '/', $class).'.php';
+        array_push($classInfo, $className);
+        $class       = implode('\\', $classInfo);
+        $classPath   = ROOT_PATH.'/'.str_replace('\\', '/', $class).'.php';
+        if (!file_exists($classPath)) {
+            throw new Exception("$classPath Not Found", 404);
+        }
+        self::$map[$classOrigin] = $classPath;
+        require $classPath;
     }
  }
