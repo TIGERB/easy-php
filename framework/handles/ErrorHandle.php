@@ -1,16 +1,18 @@
 <?php
-/**
- * easy-php
- *
- * a light php framework for study
- *
- * @author: TIERGB <https://github.com/TIGERB>
- */
+/***********************************
+ *             Easy PHP            *
+ *                                 *
+ * A light php framework for study *
+ *                                 *
+ *              TIERGB             *
+ *   <https://github.com/TIGERB>   *
+ *                                 *
+ ***********************************/
 
 namespace Framework\Handles;
 
 use Framework\Handles\Handle;
-use Exception;
+use Framework\Exceptions\CoreHttpException;
 
 /**
  * 注册加载handle
@@ -23,13 +25,23 @@ class ErrorHandle implements Handle
         # code...
     }
 
-
+    /**
+     * 注册错误处理机制
+     *
+     * @return mixed
+     */
     public function register()
     {
-        register_shutdown_function([$this, 'shutdown']);
         set_error_handler([$this, 'errorHandler']);
+
+        register_shutdown_function([$this, 'shutdown']);
     }
 
+    /**
+     * 脚本结束
+     *
+     * @return　mixed
+     */
     public function shutdown()
     {
         $error = error_get_last();
@@ -43,9 +55,19 @@ class ErrorHandle implements Handle
             'line'    => $error['line'],
         ];
 
-        // throw new Exception(json_encode($errorInfo), 500);
+        CoreHttpException::reponse($errorInfo);
     }
 
+    /**
+     * 错误捕获
+     *
+     * @param  int    $errorNumber  错误码
+     * @param  int    $errorMessage 错误信息
+     * @param  string $errorFile    错误文件
+     * @param  string $errorLine    错误行
+     * @param  string $errorContext 错误文本
+     * @return mixed               　
+     */
     public function errorHandler(
         $errorNumber,
         $errorMessage,
@@ -61,7 +83,7 @@ class ErrorHandle implements Handle
             'context' => $errorContext,
         ];
 
-        // throw new Exception(json_encode($errorInfo), 500);
+        CoreHttpException::reponse($errorInfo);
     }
 
 }

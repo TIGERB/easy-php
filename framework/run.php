@@ -1,15 +1,18 @@
 <?php
-/**
- * easy-php
- *
- * a light php framework for study
- *
- * @author: TIERGB <https://github.com/TIGERB>
- */
+/***********************************
+ *             Easy PHP            *
+ *                                 *
+ * A light php framework for study *
+ *                                 *
+ *              TIERGB             *
+ *   <https://github.com/TIGERB>   *
+ *                                 *
+ ***********************************/
 
 use Framework\Handles\ErrorHandle;
 use Framework\Handles\ExceptionHandle;
 use Framework\Handles\RouterHandle;
+use Framework\Exceptions\CoreHttpException;
 
 /**
  * 定义全局常量
@@ -20,23 +23,26 @@ require(ROOT_PATH . '/framework/Load.php');
 require(ROOT_PATH . '/framework/App.php');
 
 try {
+    // 注册自加载
     Load::register();
+
+    // 初始化应用
     $app = new App();
+
+    // 加载错误处理机制
     $app->load(function(){
       return new ErrorHandle();
     });
+
+    // 加载异常处理机制
     $app->load(function(){
       return new ExceptionHandle();
     });
+
+    // 加载路由机制
     $app->load(function(){
       return new RouterHandle();
     });
-} catch (\Exception $e) {
-    header('Content-Type:Application/json; Charset=utf-8');
-    die(json_encode([
-        'coreError' => [
-            'code'    => $e->getCode(),
-            'Message' => $e->getMessage(),
-        ]
-    ]));
+} catch (CoreHttpException $e) {
+    CoreHttpException::reponse($e);
 }

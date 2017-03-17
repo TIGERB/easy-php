@@ -1,8 +1,10 @@
 <?php
-/**
- * easy-php
- *
- * a light php framework for study
- *
- * author: TIERGB <https://github.com/TIGERB>
- */
+/***********************************
+ *             Easy PHP            *
+ *                                 *
+ * A light php framework for study *
+ *                                 *
+ *              TIERGB             *
+ *   <https://github.com/TIGERB>   *
+ *                                 *
+ ***********************************/

@@ -1,11 +1,14 @@
 <?php
-/**
- * easy-php
- *
- * a light php framework for study
- *
- * @author: TIERGB <https://github.com/TIGERB>
- * @version: 0.0.1
- */
+/***********************************
+ *             Easy PHP            *
+ *                                 *
+ * A light php framework for study *
+ *                                 *
+ *              TIERGB             *
+ *   <https://github.com/TIGERB>   *
+ *                                 *
+ *          Version: 0.0.2         *
+ ***********************************/
+
 
 require('../framework/run.php');

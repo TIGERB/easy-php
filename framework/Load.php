@@ -1,11 +1,13 @@
 <?php
-/**
- * easy-php.
- *
- * a light php framework for study
- *
- * @author: TIERGB <https://github.com/TIGERB>
- */
+/***********************************
+ *             Easy PHP            *
+ *                                 *
+ * A light php framework for study *
+ *                                 *
+ *              TIERGB             *
+ *   <https://github.com/TIGERB>   *
+ *                                 *
+ ***********************************/
 
 /**
  * 注册加载handle.
@@ -25,18 +27,15 @@ class Load
     }
 
    /**
-    * [autoload description].
+    * 自加载函数
     *
-    * @param  [type] $class [description]
+    * @param  string $class 类名
     *
-    * @return [type]        [description]
+    * @return void
     */
     private static function autoload($class)
     {
         $classOrigin = $class;
-        if (empty($class)) {
-            throw new Exception("autoload empty Not Found", 404);
-        }
         $classInfo = explode('\\', $class);
         $className = array_pop($classInfo);
         foreach ($classInfo as &$v) {
@@ -47,9 +46,10 @@ class Load
         $class       = implode('\\', $classInfo);
         $classPath   = ROOT_PATH.'/'.str_replace('\\', '/', $class).'.php';
         if (!file_exists($classPath)) {
-            throw new Exception("$classPath Not Found", 404);
+            throw new \Exception("$classPath Not Found", 404);
         }
         self::$map[$classOrigin] = $classPath;
         require $classPath;
     }
+
  }
