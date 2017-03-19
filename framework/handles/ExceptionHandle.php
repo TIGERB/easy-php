@@ -1,47 +1,55 @@
 <?php
-/***********************************
- *             Easy PHP            *
- *                                 *
- * A light php framework for study *
- *                                 *
- *              TIERGB             *
- *   <https://github.com/TIGERB>   *
- *                                 *
- ***********************************/
+/********************************************
+ *                Easy PHP                  *
+ *                                          *
+ * A lightweight PHP framework for studying *
+ *                                          *
+ *                 TIERGB                   *
+ *      <https://github.com/TIGERB>         *
+ *                                          *
+ ********************************************/
 
 namespace Framework\Handles;
 
+use Framework\App;
 use Framework\Handles\Handle;
-use Exception;
+use Framework\Exceptions\CoreHttpException;
 
 /**
- * 注册加载handle
+ * 未补货异常处理机制
+ *
+ * @author TIERGB <https://github.com/TIGERB>
  */
 class ExceptionHandle implements Handle
 {
-
+    /**
+     * 构造函数
+     */
     public function __construct()
     {
         # code...
     }
 
-
-    public function register()
+    /**
+     * 注册未捕获异常函数
+     *
+     * @param  App    $app 框架实例
+     * @return void
+     */
+    public function register(App $app)
     {
         set_exception_handler([$this, 'exceptionHandler']);
     }
 
+    /**
+     * 未捕获异常函数
+     *
+     * @param  object $exception 异常
+     * @return void
+     */
     public function exceptionHandler($exception)
     {
-        $exceptionInfo = [
-            'number'  => $exception->getCode(),
-            'message' => $exception->getMessage(),
-            'file'    => $exception->getFile(),
-            'line'    => $exception->getLine(),
-            'trace'   => $exception->getTrace(),
-        ];
-
-        throw new Exception(json_encode($errorInfo), 500);
+        throw $exception;
     }
 
 }

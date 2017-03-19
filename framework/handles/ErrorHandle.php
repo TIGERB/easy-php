@@ -1,25 +1,30 @@
 <?php
-/***********************************
- *             Easy PHP            *
- *                                 *
- * A light php framework for study *
- *                                 *
- *              TIERGB             *
- *   <https://github.com/TIGERB>   *
- *                                 *
- ***********************************/
+/********************************************
+ *                Easy PHP                  *
+ *                                          *
+ * A lightweight PHP framework for studying *
+ *                                          *
+ *                 TIERGB                   *
+ *      <https://github.com/TIGERB>         *
+ *                                          *
+ ********************************************/
 
 namespace Framework\Handles;
 
+use Framework\App;
 use Framework\Handles\Handle;
 use Framework\Exceptions\CoreHttpException;
 
 /**
- * 注册加载handle
+ * 错误处理机制
+ *
+ * @author TIERGB <https://github.com/TIGERB>
  */
 class ErrorHandle implements Handle
 {
-
+    /**
+     * 构造函数
+     */
     public function __construct()
     {
         # code...
@@ -28,9 +33,11 @@ class ErrorHandle implements Handle
     /**
      * 注册错误处理机制
      *
-     * @return mixed
+     * @param $app 框架实例
+     *
+     * @return void
      */
-    public function register()
+    public function register(App $app)
     {
         set_error_handler([$this, 'errorHandler']);
 
@@ -55,7 +62,7 @@ class ErrorHandle implements Handle
             'line'    => $error['line'],
         ];
 
-        CoreHttpException::reponse($errorInfo);
+        CoreHttpException::reponseErr($errorInfo);
     }
 
     /**
@@ -83,7 +90,7 @@ class ErrorHandle implements Handle
             'context' => $errorContext,
         ];
 
-        CoreHttpException::reponse($errorInfo);
+        CoreHttpException::reponseErr($errorInfo);
     }
 
 }

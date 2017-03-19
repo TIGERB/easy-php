@@ -1,16 +1,20 @@
 <?php
-/***********************************
- *             Easy PHP            *
- *                                 *
- * A light php framework for study *
- *                                 *
- *              TIERGB             *
- *   <https://github.com/TIGERB>   *
- *                                 *
- ***********************************/
+/********************************************
+ *                Easy PHP                  *
+ *                                          *
+ * A lightweight PHP framework for studying *
+ *                                          *
+ *                 TIERGB                   *
+ *      <https://github.com/TIGERB>         *
+ *                                          *
+ ********************************************/
+
+use Framework\Exceptions\CoreHttpException;
 
 /**
- * 注册加载handle.
+ * 注册加载handle
+ *
+ * @author TIERGB <https://github.com/TIGERB> 
  */
 class Load
 {
@@ -21,7 +25,7 @@ class Load
      *
      * @return mixed
      */
-    public function register()
+    public static function register()
     {
         spl_autoload_register(['Load', 'autoload']);
     }
@@ -46,7 +50,7 @@ class Load
         $class       = implode('\\', $classInfo);
         $classPath   = ROOT_PATH.'/'.str_replace('\\', '/', $class).'.php';
         if (!file_exists($classPath)) {
-            throw new \Exception("$classPath Not Found", 404);
+            throw new CoreHttpException(404, "$classPath Not Found");
         }
         self::$map[$classOrigin] = $classPath;
         require $classPath;

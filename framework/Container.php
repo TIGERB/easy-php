@@ -9,17 +9,14 @@
  *                                          *
  ********************************************/
 
-namespace Framework\Handles;
+namespace Framework;
 
-use Framework\App;
-
-Interface Handle
+/**
+ * 容器
+ *
+ * @author TIERGB <https://github.com/TIGERB>
+ */
+class Container
 {
-  /**
-   * 注册处理机制
-   *
-   * @author TIERGB <https://github.com/TIGERB>
-   * @return mixed
-   */
-  public function register(App $app);
+
 }

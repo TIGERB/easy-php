@@ -1,13 +1,13 @@
 <?php
-/***********************************
- *             Easy PHP            *
- *                                 *
- * A light php framework for study *
- *                                 *
- *              TIERGB             *
- *   <https://github.com/TIGERB>   *
- *                                 *
- ***********************************/
+/********************************************
+ *                Easy PHP                  *
+ *                                          *
+ * A lightweight PHP framework for studying *
+ *                                          *
+ *                 TIERGB                   *
+ *      <https://github.com/TIGERB>         *
+ *                                          *
+ ********************************************/
 
 namespace Framework\Exceptions;
 
@@ -15,6 +15,8 @@ use Exception;
 
 /**
  * 核心http异常
+ *
+ * @author TIERGB <https://github.com/TIGERB>
  */
 class CoreHttpException extends Exception
 {
@@ -44,13 +46,7 @@ class CoreHttpException extends Exception
      */
     public function __construct($code = 200, $extra = '')
     {
-        if (empty($code)) {
-            throw new Exception($this->_httpCode[400], 400);
-        }
         $this->code = $code;
-        if (!isset($this->_httpCode[$code])) {
-            throw new Exception($this->_httpCode[404], 404);
-        }
         if (empty($extra)) {
             $this->message = $this->_httpCode[$code];
             return;
@@ -58,29 +54,32 @@ class CoreHttpException extends Exception
         $this->message = $extra . ' ' . $this->_httpCode[$code];
     }
 
-    public static function reponse($exception)
+    public function reponse()
     {
         header('Content-Type:Application/json; Charset=utf-8');
-        if ($exception instanceof Excption) {
-            die(json_encode([
-                'coreError' => [
-                    'code'    => $e->getCode(),
-                    'message' => $e->getMessage(),
-                    'infomations'  => [
-                        'file'  => $e->getFile(),
-                        'line'  => $e->getLine(),
-                        'trace' => $e->getTrace(),
-                    ]
-                ]
-            ]));
-        }
         die(json_encode([
-            'coreError' => [
-                'code'    => 500,
-                'message' => $exception,
+            '__coreError' => [
+                'code'    => $this->getCode(),
+                'message' => $this->getMessage(),
                 'infomations'  => [
-                    'file'  => $exception['file'],
-                    'line'  => $exception['line'],
+                    'file'  => $this->getFile(),
+                    'line'  => $this->getLine(),
+                    'trace' => $this->getTrace(),
+                ]
+            ]
+        ]));
+    }
+
+    public static function reponseErr($e)
+    {
+        header('Content-Type:Application/json; Charset=utf-8');
+        die(json_encode([
+            '__coreError' => [
+                'code'    => 500,
+                'message' => $e,
+                'infomations'  => [
+                    'file'  => $e['file'],
+                    'line'  => $e['line'],
                 ]
             ]
         ]));

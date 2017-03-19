@@ -1,6 +1,6 @@
 <h1 align="center">Easy PHP</h1>
 
-<p align="center"> A light php framework for study<p>
+<p align="center"> A lightweight PHP framework for studying<p>
 
 ###  Project Directory Structure
 
@@ -36,6 +36,7 @@ framework                       [easy-php framework directory]
 ├── nosql                       [nosql directory]
 │    └── Redis.php              [redis class file]
 ├── App.php                     [this application class file]
+├── Container.php               [Container class file]
 ├── Load.php                    [autoload class file]
 ├── Request.php                 [request object class file]
 ├── Response.php                [response object class file]

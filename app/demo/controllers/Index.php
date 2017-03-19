@@ -1,18 +1,21 @@
 <?php
 /**
- * easy-php
+ * Easy PHP
  *
- * a light php framework for study
+ * A lightweight PHP framework for studying
  *
  * author: TIERGB <https://github.com/TIGERB>
  */
 
 namespace App\Demo\Controllers;
 
+use Framework\App;
+
 /**
  * Index Controller
  *
  * @desc default controller
+ * @author TIERGB <https://github.com/TIGERB>
  */
 class Index
 {
@@ -23,6 +26,11 @@ class Index
 
     public function Hello()
     {
-        echo 'Hello Easy PHP';
+        return 'Hello Easy PHP';
+    }
+
+    public function get()
+    {
+        return App::$app->request->get('username');
     }
 }
