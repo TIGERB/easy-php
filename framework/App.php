@@ -30,7 +30,7 @@ class App
     　*
     　* @var array
     　*/
-    private $_handlesList = [];
+    private $handlesList = [];
 
     /**
      * 框架实例
@@ -44,21 +44,21 @@ class App
      *
      * @var object
      */
-    private $_container;
+    private $container;
 
     /**
      * 请求对象
      *
      * @var object
      */
-    private $_request;
+    private $request;
 
     /**
      * 响应对象
      *
      * @var object
      */
-    private $_responseData;
+    private $responseData;
 
     /**
      * 构造函数
@@ -77,7 +77,6 @@ class App
      */
     public function __get($name = '')
     {
-        $name = '_' . $name;
         return $this->$name;
     }
 
@@ -90,7 +89,6 @@ class App
      */
     public function __set($name = '', $value = '')
     {
-        $name = '_' . $name;
         $this->$name = $value;
     }
 
@@ -102,7 +100,7 @@ class App
      */
     public function load(Closure $handle)
     {
-        $this->_handlesList[] = $handle;
+        $this->handlesList[] = $handle;
     }
 
     /**
@@ -113,8 +111,8 @@ class App
      */
     public function run(Closure $request)
     {
-        $this->request = $request();
-        foreach ($this->_handlesList as $handle) {
+        $this->container->setSingle('request', $request);
+        foreach ($this->handlesList as $handle) {
             $handle()->register($this);
         }
     }
@@ -131,5 +129,4 @@ class App
         // $closure()->reponse($this->responseData);
         $closure()->restSuccess($this->responseData);
     }
-
 }

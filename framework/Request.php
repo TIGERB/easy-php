@@ -22,43 +22,43 @@ class Request
      * 请求模块
      * @var string
      */
-    private $_module = '';
+    private $module = '';
 
     /**
      * 请求控制器
      * @var string
      */
-    private $_controller = '';
+    private $controller = '';
 
     /**
      * 请求操作
      * @var string
      */
-    private $_action = '';
+    private $action = '';
 
     /**
      * 请求环境参数
      * @var array
      */
-    private $_serverParams = [];
+    private $serverParams = [];
 
     /**
      * 请求所有参数
      * @var array
      */
-    private $_requestParams = [];
+    private $requestParams = [];
 
     /**
      * 请求GET参数
      * @var array
      */
-    private $_getParams = [];
+    private $getParams = [];
 
     /**
      * 请求POST参数
      * @var array
      */
-    private $_postParams = [];
+    private $postParams = [];
 
     /**
      * 构造函数
@@ -67,10 +67,10 @@ class Request
      */
     public function __construct()
     {
-        $this->_serverParams  = $_SERVER;
-        $this->_requestParams = $_REQUEST;
-        $this->_getParams     = $_GET;
-        $this->_postParams    = $_POST;
+        $this->serverParams  = $_SERVER;
+        $this->requestParams = $_REQUEST;
+        $this->getParams     = $_GET;
+        $this->postParams    = $_POST;
     }
 
     /**
@@ -82,7 +82,6 @@ class Request
      */
     public function __get($name = '')
     {
-        $name = '_'.$name;
         return $this->$name;
     }
 
@@ -96,7 +95,6 @@ class Request
      */
     public function __set($name = '', $value = '')
     {
-        $name = '_'.$name;
         $this->$name = $value;
     }
 

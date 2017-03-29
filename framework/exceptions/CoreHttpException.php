@@ -25,7 +25,7 @@ class CoreHttpException extends Exception
      *
      * @var array
      */
-    private $_httpCode = [
+    private $httpCode = [
         // 缺少参数或者必传参数为空
         400 => 'Bad Request',
         // 没有访问权限
@@ -48,10 +48,10 @@ class CoreHttpException extends Exception
     {
         $this->code = $code;
         if (empty($extra)) {
-            $this->message = $this->_httpCode[$code];
+            $this->message = $this->httpCode[$code];
             return;
         }
-        $this->message = $extra . ' ' . $this->_httpCode[$code];
+        $this->message = $extra . ' ' . $this->httpCode[$code];
     }
 
     public function reponse()
