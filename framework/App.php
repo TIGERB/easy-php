@@ -33,20 +33,6 @@ class App
     private $handlesList = [];
 
     /**
-     * 框架实例
-     *
-     * @var object
-     */
-    public static $app;
-
-    /**
-     * 服务容器
-     *
-     * @var object
-     */
-    private $container;
-
-    /**
      * 请求对象
      *
      * @var object
@@ -61,12 +47,26 @@ class App
     private $responseData;
 
     /**
+     * 框架实例
+     *
+     * @var object
+     */
+    public static $app;
+
+    /**
+     * 服务容器
+     *
+     * @var object
+     */
+    public static $container;
+
+    /**
      * 构造函数
      */
     public function __construct()
     {
         self::$app = $this;
-        $this->container = new Container();
+        self::$container = new Container();
     }
 
     /**
@@ -111,7 +111,7 @@ class App
      */
     public function run(Closure $request)
     {
-        $this->container->setSingle('request', $request);
+        self::$container->setSingle('request', $request);
         foreach ($this->handlesList as $handle) {
             $handle()->register($this);
         }

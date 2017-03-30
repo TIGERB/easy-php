@@ -42,8 +42,7 @@ class Index
      */
     public function get()
     {
-        return App::$app->container
-                        ->getSingle('request')
-                        ->get('username');
+        return App::$container->getSingle('request')
+                              ->get('password', 'aaa');
     }
 }

@@ -13,6 +13,7 @@ use Framework\App;
 use Framework\Handles\ErrorHandle;
 use Framework\Handles\ExceptionHandle;
 use Framework\Handles\RouterHandle;
+use Framework\Handles\ConfigHandle;
 use Framework\Exceptions\CoreHttpException;
 use Framework\Request;
 use Framework\Response;
@@ -37,12 +38,19 @@ try {
     $app->load(function() {
         return new ErrorHandle();
     });
-
+    
+    /*
     //  加载异常处理机制　由于本文件全局catch了异常　所以不存在未捕获异常
     //　可省略注册未捕获异常Handle
-    // $app->load(function() {
-    //     return new ExceptionHandle();
-    // });
+    $app->load(function() {
+        return new ExceptionHandle();
+    });
+    */
+
+    // 加载预定义配置机制
+    $app->load(function() {
+        return new ConfigHandle();
+    });
 
     // 加载路由机制
     $app->load(function() {
