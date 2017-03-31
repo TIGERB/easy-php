@@ -26,10 +26,10 @@ use Closure;
 class App
 {
     /**
-    　*　框架加载流程一系列处理类集合
-    　*
-    　* @var array
-    　*/
+     * 框架加载流程一系列处理类集合
+     *
+     * @var array
+     */
     private $handlesList = [];
 
     /**
