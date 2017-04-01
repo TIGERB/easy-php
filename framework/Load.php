@@ -14,7 +14,7 @@ use Framework\Exceptions\CoreHttpException;
 /**
  * 注册加载handle
  *
- * @author TIERGB <https://github.com/TIGERB> 
+ * @author TIERGB <https://github.com/TIGERB>
  */
 class Load
 {
@@ -27,7 +27,11 @@ class Load
      */
     public static function register()
     {
+        // 注册框架加载函数　不使用composer加载机制加载框架　自己实现
         spl_autoload_register(['Load', 'autoload']);
+
+        // 引入composer自加载文件
+        require(ROOT_PATH . '/vendor/autoload.php');
     }
 
    /**
@@ -40,8 +44,8 @@ class Load
     private static function autoload($class)
     {
         $classOrigin = $class;
-        $classInfo = explode('\\', $class);
-        $className = array_pop($classInfo);
+        $classInfo   = explode('\\', $class);
+        $className   = array_pop($classInfo);
         foreach ($classInfo as &$v) {
             $v = strtolower($v);
         }
@@ -50,6 +54,8 @@ class Load
         $class       = implode('\\', $classInfo);
         $classPath   = ROOT_PATH.'/'.str_replace('\\', '/', $class).'.php';
         if (!file_exists($classPath)) {
+            // 框架级别加载文件不存在　composer加载
+            return;
             throw new CoreHttpException(404, "$classPath Not Found");
         }
         self::$map[$classOrigin] = $classPath;

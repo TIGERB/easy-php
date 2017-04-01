@@ -22,8 +22,7 @@ use Framework\Response;
  * 定义全局常量
  */
 // 根目录
-define('ROOT_PATH', dirname($_SERVER['SCRIPT_FILENAME']) . '/..');
-
+define('ROOT_PATH', __DIR__ . '/..');
 // 引入自加载类文件
 require(ROOT_PATH . '/framework/Load.php');
 
@@ -38,7 +37,7 @@ try {
     $app->load(function() {
         return new ErrorHandle();
     });
-    
+
     /*
     //  加载异常处理机制　由于本文件全局catch了异常　所以不存在未捕获异常
     //　可省略注册未捕获异常Handle
