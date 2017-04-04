@@ -1,0 +1,59 @@
+#!/usr/bin/php
+<?php
+/********************************************
+ *                Easy PHP                  *
+ *                                          *
+ * A lightweight PHP framework for studying *
+ *                                          *
+ *                 TIERGB                   *
+ *      <https://github.com/TIGERB>         *
+ *                                          *
+ ********************************************/
+
+/**
+ * cli模式
+ *
+ * 在php cli模式下运行框架运行框架
+ */
+
+/**
+ * 命令行参数list
+ */
+$help = function () {
+    $string =  <<<HELP
+    \033[36m Usage \033[0m:
+        php cli --env=<environment> --method=<value> --<arguments>=<value> ...
+
+    \033[36m Params mean \033[0m:
+        \033[33m env \033[0m:          Script run environment
+        \033[33m method \033[0m:       The function will running, value format <module.controller.action>
+        \033[33m arguments \033[0m:    Input arguments
+        \033[33m help      \033[0m:    Display command list
+
+    \033[32m A lightweight PHP framework for studying. \033[0m
+HELP;
+
+    die($string);
+};
+
+/**
+ * 获取参数
+ */
+if (count($argv) === 1) {
+    $help();
+}
+foreach ($argv as $v) {
+    preg_match_all('/^--(.*)/', $v, $match);
+    if (isset($match[1][0]) && ! empty($match[1][0])) {
+        $match = explode('=', $match[1][0]);
+        if ($match[0] === 'help') {
+            $help();
+        }
+        if (isset($match[1])) {
+            $input[$match[0]] = $match[1];
+        }
+    }
+}
+
+// 载入框架运行文件
+require('framework/run.php');
