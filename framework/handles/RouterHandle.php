@@ -185,7 +185,7 @@ class RouterHandle implements Handle
             preg_match_all('/^\/(.*)/', $this->requestUri, $uri);
         }
 
-        if (!isset($uri[1][0])) {
+        if (!isset($uri[1][0]) || empty($uri[1][0])) {
             /*
             * 使用默认模块/控制器/操作逻辑
             */

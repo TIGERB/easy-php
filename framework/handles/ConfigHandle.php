@@ -73,22 +73,22 @@ class ConfigHandle implements Handle
     {
         $this->app = $app;
         $app::$container->setSingle('config', $this);
-        $this->loadConfig();
+        $this->loadConfig($app);
     }
 
     /**
      * 加载配置文件
      *
+     * @param  App    $app 框架实例
      * @return void
      */
-    public function loadConfig()
+    public function loadConfig(App $app)
     {
         // 加载默认配置
-        $config   = require(ROOT_PATH . '/framework/config/common.php');
+        $config   = require($app->rootPath . '/framework/config/common.php');
         // 加载默认数据库配置
-        $database = require(ROOT_PATH . '/framework/config/database.php');
+        $database = require($app->rootPath . '/framework/config/database.php');
 
         $this->config = array_merge($config, $database);
     }
-
 }
