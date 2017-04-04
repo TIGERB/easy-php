@@ -15,6 +15,7 @@ use Framework\App;
  * Index Controller
  *
  * @desc default controller
+ *
  * @author TIERGB <https://github.com/TIGERB>
  */
 class Index
@@ -36,13 +37,16 @@ class Index
     }
 
     /**
-     * demo
+     * 测试
      *
-     * @return json
+     * @param   string $username 用户名
+     * @param   string $password 密码
+     * @example domain/Demo/Index/get?username=test&password=123456
+     * @return  json
      */
     public function get()
     {
         return App::$container->getSingle('request')
-                              ->get('password', 'aaa');
+                              ->get('password', '666');
     }
 }

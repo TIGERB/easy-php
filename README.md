@@ -27,6 +27,7 @@ framework                       [easy-php framework directory]
 │      ├── Handle.php           [handle interface]
 │      ├── ErrorHandle.php      [error handle class]
 │      ├── ExceptionHandle.php  [exception handle class]
+│      ├── ConfigHandle.php     [config handle class]
 │      └── RouterHandle.php     [router handle class]
 ├── orm                         [datebase object relation map class directory]
 │      ├── Interpreter.php      [sql Interpreter class]
@@ -49,9 +50,10 @@ public                          [this is a resource directory to expose service 
 │    │   ├── images             [frontend image directory]
 │    └── dist                   [frontend build destination]
 ├── index.php                   [entrance php script file]
+runtime                         [temporary file such as log]
 tests                           [unit test directory]
 ├── demo                        [module name]
-│      └── IndexTest.php        [test class file]
+│      └── DemoTest.php         [test class file]
 ├── TestCase.php                [phpunit test case class file]
 vendor                          [composer vendor directory]
 .git-hooks                      [git hooks directory]
@@ -59,12 +61,19 @@ vendor                          [composer vendor directory]
 └── commit-msg                  [git commit-msg example file]
 .env                            [the environment variables file]
 .gitignore                      [git ignore config file]
+cli                             [run this framework with the php cli mode]
+composer.json                   [composer file]
+composer.lock                   [composer lock file]
+phpunit.xml                     [phpunit config file]
+README.md                       [readme file]
 
 ```
 
 ###  Autoload Module
 
 ###  Error&Exception Handle Module
+
+###  Config Handle Module
 
 ###  Route Handle Module
 
