@@ -1,6 +1,6 @@
 <h1 align="center">Easy PHP</h1>
 
-<p align="center"> A lightweight PHP framework for studying<p>
+<p align="center"> A lightweight PHP framework for studying <p>
 
 ###  Project Directory Structure
 
@@ -74,6 +74,8 @@ README.md                       [readme file]
 ###  Error&Exception Handle Module
 
 ###  Config Handle Module
+
+###  Request and Response Object
 
 ###  Route Handle Module
 
