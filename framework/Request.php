@@ -64,13 +64,22 @@ class Request
      * 构造函数
      *
      * 设置环境、请求参数
+     *
+     * @param App $app 框架实例
      */
-    public function __construct()
+    public function __construct(App $app)
     {
         $this->serverParams  = $_SERVER;
-        $this->requestParams = $_REQUEST;
-        $this->getParams     = $_GET;
-        $this->postParams    = $_POST;
+        if ($app->isCli === 'true') {
+            // cli 模式
+            $this->requestParams = $_REQUEST['argv'];
+            $this->getParams     = $_REQUEST['argv'];
+            $this->postParams    = $_REQUEST['argv'];
+        } else {
+            $this->requestParams = $_REQUEST;
+            $this->getParams     = $_GET;
+            $this->postParams    = $_POST;
+        }
     }
 
     /**

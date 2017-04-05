@@ -55,8 +55,8 @@ try {
     /**
      * 启动应用
      */
-    $app->run(function () {
-        return new Request();
+    $app->run(function () use ($app) {
+        return new Request($app);
     });
 
     /**
