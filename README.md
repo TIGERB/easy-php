@@ -2,6 +2,18 @@
 
 <p align="center"> A lightweight PHP framework for studying <p>
 
+<p align="center"> <a href="./README-CN.md">中文版</a>　<p>
+
+### How to build a PHP framework by ourself
+
+Why do we need to build a PHP framework by ourself? Maybe the most of people will say "There have so many PHP frameworks for us to choice, but we still making a wheel?". My point is "Made a wheel is not our purpose, we will get some konwledge when making a wheel which is our realy purpose.".
+
+Then, how to build a PHP framework by ourself? General process as follows:
+
+Entry file ----> Register autoload function ----> Register error(and exception) function ----> Load config file ----> Request object ----> Router ----> (Controller <----> Model) ----> Response object ----> Json ----> View
+
+In addition, unit test, nosql support, api documents and some auxiliary script, etc. General framework directory as follows:
+
 ###  Project Directory Structure
 
 ```
@@ -68,6 +80,11 @@ phpunit.xml                     [phpunit config file]
 README.md                       [readme file]
 
 ```
+---
+
+Framework Module Description:
+
+###  Entry file
 
 ###  Autoload Module
 
