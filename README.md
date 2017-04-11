@@ -45,6 +45,7 @@ framework                       [easy-php framework directory]
 │      ├── common.php           [default common config file]
 │      └── database.php         [default database config file]
 ├── exceptions                  [core exception class]
+│      ├── CoreHttpException.php[http exception]
 ├── handles                     [handle class file be used by app run]
 │      ├── Handle.php           [handle interface]
 │      ├── ErrorHandle.php      [error handle class]
@@ -164,7 +165,7 @@ step 1: cd public
 step 2: php -S localhost:666
 step 3: open the website 'http://localhost:666'
 
-For example, http://localhost:666/?Demo/Index/hello
+For example, http://localhost:666/Demo/Index/hello
 
 --------------------------------------------
 

@@ -44,6 +44,7 @@ framework                       [Easy PHP核心框架目录]
 │      ├── common.php           [默认通用配置文件]
 │      └── database.php         [默认数据库配置文件]
 ├── exceptions                  [异常目录]
+│      ├── CoreHttpException.php[核心http异常]
 ├── handles                     [框架运行时挂载处理机制类目录]
 │      ├── Handle.php           [处理机制接口]
 │      ├── ErrorHandle.php      [错误处理机制类]
@@ -194,7 +195,7 @@ README.md                       [readme文件]
 步骤 2: php -S localhost:666
 步骤 3: 打开网址 'http://localhost:666'
 
-例如, http://localhost:666/?Demo/Index/hello
+例如, http://localhost:666/Demo/Index/hello
 
 --------------------------------------------
 

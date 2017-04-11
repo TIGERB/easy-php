@@ -54,6 +54,11 @@ class CoreHttpException extends Exception
         $this->message = $extra . ' ' . $this->httpCode[$code];
     }
 
+    /**
+     * rest 风格http响应
+     *
+     * @return json
+     */
     public function reponse()
     {
         header('Content-Type:Application/json; Charset=utf-8');
@@ -70,6 +75,12 @@ class CoreHttpException extends Exception
         ]));
     }
 
+    /**
+     * rest 风格http异常响应
+     *
+     * @param  array  $e 异常
+     * @return json
+     */
     public static function reponseErr($e)
     {
         header('Content-Type:Application/json; Charset=utf-8');
