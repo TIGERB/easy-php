@@ -205,6 +205,8 @@ class RouterHandle implements Handle
      */
     public function register(App $app)
     {
+        // 注入当前对象到容器中
+        $app::$container->setSingle('router', $this);
         // request uri
         $this->requestUri     = $app::$container->getSingle('request')->server('REQUEST_URI');
         // App
@@ -242,6 +244,11 @@ class RouterHandle implements Handle
         // 自定义路由判断
         if ($this->userDefined()) {
             return;
+        }
+
+        // 判断模块存不存在
+        if (! in_array($this->moduleName, $this->config->config['module'])) {
+            throw new CoreHttpException(404, 'Module:'.$this->moduleName);
         }
 
         // 获取控制器类
@@ -376,5 +383,15 @@ class RouterHandle implements Handle
         $map = $this->$method;
         $this->app->responseData = $map[$uri]($app);
         return true;
+    }
+
+    /**
+     * APP内部调用　可构建微单体架构
+     *
+     * @return void
+     */
+    public function microMonomer()
+    {
+        # do nothing...
     }
 }

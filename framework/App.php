@@ -12,6 +12,7 @@
 namespace Framework;
 
 use Framework\Container;
+use Framework\Exceptions\CoreHttpException;
 use Closure;
 
 /**
@@ -127,6 +128,29 @@ class App
     public function load(Closure $handle)
     {
         $this->handlesList[] = $handle;
+    }
+
+    /**
+     * 内部调用
+     *
+     * 可构建微单体架构
+     *
+     * @param  string $uri 要调用的path
+     * @return json
+     */
+    public function get($uri = '')
+    {
+        $requestUri = explode('/', $uri);
+        if (count($requestUri) !== 3) {
+            throw new CoreHttpException(400);
+        }
+        $router = self::$container->getSingle('router');
+        $router->moduleName = $requestUri[0];
+        $router->controllerName = $requestUri[1];
+        $router->actionName = $requestUri[2];
+        $router->routeStrategy = 'microMonomer';
+        $router->route();
+        return $this->responseData;
     }
 
     /**
