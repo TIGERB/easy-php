@@ -247,7 +247,7 @@ class RouterHandle implements Handle
         }
 
         // 判断模块存不存在
-        if (! in_array($this->moduleName, $this->config->config['module'])) {
+        if (! in_array(strtolower($this->moduleName), $this->config->config['module'])) {
             throw new CoreHttpException(404, 'Module:'.$this->moduleName);
         }
 
