@@ -194,7 +194,7 @@ class RouterHandle implements Handle
      */
     public function delete($uri = '', $function = '')
     {
-        $this->getMap[$uri] = $function;
+        $this->deleteMap[$uri] = $function;
     }
 
     /**
@@ -362,7 +362,19 @@ class RouterHandle implements Handle
         if (! array_key_exists($uri, $this->getMap)) {
             return false;
         }
-        $this->app->responseData = $this->getMap[$uri]();
+
+        // 执行自定义路由匿名函数
+        $app     = $this->app;
+        $request = $app::$container->getSingle('request');
+        $method  = $request->method . 'Map';
+        if (! isset($this->$method)) {
+            throw new CoreHttpException(
+                404,
+                'Http Method:'. $request->method
+            );
+        }
+        $map = $this->$method;
+        $this->app->responseData = $map[$uri]($app);
         return true;
     }
 }
