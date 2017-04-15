@@ -62,6 +62,8 @@ class Index
      */
     public function micro()
     {
-        return App::$app->get('demo/index/hello');
+        return App::$app->get('demo/index/hello', [
+            'user' => 'TIGERB'
+        ]);
     }
 }
