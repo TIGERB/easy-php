@@ -69,7 +69,7 @@ foreach ($argv as $v) {
 }
 
 // 设置cli模式
-putenv('IS_CLI=true');
+putenv('IS_CLI=yes');
 $method              = $input['method'];
 $method              = explode('.', $method);
 $input['module']     = $method[0];

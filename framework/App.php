@@ -69,6 +69,17 @@ class App
     public static $app;
 
     /**
+     * 是否输出响应结果
+     *
+     * 默认输出
+     *
+     * cli模式　访问路径为空　不输出
+     *
+     * @var boolean
+     */
+    private $notOutput = false;
+
+    /**
      * 服务容器
      *
      * @var object
@@ -199,7 +210,7 @@ class App
         }
         $request = self::$container->getSingle('request');
         $request->method        = $method;
-        $router = self::$container->getSingle('router');
+        $router  = self::$container->getSingle('router');
         $router->moduleName     = $requestUri[0];
         $router->controllerName = $requestUri[1];
         $router->actionName     = $requestUri[2];
@@ -233,6 +244,9 @@ class App
      */
     public function response(Closure $closure)
     {
+        if ($this->notOutput === true) {
+            return;
+        }
         // $closure()->reponse($this->responseData);
         $closure()->restSuccess($this->responseData);
     }

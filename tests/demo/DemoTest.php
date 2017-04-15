@@ -12,7 +12,7 @@
 namespace Tests\Demo;
 
 use Tests\TestCase;
-use App\Demo\Controllers\Index;
+use Framework\App;
 
 /**
  * 单元测试 示例
@@ -26,11 +26,9 @@ class DemoTest extends TestCase
      */
     public function testDemo()
     {
-        $index = new Index();
-
         $this->assertEquals(
             'Hello Easy PHP',
-            $index->hello()
+            App::$app->get('demo/index/hello')
         );
     }
 }

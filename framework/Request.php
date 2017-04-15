@@ -109,11 +109,11 @@ class Request
     public function __construct(App $app)
     {
         $this->serverParams = $_SERVER;
-        $this->method       = strtolower($_SERVER['REQUEST_METHOD']);
-        $this->serverIp     = $_SERVER['REMOTE_ADDR'];
-        $this->clientIp     = $_SERVER['SERVER_ADDR'];
-        $this->beginTime    = $_SERVER['REQUEST_TIME_FLOAT'];
-        if ($app->isCli === 'true') {
+        $this->method       = isset($_SERVER['REQUEST_METHOD'])? strtolower($_SERVER['REQUEST_METHOD']) : 'get';
+        $this->serverIp     = isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '';
+        $this->clientIp     = isset($_SERVER['SERVER_ADDR'])? $_SERVER['SERVER_ADDR'] : '';
+        $this->beginTime    = isset($_SERVER['REQUEST_TIME_FLOAT'])? $_SERVER['REQUEST_TIME_FLOAT'] : time(true);
+        if ($app->isCli === 'yes') {
             // cli 模式
             $this->requestParams = $_REQUEST['argv'];
             $this->getParams     = $_REQUEST['argv'];

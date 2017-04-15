@@ -222,7 +222,7 @@ class RouterHandle implements Handle
 
         /* 路由策略　*/
         $this->routeStrategy  = 'pathinfo';
-        if (strpos($this->requestUri, 'index.php') || $app->isCli === 'true') {
+        if (strpos($this->requestUri, 'index.php') || $app->isCli === 'yes') {
             $this->routeStrategy = 'general';
         }
 
@@ -308,10 +308,12 @@ class RouterHandle implements Handle
             preg_match_all('/^\/(.*)/', $this->requestUri, $uri);
         }
 
+        // 使用默认模块/控制器/操作逻辑
         if (!isset($uri[1][0]) || empty($uri[1][0])) {
-            /*
-            * 使用默认模块/控制器/操作逻辑
-            */
+            // CLI 模式不输出
+            if ($this->app->isCli === 'yes') {
+                $this->app->notOutput = true;
+            }
             return;
         }
         $uri = $uri[1][0];
@@ -382,6 +384,9 @@ class RouterHandle implements Handle
         }
         $map = $this->$method;
         $this->app->responseData = $map[$uri]($app);
+        if ($this->app->isCli === 'yes') {
+            $this->app->notOutput = false;
+        }
         return true;
     }
 
