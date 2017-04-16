@@ -263,7 +263,7 @@ class RouterHandle implements Handle
         // 反射解析当前控制器类　判断是否有当前操作方法
         $reflaction     = new ReflectionClass($controllerPath);
         if (!$reflaction->hasMethod($this->actionName)) {
-            throw new CoreHttpException(404, 'Action:'.$actionName);
+            throw new CoreHttpException(404, 'Action:'.$this->actionName);
         }
         // 实例化当前控制器
         $controller = new $controllerPath();

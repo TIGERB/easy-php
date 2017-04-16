@@ -13,6 +13,7 @@ use Framework\Handles\ErrorHandle;
 use Framework\Handles\ExceptionHandle;
 use Framework\Handles\RouterHandle;
 use Framework\Handles\ConfigHandle;
+use Framework\Handles\NosqlHandle;
 use Framework\Exceptions\CoreHttpException;
 use Framework\Request;
 use Framework\Response;
@@ -45,6 +46,11 @@ try {
     $app->load(function () {
         // 加载预定义配置机制
         return new ConfigHandle();
+    });
+
+    $app->load(function () {
+        // 加载nosql机制
+        return new NosqlHandle();
     });
 
     $app->load(function () {
