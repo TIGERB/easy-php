@@ -66,4 +66,23 @@ class Index
             'user' => 'TIGERB'
         ]);
     }
+
+    /**
+     * 容器内获取实例演示
+     *
+     * @return void
+     */
+    public function instance()
+    {
+        // 请求对象
+        App::$container->getSingle('request');
+        // 配置对象
+        App::$container->getSingle('config');
+        // redis对象
+        App::$container->getSingle('redis');
+        // memcahe对象
+        App::$container->getSingle('memcahe');
+        // mongodb对象
+        App::$container->getSingle('mongodb');
+    }
 }

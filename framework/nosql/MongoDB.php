@@ -12,14 +12,14 @@
 namespace Framework\Nosql;
 
 use Framework\App;
-use Redis as rootRedis;
+use MongoDB\Client;
 
 /**
- * redis操作类
+ * MongoDB操作类
  *
  * @author TIERGB <https://github.com/TIGERB>
  */
-class Redis
+class MongoDB
 {
     /**
      * 构造函数
@@ -27,9 +27,16 @@ class Redis
     public function __construct()
     {
         $config = App::$container->getSingle('config');
-        $config = $config->config['nosql']['Redis'];
-        $redis = new rootRedis();
-        $redis->connect($config['host'], $config['port']);
-        App::$container->setSingle('redis', $redis);
+        $config = $config->config['nosql']['MongoDB'];
+        $client = new Client(
+            "{$config['host']}:{$config['port']}",
+            [
+                'database' => $config['database'],
+                'username' => $config['username'],
+                'password' => $config['password']
+            ]
+        );
+        $database = $client->selectDatabase($config['database']);
+        App::$container->setSingle('mongodb', $database);
     }
 }
