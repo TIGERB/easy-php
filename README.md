@@ -141,6 +141,8 @@ Where is the view layer?I abandon it, beacuse I chose the SPA for frontend, deta
 
 ###  ORM
 
+###  Service Container
+
 ###  Nosql Support
 
 ###  Api Doc

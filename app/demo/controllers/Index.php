@@ -10,6 +10,7 @@
 namespace App\Demo\Controllers;
 
 use Framework\App;
+use Framework\Orm\Db\Mysql;
 
 /**
  * Index Controller
@@ -81,8 +82,13 @@ class Index
         // redis对象
         App::$container->getSingle('redis');
         // memcahe对象
-        App::$container->getSingle('memcahe');
+        App::$container->getSingle('memcahed');
         // mongodb对象
         App::$container->getSingle('mongodb');
+    }
+
+    public function test()
+    {
+        $instance = new Mysql();
     }
 }
