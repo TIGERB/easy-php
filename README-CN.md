@@ -1,4 +1,4 @@
-<h1 align="center">Easy PHP</h1>
+<p align="center"><img width="60%" src="logo.png"><p>
 
 <p align="center"> 从0开始搭建一个属于你自己的PHP框架 <p>
 
@@ -38,7 +38,7 @@ app                             [应用目录]
 │    └── demo                   [模块配置目录]
 │        ├── common.php         [通用配置]
 │        └── database.php       [数据库配置]
-docs                            [接口文档目录]
+doc                             [接口文档目录]
 framework                       [Easy PHP核心框架目录]
 ├── config                      [默认配置文件目录]
 │      ├── common.php           [默认通用配置文件]

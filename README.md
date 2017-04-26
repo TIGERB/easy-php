@@ -1,4 +1,4 @@
-<h1 align="center">Easy PHP</h1>
+<p align="center"><img width="60%" src="logo.png"><p>
 
 <p align="center"> A lightweight PHP framework for studying <p>
 
