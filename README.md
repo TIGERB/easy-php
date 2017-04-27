@@ -51,6 +51,7 @@ framework                       [easy-php framework directory]
 │      ├── ErrorHandle.php      [error handle class]
 │      ├── ExceptionHandle.php  [exception handle class]
 │      ├── ConfigHandle.php     [config handle class]
+│      ├── NosqlHandle.php      [nosql handle class]
 │      └── RouterHandle.php     [router handle class]
 ├── orm                         [datebase object relation map class directory]
 │      ├── Interpreter.php      [sql Interpreter class]
@@ -143,15 +144,87 @@ Where is the view layer?I abandon it, beacuse I chose the SPA for frontend, deta
 
 ###  Service Container
 
+What's the service container?
+
+Service container is default to understand, I think it just a third party class, which can inject the class and instance. we can get the instance in the container very simple.
+
+The meaning of the service container?
+
+According to the design patterns: we need make our code "highly cohesive, loosely coupled". As the result of "highly cohesive" is "single principle", As the result of "single principle" is the class rely on each other. General way that handle the dependency as follows:
+
+```
+class Demo
+{
+    public function __construct ()
+    {
+        // the demo directly dependent on RelyClassName
+        $instance = new RelyClassName ();
+    }
+}
+```
+
+The above code is no problem, but is not conform to the design pattern of "The least kown principle", beacuse it has a direct dependence. We bring a third class in the framework, which can new a class or get a instance. So, the third party class is the service container, which like the role of 'middleware' in the architecture of the system.
+
+After implements a service container, I put the Rquest, Config and other instances are injected into service in the singleton container, when we need to use can be obtained from the container, is very convenient.Use the following:
+
+```
+// Inject the single instance
+App::$container->setSingle('alias', 'object/closure/class name');
+
+// Such as，Inject Request instance
+App::$container->setSingle('request', $request);
+// get Request instance
+App::$container->getSingle('request');
+```
+
 ###  Nosql Support
 
-###  Api Doc
+Inject the nosql's single instance in service container when the framework loading, you can decide what nosql you need use whit the configuration. At present we support redis/memcahed/mongodb.
+
+Some example:
+
+```
+// get redis instance
+App::$container->getSingle('redis');
+// get memcahed instance
+App::$container->getSingle('memcahed');
+// get mongodb instance
+App::$container->getSingle('mongodb');
+```
+
+###  Api Docs
 
 Usually after we write an api, the api documentation is a problem, we use the Api Blueprint protocol to write the api document and mock. At the same time, we can request the api real-timely by used Swagger.
 
 ###  PHPunit
 
 Based on the phpunit, I think write unit tests is a good habit.
+
+How to make a test？
+
+Write test file in the folder tests　by referenced the file DemoTest.php, then run:
+
+```
+ vendor/bin/phpunit
+```
+
+The assertion example:
+
+```
+/**
+ *　test assertion example
+ */
+public function testDemo()
+{
+    $this->assertEquals(
+        'Hello Easy PHP',
+        // assert the result by run hello function in demo/Index controller
+        App::$app->get('demo/index/hello')
+    );
+}
+```
+
+[phpunit assertions manual](https://phpunit.de/manual/current/en/appendixes.assertions.html)
 
 ###  Git Hooks
 

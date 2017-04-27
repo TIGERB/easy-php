@@ -50,6 +50,7 @@ framework                       [Easy PHP核心框架目录]
 │      ├── ErrorHandle.php      [错误处理机制类]
 │      ├── ExceptionHandle.php  [未捕获异常处理机制类]
 │      ├── ConfigHandle.php     [配置文件处理机制类]
+│      ├── NosqlHandle.php      [nosql处理机制类]
 │      └── RouterHandle.php     [路由处理机制类]
 ├── orm                         [对象关系模型]
 │      ├── Interpreter.php      [sql解析器]
@@ -163,7 +164,53 @@ README.md                       [readme文件]
 
 ###  服务容器
 
+什么是服务容器？
+
+服务容器听起来很浮，按我的理解简单来说就是提供一个第三方的实体，我们把业务逻辑需要使用的类或实例注入到这个第三方实体类中，当需要获取类的实例时我们直接通过这个第三方实体类获取。
+
+服务容器的意义？
+
+用设计模式来讲：其实不管设计模式还是实际编程的经验中，我们都是强调“高内聚，松耦合”，我们做到高内聚的结果就是每个实体的作用都是极度专一，所以就产生了各个作用不同的实体类。在组织一个逻辑功能时，这些细化的实体之间就会不同程度的产生依赖关系，对于这些依赖我们通常的做法如下：
+
+```
+class Demo
+{
+    public function __construct()
+    {
+        // 类demo直接依赖RelyClassName
+        $instance = new RelyClassName();
+    }
+}
+```
+
+这样的写法没有什么逻辑上的问题，但是不符合设计模式的“最少知道原则”，因为之间产生了直接依赖，整个代码结构不够灵活是紧耦合的。所以我们就提供了一个第三方的实体，把直接依赖转变为依赖于第三方，我们获取依赖的实例直接通过第三方去完成以达到松耦合的目的，这里这个第三方充当的角色就类似系统架构中的“中间件”，都是协调依赖关系和去耦合的角色。最后，这里的第三方就是所谓的服务容器。
+
+在实现了一个服务容器之后，我把Rquest,Config等实例都以单例的方式注入到了服务容器中，当我们需要使用的时候从容器中获取即可，十分方便。使用如下：
+
+```
+// 注入单例
+App::$container->setSingle('别名，方便获取', '对象/闭包/类名');
+
+// 例，注入Request实例
+App::$container->setSingle('request', $request);
+// 获取Request对象
+App::$container->getSingle('request');
+```
+
 ###  Nosql的支持
+
+提供对nosql的支持，提供全局单例对象，借助我们的服务容器我们在框架启动的时候，通过配置文件的配置把需要的nosql实例注入到服务容器中。目前我们支持redis/memcahed/mongodb。
+
+如何使用？如下，
+
+```
+// 获取redis对象
+App::$container->getSingle('redis');
+// 获取memcahed对象
+App::$container->getSingle('memcahed');
+// 获取mongodb对象
+App::$container->getSingle('mongodb');
+```
 
 [file: framework/nosql/*]
 
@@ -171,11 +218,59 @@ README.md                       [readme文件]
 
 通常我们写完一个接口后，接口文档是一个问题，我们这里使用Api Blueprint协议完成对接口文档的书写和mock，同时我们配合使用Swagger通过接口文档实现对接口的实时访问。
 
-[file: doc/*]
+Api Blueprint接口描述协议选取的工具是snowboard,具体使用说明如下：
+
+**接口文档生成说明**
+
+```
+cd docs/apib
+
+./snowboard html -i demo.apib -o demo.html -s
+
+open the website, http://localhost:8088/
+```
+
+**接口mock使用说明**
+
+```
+cd docs/apib
+
+./snowboard mock -i demo.apib
+
+open the website, http://localhost:8087/demo/index/hello
+```
+
+[file: docs/*]
 
 ###  单元测试
 
 基于phpunit的单元测试，写单元测试是个好的习惯。
+
+如何使用？
+
+tests目录下编写测试文件，具体参考tests/demo目录下的DemoTest文件,然后运行：
+
+```
+ vendor/bin/phpunit
+```
+
+测试断言示例：
+
+```
+/**
+ *　演示测试
+ */
+public function testDemo()
+{
+    $this->assertEquals(
+        'Hello Easy PHP',
+        // 执行demo模块index控制器hello操作，断言结果是不是等于Hello Easy PHP　
+        App::$app->get('demo/index/hello')
+    );
+}
+```
+
+[phpunit断言文档语法参考](https://phpunit.de/manual/current/zh_cn/appendixes.assertions.html)
 
 [file: tests/*]
 
