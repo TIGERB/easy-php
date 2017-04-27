@@ -285,14 +285,19 @@ class RouterHandle implements Handle
         $moduleName     = $request->request('module');
         $controllerName = $request->request('controller');
         $actionName     = $request->request('action');
-        if (!empty($moduleName)) {
+        if (! empty($moduleName)) {
             $this->moduleName = $moduleName;
         }
-        if (!empty($controllerName)) {
+        if (! empty($controllerName)) {
             $this->controllerName = $controllerName;
         }
-        if (!empty($actionName)) {
+        if (! empty($actionName)) {
             $this->actionName = $actionName;
+        }
+
+        // CLI 模式不输出
+        if (empty($actionName) && $this->app->isCli === 'yes') {
+            $this->app->notOutput = true;
         }
     }
 

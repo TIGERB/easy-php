@@ -115,9 +115,9 @@ class Request
         $this->beginTime    = isset($_SERVER['REQUEST_TIME_FLOAT'])? $_SERVER['REQUEST_TIME_FLOAT'] : time(true);
         if ($app->isCli === 'yes') {
             // cli 模式
-            $this->requestParams = $_REQUEST['argv'];
-            $this->getParams     = $_REQUEST['argv'];
-            $this->postParams    = $_REQUEST['argv'];
+            $this->requestParams = isset($_REQUEST['argv'])? : [];
+            $this->getParams     = isset($_REQUEST['argv'])? : [];
+            $this->postParams    = isset($_REQUEST['argv'])? : [];
         } else {
             $this->requestParams = $_REQUEST;
             $this->getParams     = $_GET;
