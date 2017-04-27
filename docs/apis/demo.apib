@@ -1,0 +1,84 @@
+FORMAT: 1A
+HOST: https://localhost:666
+
+# 接口文档演示
+这里演示如何用markdown语法方便快捷的编写接口文档。
+
+这是一个模板文件，演示了如何定义一个接口分组，接口名称，接口请求信息，接口响应信息，你可以完全按照这个模板文件去定义你的接口。
+
+**语法说明**
+
+- “# Group 组名称”: 声明的是一个分组
+- “## 接口名称”: 声明一个接口
+- “### 接口名称　[http method]”: restful风格,声明不同http method下的接口信息
+- “+ Parameters”: 声明请求参数
+- “+ Response 200 (application/json)”: 声明响应结果
+
+**接口文档生成说明**
+
+1. ./snowboard html -i apis/demo.apib -o demo.html -s
+2. open the website, http://localhost:8088/
+
+**接口mock使用说明**
+
+1. ./snowboard mock -i ./apis/demo.apib
+2. open the website, http://localhost:8087/demo/index/hello
+
+# Group 接口演示分组
+演示默认模块demo的默认控制器Index的三个接口hello,get,micro。
+
+## hello接口 [/demo/index/hello]
+这里定义接口的描述信息
+
+### hello接口 [GET]
+描述信息
+
++ Parameters
+
++ Response 200 (application/json)
+
+    ```
+    {
+        "code":200,
+        "message":"OK",
+        "result":"Hello Easy PHP"
+    }
+    ```
+
+## test接口 [/demo/index/test]
+这里定义接口的描述信息
+
+### test接口 [GET]
+描述信息
+
++ Parameters
+    + username: `test` (sting) - 用户名
+    + password: `test` (sting) - 密码
+
++ Response 200 (application/json)
+
+    ```
+    {
+        "code":200,
+        "message":"OK",
+        "result":{
+            "username":"default value"
+        }
+    }
+    ```
+
+## micro接口 [/demo/index/micro]
+这里定义接口的描述信息
+
+### micro接口 [GET]
+描述信息
+
++ Response 200 (application/json)
+
+    ```
+    {
+        "code":200,
+        "message":"OK",
+        "result":"Hello Easy PHP"
+    }
+    ```

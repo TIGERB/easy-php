@@ -45,10 +45,12 @@ class Index
      * @example domain/Demo/Index/get?username=test&password=123456
      * @return  json
      */
-    public function get()
+    public function test()
     {
-        return App::$container->getSingle('request')
-                              ->get('username', '666');
+        $request = App::$container->getSingle('request');
+        return [
+            'username' =>  $request->get('username', 'default value')
+        ];
     }
 
     /**
@@ -87,7 +89,7 @@ class Index
         App::$container->getSingle('mongodb');
     }
 
-    public function test()
+    public function mysql()
     {
         $instance = new Mysql();
     }
