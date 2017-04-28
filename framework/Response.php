@@ -54,7 +54,23 @@ class Response
             'code'    => 200,
             'message' => 'OK',
             'result'  => $response
-        ],JSON_UNESCAPED_UNICODE));
+        ],JSON_UNESCAPED_UNICODE)
+        );
+    }
+
+    /**
+     * cli模式成功响应
+     *
+     * @param  mixed $response 响应内容
+     * @return array
+     */
+    public function cliModeSuccess($response)
+    {
+        var_dump([
+            'code'    => 200,
+            'message' => 'OK',
+            'result'  => $response
+        ]);
     }
 
     /**
