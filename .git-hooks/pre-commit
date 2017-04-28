@@ -8,7 +8,7 @@
 
 PHPCS_BIN=./vendor/bin/phpcs
 PHPCS_CODING_STANDARD=PSR1,PSR2
-PHPCS_IGNORE=./vendor,./.git-hooks,./.env,./.gitignore,./composer.json,./composer.lock,./README.md
+PHPCS_IGNORE=./vendor,./.git-hooks,./.env,./.gitignore,./composer.json,./composer.lock,./README.md,/frontend,./docs,./config,./.babelrc,./LICENSE,./yarn.lock,./webpack.config.js,./package.json
 TMP_STAGING=".tmp_staging"
 
 # parse config
