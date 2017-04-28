@@ -255,6 +255,11 @@ class App
         if ($this->notOutput === true) {
             return;
         }
+        if ($this->isCli === 'yes') {
+            $closure()->cliModeSuccess($this->responseData);
+            return;
+        }
+
         // $closure()->reponse($this->responseData);
         $closure()->restSuccess($this->responseData);
     }
