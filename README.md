@@ -6,7 +6,7 @@
 
 ### How to build a PHP framework by ourself ?
 
-Why do we need to build a PHP framework by ourself? Maybe the most of people will say "There have so many PHP frameworks be provided, but we still made a wheel?". My point is "Made a wheel is not our purpose, we will get some konwledge when making a wheel which is our really purpose".
+Why do we need to build a PHP framework by ourself? Maybe the most of people will say "There have so many PHP frameworks be provided, but we still made a wheel?". My point is "Made a wheel is not our purpose, we will get some knowledge when making a wheel which is our really purpose".
 
 Then, how to build a PHP framework by ourself? General process as follows:
 
@@ -14,15 +14,15 @@ Then, how to build a PHP framework by ourself? General process as follows:
 Entry file ----> Register autoload function
            ----> Register error(and exception) function
            ----> Load config file
-           ----> Request object
+           ----> Request
            ----> Router
            ----> (Controller <----> Model)
-           ----> Response object
+           ----> Response
            ----> Json
            ----> View
 ```
 
-In addition, unit test, nosql support, api documents and some auxiliary script, etc. General framework directory as follows:
+In addition, unit test, nosql support, api documents and some auxiliary script, etc.The Easy PHP framework directory as follows:
 
 ###  Project Directory Structure
 
@@ -40,6 +40,9 @@ app                             [application backend directory]
 │        ├── common.php         [common config file]
 │        └── database.php       [database config file]
 docs                            [api document directory]
+├── apib                        [Api Blueprint]
+│    └── demo.apib              [api doc example file]
+├── swagger                     [swagger]
 framework                       [easy-php framework directory]
 ├── config                      [config directory]
 │      ├── common.php           [default common config file]
@@ -66,13 +69,20 @@ framework                       [easy-php framework directory]
 ├── Request.php                 [request object class file]
 ├── Response.php                [response object class file]
 ├── run.php                     [run this application script file]
+frontend                        [application frontend source code directory]
+├── src                         [source folder]
+│    ├── components             [vue components]
+│    ├── views                  [vue views]
+│    ├── images                 [images folder]
+│    ├── ...
+├── app.js                      [vue root js]
+├── app.vue                     [vue root component]
+├── index.template.html         [frontend entrance template file]
+├── store.js                    [vuex store file]
 public                          [this is a resource directory to expose service resource]
-├── frontend                    [application frontend directory]
-│    ├── src                    [frontend resource directory]
-│    │   ├── components         [frontend component directory]
-│    │   ├── views              [frontend view directory]
-│    │   ├── images             [frontend image directory]
-│    └── dist                   [frontend build destination]
+├── dist                        [frontend source file after build]
+│    └── ...
+├── index.html                  [entrance html file]
 ├── index.php                   [entrance php script file]
 runtime                         [temporary file such as log]
 tests                           [unit test directory]
@@ -83,13 +93,17 @@ vendor                          [composer vendor directory]
 .git-hooks                      [git hooks directory]
 ├── pre-commit                  [git pre-commit example file]
 └── commit-msg                  [git commit-msg example file]
+.babelrc                        [babel　config file]
 .env                            [the environment variables file]
 .gitignore                      [git ignore config file]
 cli                             [run this framework with the php cli mode]
 composer.json                   [composer file]
 composer.lock                   [composer lock file]
+package.json                    [dependence file for frontend]
 phpunit.xml                     [phpunit config file]
 README.md                       [readme file]
+webpack.config.js               [webpack config file]
+yarn.lock                       [yarn　lock file]
 
 ```
 
@@ -139,6 +153,42 @@ In the end, the structure as follows:
 Where is the view layer?I abandon it, beacuse I chose the SPA for frontend, detail as follows:
 
 ###  Using Vue For View
+
+**source code folder**
+
+The separate-frontend-and-backend and two-way data binding, modular is so popular.In the meantime, I moved the project [easy-vue](http://vue.tigerb.cn/) that built by myself to the framework as the view layer. The frontend source code folder as follows:
+
+```
+frontend                        [application frontend source code directory]
+├── src                         [source folder]
+│    ├── components             [vue components]
+│    ├── views                  [vue views]
+│    ├── images                 [images folder]
+│    ├── ...
+├── app.js                      [vue root js]
+├── app.vue                     [vue root component]
+├── index.template.html         [frontend entrance template file]
+├── store.js                    [vuex store file]
+```
+
+**Build Step**
+
+```
+npm install
+
+DOMAIN=http://yourdomain npm run test
+```
+
+**After build**
+
+After built success, there made dist folder and index.html in the public. This file will be ignore when this branch is not the release branch.
+
+```
+public                          [this is a resource directory to expose service resource]
+├── dist                        [frontend source file after build]
+│    └── ...
+├── index.html                  [entrance html file]
+```
 
 ###  ORM
 
@@ -195,6 +245,28 @@ App::$container->getSingle('mongodb');
 ###  Api Docs
 
 Usually after we write an api, the api documentation is a problem, we use the Api Blueprint protocol to write the api document and mock. At the same time, we can request the api real-timely by used Swagger.
+
+I chose the Api Blueprint's tool snowboard, detail as follows：
+
+**Api doc generate instruction**
+
+```
+cd docs/apib
+
+./snowboard html -i demo.apib -o demo.html -s
+
+open the website, http://localhost:8088/
+```
+
+**Api mock instruction**
+
+```
+cd docs/apib
+
+./snowboard mock -i demo.apib
+
+open the website, http://localhost:8087/demo/index/hello
+```
 
 ###  PHPunit
 

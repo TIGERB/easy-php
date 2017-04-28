@@ -9,13 +9,8 @@
 
 namespace App\Demo\Controllers;
 
-use Framework\App;
-use Framework\Orm\Db\Mysql;
-
 /**
- * Index Controller
- *
- * @desc default controller
+ * Demo Controller
  *
  * @author TIERGB <https://github.com/TIGERB>
  */
@@ -31,6 +26,8 @@ class Demo
 
     /**
      * api
+     *
+     * @example domain/demo/demo/get
      */
     public function get()
     {

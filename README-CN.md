@@ -10,18 +10,18 @@
 
 ```
 　　　　
-入口文件 ----> 注册自加载函数
+入口文件　----> 注册自加载函数
         ----> 注册错误(和异常)处理函数
         ----> 加载配置文件
-        ----> 请求对象
+        ----> 请求
         ----> 路由　
         ---->（控制器 <----> 数据模型）
-        ----> 响应对象
+        ----> 响应
         ----> json
         ----> 视图渲染数据
 ```
 
-除此之外我们还需要单元测试、nosql支持、接口文档支持、一些规范辅助脚本等。大致的框架目录如下：
+除此之外我们还需要单元测试、nosql支持、接口文档支持、一些规范辅助脚本等。最终框架的目录如下：
 
 ###  框架目录一览
 
@@ -38,7 +38,10 @@ app                             [应用目录]
 │    └── demo                   [模块配置目录]
 │        ├── common.php         [通用配置]
 │        └── database.php       [数据库配置]
-doc                             [接口文档目录]
+docs                            [接口文档目录]
+├── apib                        [Api Blueprint]
+│    └── demo.apib              [接口文档示例文件]
+├── swagger                     [swagger]
 framework                       [Easy PHP核心框架目录]
 ├── config                      [默认配置文件目录]
 │      ├── common.php           [默认通用配置文件]
@@ -65,14 +68,21 @@ framework                       [Easy PHP核心框架目录]
 ├── Request.php                 [请求类]
 ├── Response.php                [响应类]
 ├── run.php                     [框架应用启用脚本]
+frontend                        [前端源码和资源目录]
+├── src                         [资源目录]
+│    ├── components             [vue组件目录]
+│    ├── views                  [vue视图目录]
+│    ├── images                 [图片]
+│    ├── ...
+├── app.js                      [根js]
+├── app.vue                     [根组件]
+├── index.template.html         [前端入口文件模板]
+├── store.js                    [vuex store文件]
 public                          [公共资源目录，暴露到万维网]
-├── frontend                    [application frontend directory]
-│    ├── src                    [frontend resource directory]
-│    │   ├── components         [frontend component directory]
-│    │   ├── views              [frontend view directory]
-│    │   ├── images             [frontend image directory]
-│    └── dist                   [frontend build destination]
-├── index.php                   [入口文件]
+├── dist                        [前端build之后的资源目录，build生成的目录，不是发布分支忽略该目录]
+│    └── ...
+├── index.html                  [前端入口文件,build生成的文件，不是发布分支忽略该文件]
+├── index.php                   [后端入口文件]
 runtime                         [临时目录]
 tests                           [单元测试目录]
 ├── demo                        [模块名称]
@@ -82,13 +92,17 @@ vendor                          [composer目录]
 .git-hooks                      [git钩子目录]
 ├── pre-commit                  [git pre-commit预commit钩子示例文件]
 └── commit-msg                  [git commit-msg示例文件]
+.babelrc                        [babel配置文件]
 .env                            [环境变量文件]
 .gitignore                      [git忽略文件配置]
 cli                             [框架cli模式运行脚本]
 composer.json                   [composer配置文件]
 composer.lock                   [composer lock文件]
+package.json                    [前端依赖配置文件]
 phpunit.xml                     [phpunit配置文件]
 README.md                       [readme文件]
+webpack.config.js               [webpack配置文件]
+yarn.lock                       [yarn　lock文件]
 
 ```
 
@@ -148,13 +162,47 @@ README.md                       [readme文件]
 - C: controllers, 职责对外暴露资源，前后端分离架构下controllers其实就相当于json格式的视图
 - L: logics, 职责灵活实现所有业务逻辑的地方
 
-视图View去哪了？由于选择了前后端分离和SPA(单页应用), 所以传统的视图层也因此去掉了，详细的介绍看下面。
+视图View去哪了？由于选择了完全的前后端分离和SPA(单页应用), 所以传统的视图层也因此去掉了，详细的介绍看下面。
 
 [file: app/*]
 
 ###  使用Vue作为视图
 
-完全的前后端分离，数据双向绑定，模块化等等的大势所趋。
+**源码目录**
+
+完全的前后端分离，数据双向绑定，模块化等等的大势所趋。这里我把我自己开源的vue前端项目结构[easy-vue](http://vue.tigerb.cn/)移植到了这个项目里，作为视图层。我们把前端的源码文件都放在frontend目录里，详细如下，你也可以自己定义：
+
+```
+frontend                        [前端源码和资源目录，这里存放我们整个前端的源码文件]
+├── src                         [资源目录]
+│    ├── components             [编写我们的前端组件]
+│    ├── views                  [组装我们的视图]
+│    ├── images                 [图片]
+│    ├── ...
+├── app.js                      [根js]
+├── app.vue                     [根组件]
+├── index.template.html         [前端入口文件模板]
+└── store.js                    [状态管理，这里只是个演示，你可以很灵活的编写文件和目录]
+```
+
+**build步骤**
+
+```
+npm install
+
+DOMAIN=http://你的域名 npm run test
+```
+
+**编译后**
+
+build成功之后会生成dist目录和入口文件index.html在public目录中。非发布分支.gitignore文件会忽略这些文件，发布分支去除忽略即可。
+
+```
+public                          [公共资源目录，暴露到万维网]
+├── dist                        [前端build之后的资源目录，build生成的目录，不是发布分支忽略该目录]
+│    └── ...
+├── index.html                  [前端入口文件,build生成的文件，不是发布分支忽略该文件]
+```
 
 [file: ]
 
