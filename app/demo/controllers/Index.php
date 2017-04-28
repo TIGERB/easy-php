@@ -10,7 +10,7 @@
 namespace App\Demo\Controllers;
 
 use Framework\App;
-use Framework\Orm\Db\Mysql;
+use Framework\Orm\DB;
 
 /**
  * Index Controller
@@ -75,7 +75,7 @@ class Index
      *
      * @return void
      */
-    public function instance()
+    public function nosqlDemo()
     {
         // 请求对象
         App::$container->getSingle('request');
@@ -89,8 +89,24 @@ class Index
         App::$container->getSingle('mongodb');
     }
 
-    public function mysql()
+    /**
+     * sql 操作示例
+     *
+     * @return void
+     */
+    public function mysqlDemo()
     {
-        $instance = new Mysql();
+        $where = [
+            'id'   => ['>=', 2],
+            'name' => 4
+        ];
+        $instance = DB::table('test');
+        $res      = $instance->where($where)
+                             ->orderBy('id asc')
+                             ->limit(1)
+                             ->findAll();
+        $sql      = $instance->sql;
+
+        return $res;
     }
 }
