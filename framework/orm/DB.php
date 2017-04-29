@@ -16,7 +16,7 @@ use Framework\Exceptions\CoreHttpException;
 
 /**
  * db使用决策类
- * 
+ *
  * 目前策略只支持mysql
  *
  * @author TIERGB <https://github.com/TIGERB>
@@ -32,20 +32,20 @@ class DB
      * 数据库类型
      *
      * 目前只支持mysql
-     * 
+     *
      * @var string
      */
     private $dbtype  = '';
 
     /**
      * 数据库策略映射
-     * 
+     *
      * 目前只支持mysql
      *
      * @var array
      */
     private $dbStrategyMap  = [
-        'mysql' => 'Framework\Orm\Db\Mysql'
+        'mysqldb' => 'Framework\Orm\Db\Mysql'
     ];
 
     /**
@@ -54,6 +54,15 @@ class DB
      * @var object
      */
     private $dbInstance;
+
+    /**
+     * 自增id
+     *
+     * 插入数据成功后的自增id, 0为插入失败
+     *
+     * @var string
+     */
+    private $id = '';
 
     /**
      * 设置表名
@@ -67,7 +76,7 @@ class DB
         $DB = APP::$container->setSingle('DB', $db);
         $DB->tableName = $tableName;
         $DB->init();
-        
+
         return $DB;
     }
 
@@ -92,7 +101,7 @@ class DB
     {
         $dbStrategyName   = $this->dbStrategyMap[$this->dbtype];
         $this->dbInstance = APP::$container->setSingle(
-            $this->dbtype, 
+            $this->dbtype,
             function () use ($dbStrategyName) {
                 return new $dbStrategyName();
             }
@@ -120,6 +129,45 @@ class DB
     public function findAll()
     {
         $this->select();
+        $this->buildSql();
+        $functionName = __FUNCTION__;
+        return $this->dbInstance->$functionName($this);
+    }
+
+    /**
+     * 查找所有数据
+     *
+     * @return void
+     */
+    public function save($data)
+    {
+        $this->insert($data);
+        $functionName = __FUNCTION__;
+        return $this->dbInstance->$functionName($this);
+    }
+
+    /**
+     * 查找所有数据
+     *
+     * @return void
+     */
+    public function delete()
+    {
+        $this->del();
+        $this->buildSql();
+        $functionName = __FUNCTION__;
+        return $this->dbInstance->$functionName($this);
+    }
+
+    /**
+     * 查找所有数据
+     *
+     * @param  array $data 数据
+     * @return void
+     */
+    public function update($data = [])
+    {
+        $this->updateData($data);
         $this->buildSql();
         $functionName = __FUNCTION__;
         return $this->dbInstance->$functionName($this);

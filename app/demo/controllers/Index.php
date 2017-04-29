@@ -92,21 +92,130 @@ class Index
     /**
      * sql 操作示例
      *
+     * find
+     *
      * @return void
      */
-    public function mysqlDemo()
+    public function dbFindDemo()
     {
         $where = [
             'id'   => ['>=', 2],
-            'name' => 4
         ];
-        $instance = DB::table('test');
+        $instance = DB::table('user');
         $res      = $instance->where($where)
                              ->orderBy('id asc')
-                             ->limit(1)
+                             ->find();
+        $sql      = $instance->sql;
+
+        // return $sql;
+        return $res;
+    }
+
+    /**
+     * sql 操作示例
+     *
+     * findAll
+     *
+     * @return void
+     */
+    public function dbFindAllDemo()
+    {
+        $where = [
+            'id'   => ['>=', 2],
+        ];
+        $instance = DB::table('user');
+        $res      = $instance->where($where)
+                             ->orderBy('id asc')
+                             ->limit(5)
                              ->findAll();
         $sql      = $instance->sql;
 
+        // return $sql;
+        return $res;
+    }
+
+    /**
+     * sql 操作示例
+     *
+     * Insert
+     *
+     * @return void
+     */
+    public function dbSaveDemo()
+    {
+        $data = [
+            'nickname' => 'easy-php',
+        ];
+        $instance = DB::table('user');
+        $res      = $instance->save($data);
+        $sql      = $instance->sql;
+
+        // return $sql;
+        return $res;
+    }
+
+    /**
+     * sql 操作示例
+     *
+     * Delete
+     *
+     * @return void
+     */
+    public function dbDeleteDemo()
+    {
+        $where = [
+            'id'   => ['>=', 2],
+        ];
+        $instance = DB::table('user');
+        $res      = $instance->where($where)
+                             ->delete();
+        $sql      = $instance->sql;
+
+        // return $sql;
+        return $res;
+    }
+
+    /**
+     * sql 操作示例
+     *
+     * Update
+     *
+     * @return void
+     */
+    public function dbUpdateDemo()
+    {
+        $where = [
+            'id'   => ['>=', 2],
+        ];
+        $instance = DB::table('user');
+        $res      = $instance->where($where)
+                             ->update([
+                                 'nickname' => 'easy'
+                             ]);
+        $sql      = $instance->sql;
+
+        // return $sql;
+        return $res;
+    }
+
+    /**
+     * sql 操作示例
+     *
+     * Count
+     *
+     * @return void
+     */
+    public function dbCountDemo()
+    {
+        $where = [
+            'id'   => ['>=', 2],
+        ];
+        $instance = DB::table('user');
+        $res      = $instance->where($where)
+                             ->count('id asc');
+        $sql      = $instance->sql;
+
+        // return $sql;
         return $res;
     }
 }

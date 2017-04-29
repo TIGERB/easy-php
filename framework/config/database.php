@@ -11,9 +11,9 @@
 return [
     /* 默认配置 */
     'database' => [
-        'dbtype'   => 'mysql',
+        'dbtype'   => 'mysqldb',
         'dbname'   => 'test',
-        'host'     => 'localhost',
+        'dbhost'   => 'localhost',
         'username' => 'root',
         'password' => '214'
     ]
