@@ -14,6 +14,7 @@ use Framework\Handles\ExceptionHandle;
 use Framework\Handles\RouterHandle;
 use Framework\Handles\ConfigHandle;
 use Framework\Handles\NosqlHandle;
+use Framework\Handles\UserDefinedHandle;
 use Framework\Exceptions\CoreHttpException;
 use Framework\Request;
 use Framework\Response;
@@ -51,6 +52,11 @@ try {
     $app->load(function () {
         // 加载nosql机制
         return new NosqlHandle();
+    });
+
+    $app->load(function () {
+        // 加载用户自定义机制
+        return new UserDefinedHandle();
     });
 
     $app->load(function () {
