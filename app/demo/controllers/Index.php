@@ -127,7 +127,7 @@ class Index
         $res      = $instance->where($where)
                              ->orderBy('id asc')
                              ->limit(5)
-                             ->findAll();
+                             ->findAll(['id','create_at']);
         $sql      = $instance->sql;
 
         // return $sql;
@@ -212,7 +212,45 @@ class Index
         ];
         $instance = DB::table('user');
         $res      = $instance->where($where)
-                             ->count('id asc');
+                             ->count('id as CountId');
+        $sql      = $instance->sql;
+
+        // return $sql;
+        return $res;
+    }
+
+    /**
+     * sql 操作示例
+     *
+     * Sum
+     *
+     * @return void
+     */
+    public function dbSumDemo()
+    {
+        $where = [
+            'id'   => ['>=', 1],
+        ];
+        $instance = DB::table('user');
+        $res      = $instance->where($where)
+                             ->sum('id as SumId');
+        $sql      = $instance->sql;
+
+        return $sql;
+        return $res;
+    }
+
+    /**
+     * sql 操作示例
+     *
+     * query
+     *
+     * @return void
+     */
+    public function dbQueryDemo()
+    {
+        $instance = DB::table('user');
+        $res      = $instance->query('SELECT `id` as `SumId` FROM `user` WHERE `id` >= 1');
         $sql      = $instance->sql;
 
         // return $sql;

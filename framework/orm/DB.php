@@ -111,11 +111,26 @@ class DB
     /**
      * 查找一条数据
      *
+     * @param  array $data 查询的字段
      * @return void
      */
-    public function findOne()
+    public function findOne($data = [])
     {
-        $this->select();
+        $this->select($data);
+        $this->buildSql();
+        $functionName = __FUNCTION__;
+        return $this->dbInstance->$functionName($this);
+    }
+
+    /**
+     * 查找所有数据
+     *
+     * @param  array $data 查询的字段
+     * @return void
+     */
+    public function findAll($data = [])
+    {
+        $this->select($data);
         $this->buildSql();
         $functionName = __FUNCTION__;
         return $this->dbInstance->$functionName($this);
@@ -126,20 +141,7 @@ class DB
      *
      * @return void
      */
-    public function findAll()
-    {
-        $this->select();
-        $this->buildSql();
-        $functionName = __FUNCTION__;
-        return $this->dbInstance->$functionName($this);
-    }
-
-    /**
-     * 查找所有数据
-     *
-     * @return void
-     */
-    public function save($data)
+    public function save($data = [])
     {
         $this->insert($data);
         $functionName = __FUNCTION__;
@@ -171,6 +173,44 @@ class DB
         $this->buildSql();
         $functionName = __FUNCTION__;
         return $this->dbInstance->$functionName($this);
+    }
+
+    /**
+     * count数据
+     *
+     * @param  string $data 数据
+     * @return void
+     */
+    public function count($data = '')
+    {
+        $this->countColumn($data);
+        $this->buildSql();
+        return $this->dbInstance->findAll($this);
+    }
+
+    /**
+     * sum数据
+     *
+     * @param  string $data 数据
+     * @return void
+     */
+    public function sum($data = '')
+    {
+        $this->sumColumn($data);
+        $this->buildSql();
+        return $this->dbInstance->findAll($this);
+    }
+
+    /**
+     * sum数据
+     *
+     * @param  string $data 数据
+     * @return void
+     */
+    public function query($sql = '')
+    {
+        $this->querySql($sql);
+        return $this->dbInstance->query($this);
     }
 
     /**

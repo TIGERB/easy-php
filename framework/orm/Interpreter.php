@@ -155,13 +155,38 @@ trait Interpreter
     }
 
     /**
-     *  查找一条数据
+     * 查找一条数据
      *
+     * @param  array $data 查询的字段
      * @return mixed
      */
     public function select($data=[])
     {
-        $this->sql = "SELECT * FROM `{$this->tableName}`";
+        $field = '';
+        $count = count($data);
+        switch ($count) {
+            case 0:
+                $field = '*';
+                break;
+            case 1:
+                if(! isset($data[0])) {
+                    throw new CoreHttpException(
+                        "data format invalid",
+                        400
+                    );
+                }
+                $field = "`{$data[0]}`";
+                break;
+
+            default:
+                $last = array_pop($data);
+                foreach ($data as $v) {
+                    $field .= "{$v},";
+                }
+                $field .= $last;
+                break;
+        }
+        $this->sql = "SELECT $field FROM `{$this->tableName}`";
     }
 
     /**
@@ -224,12 +249,15 @@ trait Interpreter
      * @param  string $data sort param, such as id desc
      * @return object
      */
-    public function orderBy($data = '')
+    public function orderBy($sort = '')
     {
-        if (! is_string($data)) {
-            throw new CoreHttpException(400);
+        if (! is_string($sort)) {
+            throw new CoreHttpException(
+                'argu is not string',
+                400
+            );
         }
-        $this->orderBy = " order by {$data}";
+        $this->orderBy = " order by {$sort}";
         return $this;
     }
 
@@ -251,6 +279,72 @@ trait Interpreter
         }
         $this->limit = " limit {$start},{$len}";
         return $this;
+    }
+
+    /**
+     * count column
+     *
+     * @param  string $data 查询的字段
+     * @return mixed
+     */
+    public function countColumn($data = '')
+    {
+        $data      = empty($data)? '*': $data;
+        $field     = $this->packColumn('count',$data);
+
+        $this->sql = "SELECT $field FROM `{$this->tableName}`";
+    }
+
+    /**
+     * sum column
+     *
+     * @param  string $data 查询的字段
+     * @return mixed
+     */
+    public function sumColumn($data = '')
+    {
+        $data      = empty($data)? '*': $data;
+        $field     = $this->packColumn('sum',$data);
+
+        $this->sql = "SELECT $field FROM `{$this->tableName}`";
+    }
+
+    /**
+     * 组装mysql函数字段
+     *
+     * @param  string $functionName mysql函数名称
+     * @param  string $data         参数
+     * @return string
+     */
+    public function packColumn($functionName = '', $data = '')
+    {
+        $field     = "{$functionName}(`{$data}`)";
+        preg_match_all('/(\w+)\sas/', $data, $matchColumn);
+        if (isset($matchColumn[1][0]) || (! empty($matchColumn[1][0]))) {
+            $matchColumn = $matchColumn[1][0];
+            $field = "{$functionName}(`{$matchColumn}`)";
+            preg_match_all('/as\s(\w+)/', $data, $match);
+            if (isset($match[1][0]) || (! empty($match[1][0]))) {
+                $match = $match[1][0];
+                $field .= " as `{$match}`";
+            }
+        }
+
+        return $field;
+    }
+
+    /**
+     * query
+     *
+     * @param  string $sql sql statement
+     * @return mixed
+     */
+    public function querySql($sql = '')
+    {
+        if (empty($sql)) {
+            throw new CoreHttpException("sql is empty", 400);
+        }
+        $this->sql = $sql;
     }
 
 }
