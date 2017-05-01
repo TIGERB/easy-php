@@ -1,8 +1,17 @@
 <p align="center"><img width="60%" src="logo.png"><p>
 
+<p align="center">
+<a href="http://php.tigerb.cn/"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="Build Status"></a>
+<a href="http://php.tigerb.cn/"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.6-green.svg" alt="Version"></a>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
+</p>
+
 <p align="center"> 从0开始搭建一个属于你自己的PHP框架 <p>
 
-### 如何构建一个自己的PHP框架
+<p align="center"> <a href="./README.md">英文版</a>　<p>
+
+# 如何构建一个自己的PHP框架
 
 为什么我们要去构建一个自己的PHP框架？可能绝大多数的人都会说“市面上已经那么多的框架了，还造什么轮子？”。我的观点“造轮子不是目的，造轮子的过程中汲取到知识才是目的”。
 
@@ -23,7 +32,7 @@
 
 除此之外我们还需要单元测试、nosql支持、接口文档支持、一些规范辅助脚本等。最终框架的目录如下：
 
-###  框架目录一览
+#  框架目录一览
 
 ```
 app                             [应用目录]
@@ -31,7 +40,10 @@ app                             [应用目录]
 │   ├── controllers             [控制器目录]
 │   ├── Index.php               [默认控制器文件，输出json数据]
 │   ├── logics                  [逻辑层，主要写业务逻辑的地方]
-│   │   └── HttpException.php   [例如http异常类]
+│   │   ├── exceptions          [异常目录]
+│   │   ├── gateway          　　[一个逻辑层实现的gateway演示]
+│   │   ├── tools               [工具类目录]
+│   │   └── UserDefinedCase.php [注册框架加载到路由前的处理用例]
 │   └── models                  [数据模型目录]
 │       └── Index.php           [默认模式文件，定义一一对应的数据模型]
 ├── config                      [配置目录]
@@ -54,14 +66,18 @@ framework                       [Easy PHP核心框架目录]
 │      ├── ExceptionHandle.php  [未捕获异常处理机制类]
 │      ├── ConfigHandle.php     [配置文件处理机制类]
 │      ├── NosqlHandle.php      [nosql处理机制类]
+│      ├── UserDefinedHandle.php[用户自定义处理机制类]
 │      └── RouterHandle.php     [路由处理机制类]
 ├── orm                         [对象关系模型]
 │      ├── Interpreter.php      [sql解析器]
 │      ├── DB.php               [数据库操作类]
+│      ├── Model.php            [数据模型类]
 │      └── db                   [数据库类目录]
 │          └── Mysql.php        [mysql操作类]
 ├── nosql                       [nosql类目录]
-│    └── Redis.php              [redis类文件]
+│    ├── Memcahed.php           [Memcahed类文件]
+│    ├── MongoDB.php            [MongoDB类文件]
+│    └── Redis.php              [Redis类文件]
 ├── App.php                     [框架类]
 ├── Container.php               [服务容器]
 ├── Load.php                    [自加载类]
@@ -84,6 +100,7 @@ public                          [公共资源目录，暴露到万维网]
 ├── index.html                  [前端入口文件,build生成的文件，不是发布分支忽略该文件]
 ├── index.php                   [后端入口文件]
 runtime                         [临时目录]
+├── logs                        [日志目录]
 tests                           [单元测试目录]
 ├── demo                        [模块名称]
 │      └── DemoTest.php         [测试演示]
@@ -96,10 +113,13 @@ vendor                          [composer目录]
 .env                            [环境变量文件]
 .gitignore                      [git忽略文件配置]
 cli                             [框架cli模式运行脚本]
+LICENSE                         [lincese文件]
+logo.png                        [框架logo图片]
 composer.json                   [composer配置文件]
 composer.lock                   [composer lock文件]
 package.json                    [前端依赖配置文件]
 phpunit.xml                     [phpunit配置文件]
+README-CN.md                    [中文版readme文件]
 README.md                       [readme文件]
 webpack.config.js               [webpack配置文件]
 yarn.lock                       [yarn　lock文件]
@@ -108,19 +128,19 @@ yarn.lock                       [yarn　lock文件]
 
 # 框架模块说明：
 
-###  入口文件
+##  入口文件
 
 定义一个统一的入口文件，对外提供统一的访问文件。对外隐藏了内部的复杂性，类似企业服务总线的思想。
 
 [file: public/index.php]()
 
-###  自加载模块
+##  自加载模块
 
 使用spl_autoload_register函数注册自加载函数到__autoload队列中，配合使用命名空间，当使用一个类的时候可以自动载入(require)类文件。注册完成自加载逻辑后，我们就可以使用use和配合命名空间申明对某个类文件的依赖。
 
 [file: framework/Load.php]
 
-###  错误和异常模块
+##  错误和异常模块
 
 脚本运行期间：
 
@@ -134,19 +154,19 @@ yarn.lock                       [yarn　lock文件]
 
 [file: framework/hanles/ErrorHandle.php]
 
-###  配置文件模块
+##  配置文件模块
 
 加载框架自定义和用户自定义的配置文件
 
 [file: framework/hanles/ConfigHandle.php]
 
-###  路由模块
+##  路由模块
 
 通过用户访问的url信息，通过路由规则执行目标控制器类的的成员方法。
 
 [file: framework/hanles/RouterHandle.php]
 
-###  输入和输出
+##  输入和输出
 
 - 定义请求对象：包含所有的请求信息
 - 定义响应对象：申明响应相关信息
@@ -154,7 +174,7 @@ yarn.lock                       [yarn　lock文件]
 [file: framework/Request.php]
 [file: framework/Response.php]
 
-###  传统的MVC模式提倡为MCL模式
+##  传统的MVC模式提倡为MCL模式
 
 传统的MVC模式包含model-view-controller层，绝大多时候我们会把业务逻辑写到controller层或model层，但是慢慢的我们会发现代码难以阅读、维护、扩展，所以我在这里强制增加了一个logics层。至于，逻辑层里怎么写代码怎么，完全由你自己定义，你可以在里面实现一个工具类，你也可以在里面再新建子文件夹并在里面构建你的业务逻辑代码，你甚至可以实现一个基于责任连模式的网关(我会提供具体的示例)。这样看来，我们的最终结构是这样的:
 
@@ -162,11 +182,59 @@ yarn.lock                       [yarn　lock文件]
 - C: controllers, 职责对外暴露资源，前后端分离架构下controllers其实就相当于json格式的视图
 - L: logics, 职责灵活实现所有业务逻辑的地方
 
+**logics逻辑层**
+
+逻辑层实现网关示例：
+
+我们在logics层目录下增加了一个gateway目录，然后我们就可以灵活的在这个目录下编写逻辑了。这里定义了一个网关入口类，负责网关的初始化，代码如下：
+
+```
+// 初始化一个：必传参数校验的check
+$checkArguments   =  new CheckArguments();
+// 初始化一个：app key check
+$checkAppkey      =  new CheckAppkey();
+// 初始化一个：访问频次校验的check
+$checkFrequent    =  new CheckFrequent();
+// 初始化一个：签名校验的check
+$checkSign        =  new CheckSign();
+// 初始化一个：访问权限校验的check
+$checkAuthority   =  new CheckAuthority();
+// 初始化一个：网关路由规则
+$checkRouter      =  new CheckRouter();
+
+// 构成对象链
+$checkArguments->setNext($checkAppkey)
+               ->setNext($checkFrequent)
+               ->setNext($checkSign)
+               ->setNext($checkAuthority)
+               ->setNext($checkRouter);
+
+// 启动网关
+$checkArguments->start(
+    APP::$container->getSingle('request')
+);
+```
+
+实现完成这个gateway之后，我们如何在框架中去使用呢？在logic层目录中我提供了一个user-defined的实体类，我们把gateway的入口类注册到UserDefinedCase这个类中，示例如下：
+
+```
+/**
+ * 注册用户自定义执行的类
+ *
+ * @var array
+ */
+private $map = [
+    //　演示 加载自定义网关
+    'App\Demo\Logics\Gateway\Entrance'
+];
+```
+这样这个gateway就可以工作了。接着说说这个UserDefinedCase类，UserDefinedCase会在框架加载到路由机制之前被执行，这样我们就可以灵活的实现一些自定义的处理了。
+
 视图View去哪了？由于选择了完全的前后端分离和SPA(单页应用), 所以传统的视图层也因此去掉了，详细的介绍看下面。
 
 [file: app/*]
 
-###  使用Vue作为视图
+##  使用Vue作为视图
 
 **源码目录**
 
@@ -206,11 +274,11 @@ public                          [公共资源目录，暴露到万维网]
 
 [file: ]
 
-###  数据库关系对象模型
+##  数据库关系对象模型
 
 [file: framework/orm/*]
 
-###  服务容器
+##  服务容器
 
 什么是服务容器？
 
@@ -245,7 +313,7 @@ App::$container->setSingle('request', $request);
 App::$container->getSingle('request');
 ```
 
-###  Nosql的支持
+##  Nosql的支持
 
 提供对nosql的支持，提供全局单例对象，借助我们的服务容器我们在框架启动的时候，通过配置文件的配置把需要的nosql实例注入到服务容器中。目前我们支持redis/memcahed/mongodb。
 
@@ -262,7 +330,7 @@ App::$container->getSingle('mongodb');
 
 [file: framework/nosql/*]
 
-###  接口文档生成和接口模拟
+##  接口文档生成和接口模拟
 
 通常我们写完一个接口后，接口文档是一个问题，我们这里使用Api Blueprint协议完成对接口文档的书写和mock，同时我们配合使用Swagger通过接口文档实现对接口的实时访问。
 
@@ -290,7 +358,7 @@ open the website, http://localhost:8087/demo/index/hello
 
 [file: docs/*]
 
-###  单元测试
+##  单元测试
 
 基于phpunit的单元测试，写单元测试是个好的习惯。
 
@@ -322,7 +390,7 @@ public function testDemo()
 
 [file: tests/*]
 
-###  Git钩子配置
+##  Git钩子配置
 
 目的规范化我们的项目代码和commit记录。
 
@@ -332,6 +400,8 @@ public function testDemo()
 [file: ./git-hooks/*]
 
 # 如何使用?
+
+composer install
 
 ```
 网站服务模式:
@@ -356,3 +426,15 @@ php cli --method=<module.controller.action> --<arguments>=<value> ...
 
 使用命令 php cli 或者 php cli --help
 ```
+
+# 问题和贡献
+
+如果大家发现了什么问题，可以给我提[issue](https://github.com/TIGERB/easy-php/issues)或者PR。
+
+如何贡献？
+
+```
+cp ./.git-hooks/* ./git/hooks
+```
+
+然后正常发起PR即可, 所有的commit我都会进行代码格式(psr)验证和commit-msg验证，如果发生错误，请按照提示纠正即可。

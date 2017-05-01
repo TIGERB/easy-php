@@ -1,10 +1,17 @@
 <p align="center"><img width="60%" src="logo.png"><p>
 
+<p align="center">
+<a href="http://php.tigerb.cn/"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="Build Status"></a>
+<a href="http://php.tigerb.cn/"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.6-green.svg" alt="Version"></a>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
+</p>
+
 <p align="center"> A lightweight PHP framework for studying <p>
 
 <p align="center"> <a href="./README-CN.md">中文版</a>　<p>
 
-### How to build a PHP framework by ourself ?
+# How to build a PHP framework by ourself ?
 
 Why do we need to build a PHP framework by ourself? Maybe the most of people will say "There have so many PHP frameworks be provided, but we still made a wheel?". My point is "Made a wheel is not our purpose, we will get some knowledge when making a wheel which is our really purpose".
 
@@ -24,7 +31,7 @@ Entry file ----> Register autoload function
 
 In addition, unit test, nosql support, api documents and some auxiliary script, etc.The Easy PHP framework directory as follows:
 
-###  Project Directory Structure
+#  Project Directory Structure
 
 ```
 app                             [application backend directory]
@@ -32,7 +39,10 @@ app                             [application backend directory]
 │   ├── controllers             [controller directory]
 │   ├── Index.php               [default controller class file]
 │   ├── logics                  [logic directory]
-│   │   └── HttpException.php   [logic class file]
+│   │   ├── exceptions          [exception directory]
+│   │   ├── gateway          　　[a gateway example]
+│   │   ├── tools               [tool class directory]
+│   │   └── UserDefinedCase.php [register user defined handle before framework loading router]
 │   └── models                  [model directory]
 │       └── Index.php           [model class file]
 ├── config                      [config directory]
@@ -55,14 +65,18 @@ framework                       [easy-php framework directory]
 │      ├── ExceptionHandle.php  [exception handle class]
 │      ├── ConfigHandle.php     [config handle class]
 │      ├── NosqlHandle.php      [nosql handle class]
+│      ├── UserDefinedHandle.php[user defined handle class]
 │      └── RouterHandle.php     [router handle class]
 ├── orm                         [datebase object relation map class directory]
 │      ├── Interpreter.php      [sql Interpreter class]
 │      ├── DB.php               [database operation class]
+│      ├── Model.php            [data model]
 │      └── db                   [db type directory]
 │          └── Mysql.php        [mysql class file]
 ├── nosql                       [nosql directory]
-│    └── Redis.php              [redis class file]
+│    ├── Memcahed.php           [Memcahed class file]
+│    ├── MongoDB.php            [MongoDB class file]
+│    └── Redis.php              [Redis class file]
 ├── App.php                     [this application class file]
 ├── Container.php               [Container class file]
 ├── Load.php                    [autoload class file]
@@ -85,6 +99,7 @@ public                          [this is a resource directory to expose service 
 ├── index.html                  [entrance html file]
 ├── index.php                   [entrance php script file]
 runtime                         [temporary file such as log]
+├── logs                        [log directory]
 tests                           [unit test directory]
 ├── demo                        [module name]
 │      └── DemoTest.php         [test class file]
@@ -97,10 +112,13 @@ vendor                          [composer vendor directory]
 .env                            [the environment variables file]
 .gitignore                      [git ignore config file]
 cli                             [run this framework with the php cli mode]
+LICENSE                         [lincese　file]
+logo.png                        [logo picture]
 composer.json                   [composer file]
 composer.lock                   [composer lock file]
 package.json                    [dependence file for frontend]
 phpunit.xml                     [phpunit config file]
+README-CN.md                    [readme file chinese]
 README.md                       [readme file]
 webpack.config.js               [webpack config file]
 yarn.lock                       [yarn　lock file]
@@ -109,15 +127,15 @@ yarn.lock                       [yarn　lock file]
 
 # Framework Module Description:
 
-###  Entrance file
+##  Entrance file
 
 Defined a entrance file that provide a uniform file for user visit, which hide the complex logic like the enterprise service bus.
 
-###  Autoload Module
+##  Autoload Module
 
 Register a autoload function in the __autoload queue by used spl_autoload_register, after that, we can use a class by namespace and keyword 'use'.
 
-###  Error&Exception Handle Module
+##  Error&Exception Handle Module
 
 - Catch error:
 
@@ -127,20 +145,20 @@ Register a function by used set_error_handler to handle error, but it can't hand
 
 Register a function by used set_exception_handler to handle the exception which is not be catched, which can give a friendly error messge for client.
 
-###  Config Handle Module
+##  Config Handle Module
 
 Loading framework-defined and user-defined config files.
 
-###  Request&Response Module
+##  Request&Response Module
 
 - Request  Object: contains all the requested information.
 - Response Object: contains all the response information.
 
-###  Route Handle Module
+##  Route Handle Module
 
 Execute the target controller's function by the router parse the url information.
 
-###  MVC To MCL
+##  MVC To MCL
 
 The tradition MVC pattern includes the model,view,controller layer. In general, you always write the business logic in the controller or model layer. But you will feel the code is diffdcult to read, maintain, expand after a long time. So I add a logic layer in the framework forcefully where you can implement the business logic by yourself. You can not only implement a tool class but also implement your business logic in a new subfolder, what's more, you can implement a gateway based on the pattern of responsibility (I will provide a example).
 
@@ -150,9 +168,57 @@ In the end, the structure as follows:
 - C: controllers, where expose the business resourse
 - L: logics,　where implement the business logic flexiblly
 
+**Logics layer**
+
+A gateway example：
+
+I build a gateway in the logics folder, the gateway entrance class code as follows:
+
+```
+// init：gateway common arguments must be not empty check
+$checkArguments   =  new CheckArguments();
+// init：app key check
+$checkAppkey      =  new CheckAppkey();
+// init：call frequent check
+$checkFrequent    =  new CheckFrequent();
+// init：sign check
+$checkSign        =  new CheckSign();
+// init：auth check
+$checkAuthority   =  new CheckAuthority();
+// init：gateway's router
+$checkRouter      =  new CheckRouter();
+
+// build object chain
+$checkArguments->setNext($checkAppkey)
+               ->setNext($checkFrequent)
+               ->setNext($checkSign)
+               ->setNext($checkAuthority)
+               ->setNext($checkRouter);
+
+// start gateway
+$checkArguments->start(
+    APP::$container->getSingle('request')
+);
+```
+
+After the gateway be implemented, how to use this in the framework?I provide a user-defined's class, we just register this in the UserDefinedCase class. for example:
+
+```
+/**
+ * register user-defined behavior
+ *
+ * @var array
+ */
+private $map = [
+    //　for example, loading user-defined gateway
+    'App\Demo\Logics\Gateway\Entrance'
+];
+```
+So, the gateway is running.But what's the UserDefinedCase that can be loading before RouterHandle.
+
 Where is the view layer?I abandon it, beacuse I chose the SPA for frontend, detail as follows:
 
-###  Using Vue For View
+##  Using Vue For View
 
 **source code folder**
 
@@ -190,9 +256,9 @@ public                          [this is a resource directory to expose service 
 ├── index.html                  [entrance html file]
 ```
 
-###  ORM
+##  ORM
 
-###  Service Container
+##  Service Container
 
 What's the service container?
 
@@ -227,7 +293,7 @@ App::$container->setSingle('request', $request);
 App::$container->getSingle('request');
 ```
 
-###  Nosql Support
+##  Nosql Support
 
 Inject the nosql's single instance in service container when the framework loading, you can decide what nosql you need use whit the configuration. At present we support redis/memcahed/mongodb.
 
@@ -242,7 +308,7 @@ App::$container->getSingle('memcahed');
 App::$container->getSingle('mongodb');
 ```
 
-###  Api Docs
+##  Api Docs
 
 Usually after we write an api, the api documentation is a problem, we use the Api Blueprint protocol to write the api document and mock. At the same time, we can request the api real-timely by used Swagger.
 
@@ -268,7 +334,7 @@ cd docs/apib
 open the website, http://localhost:8087/demo/index/hello
 ```
 
-###  PHPunit
+##  PHPunit
 
 Based on the phpunit, I think write unit tests is a good habit.
 
@@ -298,12 +364,14 @@ public function testDemo()
 
 [phpunit assertions manual](https://phpunit.de/manual/current/en/appendixes.assertions.html)
 
-###  Git Hooks
+##  Git Hooks
 
 - The standard of coding:  verify the coding forcefully before commit by used php_codesniffer
 - The standard of commit-msg: verify the commit-msg forcefully before commit by used the script commit-msg wrote by [Treri](https://github.com/Treri), which can enhance the git log readability and debugging, log analysis usefully, etc.
 
 # How to use ?
+
+composer install
 
 ```
 Web Server Mode:
@@ -328,3 +396,14 @@ Get Help:
 
 Use php cli OR php cli --help
 ```
+
+# Question&Contribution
+
+If you find some question，please launch a [issue](https://github.com/TIGERB/easy-php/issues) or PR。
+
+How to Contribute？
+
+```
+cp ./.git-hooks/* ./git/hooks
+```
+After that, launch a PR as usual.
