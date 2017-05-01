@@ -20,30 +20,42 @@ class Request
 {
     /**
      * 请求模块
+     *
      * @var string
      */
     private $module = '';
 
     /**
      * 请求控制器
+     *
      * @var string
      */
     private $controller = '';
 
     /**
      * 请求操作
+     *
      * @var string
      */
     private $action = '';
 
     /**
-     * 请求环境参数
+     * 请求server参数
+     *
      * @var array
      */
     private $serverParams = [];
 
     /**
+     * 请求参数
+     *
+     * @var array
+     */
+    private $envParams = [];
+
+    /**
      * 请求所有参数
+     *
      * @var array
      */
     private $requestParams = [];
@@ -62,30 +74,35 @@ class Request
 
     /**
      * http方法名称
+     *
      * @var string
      */
     private $method = '';
 
     /**
      * 服务ip
+     *
      * @var string
      */
     private $serverIp = '';
 
     /**
      * 客户端ip
+     *
      * @var string
      */
     private $clientIp = '';
 
     /**
      * 请求开始时间
+     *
      * @var float
      */
     private $beginTime = 0;
 
     /**
      * 请求结束时间
+     *
      * @var float
      */
     private $endTime = 0;
@@ -98,6 +115,15 @@ class Request
      * @var int
      */
     private $consumeTime = 0;
+
+    /**
+     * 请求身份id
+     *
+     * 每个请求都赋予唯一的身份识别id，便于追踪问题
+     *
+     * @var string
+     */
+    private $requestId = '';
 
     /**
      * 构造函数
@@ -227,6 +253,20 @@ class Request
     {
         if (isset($this->serverParams[$value])) {
             return $this->serverParams[$value];
+        }
+        return '';
+    }
+
+    /**
+     * 获取env参数
+     *
+     * @param  string $value 参数名
+     * @return mixed
+     */
+    public function env($value = '')
+    {
+        if (isset($this->envParams[$value])) {
+            return $this->envParams[$value];
         }
         return '';
     }

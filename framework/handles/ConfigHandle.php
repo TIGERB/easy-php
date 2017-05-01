@@ -80,7 +80,24 @@ class ConfigHandle implements Handle
     {
         $this->app = $app;
         $app::$container->setSingle('config', $this);
+        $this->loadEnv($app);
         $this->loadConfig($app);
+    }
+
+    /**
+     * 加载env文件配置
+     *
+     * @param  App    $app 框架实例
+     * @return void
+     */
+    public function loadEnv(App $app)
+    {
+        $env = parse_ini_file($app->rootPath . '/.env', true);
+        if ($env === false) {
+            throw CoreHttpException('load env fail', 500);
+        }
+        $request = $app::$container->getSingle('request');
+        $request->envParams = $env;
     }
 
     /**
