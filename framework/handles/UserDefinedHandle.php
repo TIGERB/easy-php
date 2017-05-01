@@ -15,8 +15,6 @@ use Framework\App;
 use Framework\Handles\Handle;
 use Framework\Exceptions\CoreHttpException;
 
-// use App\Demo\Logics\UserDefined\UserDefinedCase;
-
 /**
  * 用户自定义handle
  *
@@ -42,6 +40,12 @@ class UserDefinedHandle implements Handle
      */
     public function register(App $app)
     {
-        new \App\Demo\Logics\UserDefined\UserDefinedCase($app);
+        // 获取配置
+        $config  = $app::$container->getSingle('config');
+        foreach ($config->config['module'] as $v) {
+            $v = ucwords($v);
+            $className = "\App\\{$v}\\Logics\UserDefinedCase";
+            new $className($app);
+        }
     }
 }

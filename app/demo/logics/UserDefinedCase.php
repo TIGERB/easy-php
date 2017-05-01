@@ -9,7 +9,7 @@
  *                                          *
  ********************************************/
 
-namespace App\Demo\Logics\UserDefined;
+namespace App\Demo\Logics;
 
 use Framework\App;
 
@@ -21,7 +21,7 @@ class UserDefinedCase
     /**
      * 注册用户自定义执行的类
      *
-     * @var aarray
+     * @var array
      */
     private $map = [
         //　演示 加载自定义网关
