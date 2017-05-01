@@ -12,6 +12,7 @@ return [
     /* 默认配置 */
     'database' => [
         'dbtype'   => 'mysqldb',
+        'dbprefix' => 'easy',
         'dbname'   => 'test',
         'dbhost'   => 'localhost',
         'username' => 'root',

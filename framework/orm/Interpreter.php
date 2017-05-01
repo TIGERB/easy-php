@@ -21,15 +21,6 @@ use Framework\Exceptions\CoreHttpException;
 trait Interpreter
 {
     /**
-     * 表名称
-     *
-     * table name
-     *
-     * @var string
-     */
-    private $tableName = '';
-
-    /**
      * 查询条件
      *
      * query where condition
