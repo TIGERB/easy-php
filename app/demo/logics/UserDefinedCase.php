@@ -25,7 +25,7 @@ class UserDefinedCase
      */
     private $map = [
         //　演示 加载自定义网关
-        'App\Demo\Logics\Gateway\Entrance'
+        // 'App\Demo\Logics\Gateway\Entrance'
     ];
 
     /**
