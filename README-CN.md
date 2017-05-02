@@ -38,14 +38,14 @@
 app                             [应用目录]
 ├── demo                        [模块目录]
 │   ├── controllers             [控制器目录]
-│   ├── Index.php               [默认控制器文件，输出json数据]
+│   │      └── Index.php        [默认控制器文件，输出json数据]
 │   ├── logics                  [逻辑层，主要写业务逻辑的地方]
 │   │   ├── exceptions          [异常目录]
 │   │   ├── gateway          　　[一个逻辑层实现的gateway演示]
 │   │   ├── tools               [工具类目录]
 │   │   └── UserDefinedCase.php [注册框架加载到路由前的处理用例]
 │   └── models                  [数据模型目录]
-│       └── Index.php           [默认模式文件，定义一一对应的数据模型]
+│       └── TestTable.php       [默认模式文件，定义一一对应的数据模型]
 ├── config                      [配置目录]
 │    └── demo                   [模块配置目录]
 │        ├── common.php         [通用配置]
@@ -71,9 +71,9 @@ framework                       [Easy PHP核心框架目录]
 ├── orm                         [对象关系模型]
 │      ├── Interpreter.php      [sql解析器]
 │      ├── DB.php               [数据库操作类]
-│      ├── Model.php            [数据模型类]
+│      ├── Model.php            [数据模型基类]
 │      └── db                   [数据库类目录]
-│          └── Mysql.php        [mysql操作类]
+│          └── Mysql.php        [mysql实体类]
 ├── nosql                       [nosql类目录]
 │    ├── Memcahed.php           [Memcahed类文件]
 │    ├── MongoDB.php            [MongoDB类文件]
@@ -132,7 +132,7 @@ yarn.lock                       [yarn　lock文件]
 
 定义一个统一的入口文件，对外提供统一的访问文件。对外隐藏了内部的复杂性，类似企业服务总线的思想。
 
-[file: public/index.php]()
+[[file: public/index.php]()]
 
 ##  自加载模块
 
@@ -156,13 +156,59 @@ yarn.lock                       [yarn　lock文件]
 
 ##  配置文件模块
 
-加载框架自定义和用户自定义的配置文件
+加载框架自定义和用户自定义的配置文件，加载.env文件。
 
 [file: framework/hanles/ConfigHandle.php]
 
 ##  路由模块
 
-通过用户访问的url信息，通过路由规则执行目标控制器类的的成员方法。
+通过用户访问的url信息，通过路由规则执行目标控制器类的的成员方法。我在这里把路由大致分成了四类：
+
+**传统路由**
+
+```
+domain/index.php?module=Demo&contoller=Index&action=test&username=test
+```
+
+**pathinfo路由**
+
+```
+domain/demo/index/modelExample
+```
+
+**用户自定义路由**
+
+```
+// 定义在config/moduleName/route.php文件中，这个的this指向RouterHandle实例
+$this->get('v1/user/info', function (Framework\App $app) {
+    return 'Hello Get Router';
+});
+```
+
+**微单体路由**
+
+我在这里详细说下这里所谓的微单体路由，面向SOA和微服务架构大行其道的今天，有很多的团队都在向服务化迈进，但是服务化中困难最大和成本最高的地方之一应该就是分布式的事务问题。这导致对于小的团队从单体架构走向服务架构难免困难重重，所以有人提出来了微单体架构，按照我的理解就是在一个单体架构的SOA过程，我们把微服务中的的各个服务还是以模块的方式放在同一个单体中，比如：
+
+```
+app
+├── UserService     [用户服务模块]
+├── ContentService  [内容服务模块]
+├── OrderService    [订单服务模块]
+├── CartService     [购物车服务模块]
+├── PayService      [支付服务模块]
+├── GoodsService    [商品服务模块]
+└── CustomService   [客服服务模块]
+```
+
+如上，我们简单的在一个单体里构建了各个服务模块，但是这些模块怎么通信呢？如下：
+
+```
+App::$app->get('demo/index/hello', [
+    'user' => 'TIGERB'
+]);
+```
+
+通过上面的方式我们就可以松耦合的方式进行单体下各个模块的通信和依赖了。与此同时，业务的发展是难以预估的，未来当我们向SOA的架构迁移时，很简单，我们只需要把以往的模块独立成各个项目，然后把App实例get方法的实现转变为RPC或者REST的策略即可，我们可以通过配置文件去调整对应的策略或者把自己的，第三方的实现注册进去即可。
 
 [file: framework/hanles/RouterHandle.php]
 
@@ -171,7 +217,10 @@ yarn.lock                       [yarn　lock文件]
 - 定义请求对象：包含所有的请求信息
 - 定义响应对象：申明响应相关信息
 
+框架中所有的异常输出和控制器输出都是json格式，因为我认为在前后端完全分离的今天，这是很友善的，目前我们不需要再去考虑别的东西。
+
 [file: framework/Request.php]
+
 [file: framework/Response.php]
 
 ##  传统的MVC模式提倡为MCL模式
@@ -186,7 +235,21 @@ yarn.lock                       [yarn　lock文件]
 
 逻辑层实现网关示例：
 
-我们在logics层目录下增加了一个gateway目录，然后我们就可以灵活的在这个目录下编写逻辑了。这里定义了一个网关入口类，负责网关的初始化，代码如下：
+我们在logics层目录下增加了一个gateway目录，然后我们就可以灵活的在这个目录下编写逻辑了。gateway的结构如下：
+
+```
+gateway                     [Logics层目录下gateway逻辑目录]
+  ├── Check.php             [接口]
+  ├── CheckAppkey.php       [检验app key]
+  ├── CheckArguments.php    [校验必传参数]
+  ├── CheckAuthority.php    [校验访问权限]
+  ├── CheckFrequent.php     [校验访问频率]
+  ├── CheckRouter.php       [网关路由]
+  ├── CheckSign.php         [校验签名]
+  └── Entrance.php          [网关入口文件]
+```
+
+网关入口类主要负责网关的初始化，代码如下：
 
 ```
 // 初始化一个：必传参数校验的check
@@ -228,7 +291,7 @@ private $map = [
     'App\Demo\Logics\Gateway\Entrance'
 ];
 ```
-这样这个gateway就可以工作了。接着说说这个UserDefinedCase类，UserDefinedCase会在框架加载到路由机制之前被执行，这样我们就可以灵活的实现一些自定义的处理了。
+这样这个gateway就可以工作了。接着说说这个UserDefinedCase类，UserDefinedCase会在框架加载到路由机制之前被执行，这样我们就可以灵活的实现一些自定义的处理了。这个gateway只是个演示，你完全可以天马行空的组织你的逻辑～
 
 视图View去哪了？由于选择了完全的前后端分离和SPA(单页应用), 所以传统的视图层也因此去掉了，详细的介绍看下面。
 
@@ -272,9 +335,86 @@ public                          [公共资源目录，暴露到万维网]
 ├── index.html                  [前端入口文件,build生成的文件，不是发布分支忽略该文件]
 ```
 
-[file: ]
+[file: frontend/*]
 
-##  数据库关系对象模型
+##  数据库对象关系映射
+
+数据库对象关系映射ORM(Object Relation Map)是什么？按照我目前的理解：顾名思义是建立对象和抽象事物的关联关系，在数据库建模中model实体类其实就是具体的表，对表的操作其实就是对model实例的操作。可能绝大多数的人都要问“为什么要这样做，直接sql语句操作不好吗？搞得这么麻烦！”，我的答案：直接sql语句当然可以，一切都是灵活的，但是从一个项目的**可复用，可维护, 可扩展**出发，采用ORM思想处理数据操作是理所当然的，想想如果若干一段时间你看见代码里大段的难以阅读且无从复用的sql语句，你是什么样的心情。
+
+市面上对于ORM的具体实现有thinkphp系列框架的Active Record,yii系列框架的Active Record,laravel系列框架的Eloquent(据说是最优雅的)，那我们这里言简意赅就叫ORM了。接着为ORM建模，首先是ORM客户端实体DB：通过配置文件初始化不同的db策略，并封装了操作数据库的所有行为，最终我们通过DB实体就可以直接操作数据库了，这里的db策略目前我只实现了mysql(负责建立连接和db的底层操作)。接着我们把DB实体的sql解析功能独立成一个可复用的sql解析器的trait，具体作用：把对象的链式操作解析成具体的sql语句。最后，建立我们的模型基类model,model直接继承DB即可。最后的结构如下：
+
+```
+├── orm                         [对象关系模型]
+│      ├── Interpreter.php      [sql解析器]
+│      ├── DB.php               [数据库操作类]
+│      ├── Model.php            [数据模型基类]
+│      └── db                   [数据库类目录]
+│          └── Mysql.php        [mysql实体类]
+```
+
+**DB类使用示例**
+
+```
+/**
+ * DB操作示例
+ *
+ * findAll
+ *
+ * @return void
+ */
+public function dbFindAllDemo()
+{
+    $where = [
+        'id'   => ['>=', 2],
+    ];
+    $instance = DB::table('user');
+    $res      = $instance->where($where)
+                         ->orderBy('id asc')
+                         ->limit(5)
+                         ->findAll(['id','create_at']);
+    $sql      = $instance->sql;
+
+    return $res;
+}
+```
+
+**Model类使用示例**
+
+```
+// controller 代码
+/**
+ * model example
+ *
+ * @return mixed
+ */
+public function modelExample()
+{
+    $testTableModel = new TestTable();
+    return $testTableModel->modelFindDemo();
+}
+
+//TestTable model
+/**
+ * Model操作示例
+ *
+ * findAll
+ *
+ * @return void
+ */
+public function modelFindAllDemo()
+{
+    $where = [
+        'id'   => ['>=', 2],
+    ];
+    $res = $this->where($where)
+                ->orderBy('id asc')
+                ->limit(5)
+                ->findAll(['id','create_at']);
+    $sql = $this->sql;
+
+    return $res;
+}
+```
 
 [file: framework/orm/*]
 
@@ -425,7 +565,18 @@ php cli --method=<module.controller.action> --<arguments>=<value> ...
 获取帮助:
 
 使用命令 php cli 或者 php cli --help
+
+--------------------------------------------
+
+前端编译:
+
+步骤 1: npm install
+步骤 2: DOMAIN=http://localhost:666 npm run test
+
+按照上面的步骤，我们启动了php内置的server服务，访问http://localhost:666/index.html即可,demo如下
 ```
+
+<p align="center"><img width="30%" src="demo.gif"><p>
 
 # 问题和贡献
 

@@ -11,6 +11,7 @@ namespace App\Demo\Controllers;
 
 use Framework\App;
 use Framework\Orm\DB;
+use App\Demo\Models\TestTable;
 
 /**
  * Index Controller
@@ -255,5 +256,16 @@ class Index
 
         // return $sql;
         return $res;
+    }
+
+    /**
+     * model example
+     *
+     * @return mixed
+     */
+    public function modelExample()
+    {
+        $testTableModel = new TestTable();
+        return $testTableModel->modelFindDemo();
     }
 }

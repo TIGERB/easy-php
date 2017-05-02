@@ -9,8 +9,6 @@
 
 namespace App\Demo\Controllers;
 
-use App\Demo\Models\TestTable;
-
 /**
  * Demo Controller
  *
@@ -39,16 +37,5 @@ class Demo
         ];
         $data = array_fill(0, 20, $data);
         return $data;
-    }
-
-    /**
-     * model example
-     *
-     * @return mixed
-     */
-    public function modelExample()
-    {
-        $testTableModel = new TestTable();
-        return $testTableModel->modelFindDemo();
     }
 }

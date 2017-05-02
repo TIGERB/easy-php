@@ -37,14 +37,14 @@ In addition, unit test, nosql support, api documents and some auxiliary script, 
 app                             [application backend directory]
 ├── demo                        [module directory]
 │   ├── controllers             [controller directory]
-│   ├── Index.php               [default controller class file]
+│   │       └── Index.php       [default controller class file]
 │   ├── logics                  [logic directory]
 │   │   ├── exceptions          [exception directory]
 │   │   ├── gateway          　　[a gateway example]
 │   │   ├── tools               [tool class directory]
 │   │   └── UserDefinedCase.php [register user defined handle before framework loading router]
 │   └── models                  [model directory]
-│       └── Index.php           [model class file]
+│       └── TestTable.php       [model class file]
 ├── config                      [config directory]
 │    └── demo                   [module config directory]
 │        ├── common.php         [common config file]
@@ -395,7 +395,18 @@ For example, php cli --method=demo.index.get --username=easy-php
 Get Help:
 
 Use php cli OR php cli --help
+
+--------------------------------------------
+
+Frontend compile:
+
+step 1: npm install
+step 2: DOMAIN=http://localhost:666 npm run test
+
+open the website http://localhost:666/index.html, the demo as follows
 ```
+
+<p align="center"><img width="30%" src="demo.gif"><p>
 
 # Question&Contribution
 
