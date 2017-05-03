@@ -109,25 +109,19 @@ class ConfigHandle implements Handle
     public function loadConfig(App $app)
     {
         /* 加载公共自定义配置 */
-        // $commmon  = "{$this->app->rootPath}/config/commmon.php";
-        // $database = "{$this->app->rootPath}/config/database.php";
-        //
-        // /* 加载模块自定义配置 */
-        // $module = $app->container->getSingle('config')
-        //                          ->config['module'];
-        // foreach ($module as $v) {
-        //     // 加载自定义路由配置文件
-        //     $file = "{$app->rootPath}/{$v}/config.php";
-        //     if (file_exists($file)) {
-        //         require($file);
-        //     }
-        // }
+        $defaultCommon   = require($app->rootPath . '/config/common.php');
+        $defaultNosql    = require($app->rootPath . '/config/nosql.php');
+        $defaultDatabase = require($app->rootPath . '/config/database.php');
 
-        /* 加载默认配置 */
-        $defaultConfig   = require($app->rootPath . '/framework/config/config.php');
-        $defaultNosql    = require($app->rootPath . '/framework/config/nosql.php');
-        $defaultDatabase = require($app->rootPath . '/framework/config/database.php');
+        $this->config = array_merge($defaultCommon, $defaultNosql, $defaultDatabase);
 
-        $this->config = array_merge($defaultConfig, $defaultNosql, $defaultDatabase);
+        /* 加载模块自定义配置 */
+        $module = $app::$container->getSingle('config')->config['module'];
+        foreach ($module as $v) {
+            $file = "{$app->rootPath}/config/{$v}/config.php";
+            if (file_exists($file)) {
+                $this->config = array_merge($this->config, require($file));
+            }
+        }
     }
 }

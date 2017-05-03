@@ -11,6 +11,7 @@ namespace App\Demo\Controllers;
 
 use Framework\App;
 use Framework\Orm\DB;
+use Framework\Helper;
 use App\Demo\Models\TestTable;
 
 /**
@@ -85,8 +86,7 @@ class Index
         // redis对象
         App::$container->getSingle('redis');
         // memcahe对象
-        App::$container->getSingle('memcahed');
-        //
+        App::$container->getSingle('memcached');
         // mongodb对象
         App::$container->getSingle('mongoDB');
         return [];

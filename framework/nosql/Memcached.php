@@ -27,8 +27,8 @@ class Memcached
     public function __construct()
     {
         $config = App::$container->getSingle('config');
-        $config = $config->config['nosql']['Memcached'];
-        $redis = new rootMemcached();
+        $config = $config->config['memcached'];
+        $redis  = new rootMemcached();
         $redis->addServer($config['host'], $config['port']);
         App::$container->setSingle('memcached', $redis);
     }

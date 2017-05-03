@@ -17,6 +17,7 @@ use Framework\Helper;
 
 return [
     // 需要提供支持的nosql种类
+    // 参数示例：redis,memcached,mongoDB
     'nosql'      => Helper::env('nosql')['support'],
 
     // redis
