@@ -94,7 +94,7 @@ class DB
         $prefix = App::$container->getSingle('config')
                                  ->config['database']['dbprefix'];
         if (! empty($prefix)) {
-            $this->tableName = $prefix . '_' . $this->tableName;
+            $db->tableName = $prefix . '_' . $db->tableName;
         }
         $db->init();
 
