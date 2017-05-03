@@ -27,7 +27,7 @@ class MongoDB
     public function __construct()
     {
         $config = App::$container->getSingle('config');
-        $config = $config->config['nosql']['MongoDB'];
+        $config = $config->config['mongoDB'];
         $client = new Client(
             "{$config['host']}:{$config['port']}",
             [
@@ -37,6 +37,6 @@ class MongoDB
             ]
         );
         $database = $client->selectDatabase($config['database']);
-        App::$container->setSingle('mongodb', $database);
+        App::$container->setSingle('mongoDB', $database);
     }
 }

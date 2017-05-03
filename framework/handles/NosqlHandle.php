@@ -40,9 +40,9 @@ class NosqlHandle implements Handle
     public function register(App $app)
     {
         $config = $app::$container->getSingle('config');
-        $config = $config->config['nosql'];
-        foreach ($config as $k => $v) {
-            $className = 'Framework\Nosql\\' . ucfirst($k);
+        $config = explode(',', $config->config['nosql']);
+        foreach ($config as $v) {
+            $className = 'Framework\Nosql\\' . ucfirst($v);
             new $className();
         }
     }
