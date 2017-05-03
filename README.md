@@ -13,7 +13,7 @@
 
 # How to build a PHP framework by ourself ?
 
-Why do we need to build a PHP framework by ourself? Maybe the most of people will say "There have so many PHP frameworks be provided, but we still made a wheel?". My point is "Made a wheel is not our purpose, we will get some knowledge when making a wheel which is our really purpose".
+Why do we need to build a PHP framework by ourself? Maybe the most of people will say "There have so many PHP frameworks be provided, but we still made a wheel?". My point is "Made a wheel is not our purpose, we will get a few of knowledge when making a wheel which is our really purpose".
 
 Then, how to build a PHP framework by ourself? General process as follows:
 
@@ -29,7 +29,7 @@ Entry file ----> Register autoload function
            ----> View
 ```
 
-In addition, unit test, nosql support, api documents and some auxiliary script, etc.The Easy PHP framework directory as follows:
+In addition, unit test, nosql support, api documents and some auxiliary scripts, etc.The Easy PHP framework directory as follows:
 
 #  Project Directory Structure
 
@@ -57,9 +57,6 @@ docs                            [api document directory]
 │    └── demo.apib              [api doc example file]
 ├── swagger                     [swagger]
 framework                       [easy-php framework directory]
-├── config                      [config directory]
-│      ├── common.php           [default common config file]
-│      └── database.php         [default database config file]
 ├── exceptions                  [core exception class]
 │      ├── CoreHttpException.php[http exception]
 ├── handles                     [handle class file be used by app run]
@@ -77,12 +74,13 @@ framework                       [easy-php framework directory]
 │      └── db                   [db type directory]
 │          └── Mysql.php        [mysql class file]
 ├── nosql                       [nosql directory]
-│    ├── Memcahed.php           [Memcahed class file]
-│    ├── MongoDB.php            [MongoDB class file]
-│    └── Redis.php              [Redis class file]
+│    ├── Memcahed.php           [memcahed class file]
+│    ├── MongoDB.php            [mongoDB class file]
+│    └── Redis.php              [redis class file]
 ├── App.php                     [this application class file]
-├── Container.php               [Container class file]
-├── Helper.php                  [Helper class file]
+├── Container.php               [container class file]
+├── Helper.php                  [helper class file]
+├── Log.php                     [log class file]
 ├── Load.php                    [autoload class file]
 ├── Request.php                 [request object class file]
 ├── Response.php                [response object class file]
@@ -158,13 +156,61 @@ Loading framework-defined and user-defined config files.
 - Request  Object: contains all the requested information.
 - Response Object: contains all the response information.
 
+框架中所有的异常输出和控制器输出都是json格式，因为我认为在前后端完全分离的今天，这是很友善的，目前我们不需要再去考虑别的东西。
+
 ##  Route Handle Module
 
-Execute the target controller's function by the router parse the url information.
+Execute the target controller's function by the router parse the url information.我在这里把路由大致分成了四类：
+
+**传统路由**
+
+```
+domain/index.php?module=Demo&contoller=Index&action=test&username=test
+```
+
+**pathinfo路由**
+
+```
+domain/demo/index/modelExample
+```
+
+**用户自定义路由**
+
+```
+// 定义在config/moduleName/route.php文件中，这个的this指向RouterHandle实例
+$this->get('v1/user/info', function (Framework\App $app) {
+    return 'Hello Get Router';
+});
+```
+
+**微单体路由**
+
+我在这里详细说下这里所谓的微单体路由，面向SOA和微服务架构大行其道的今天，有很多的团队都在向服务化迈进，但是服务化中困难最大和成本最高的地方之一应该就是分布式的事务问题。这导致对于小的团队从单体架构走向服务架构难免困难重重，所以有人提出来了微单体架构，按照我的理解就是在一个单体架构的SOA过程，我们把微服务中的的各个服务还是以模块的方式放在同一个单体中，比如：
+
+```
+app
+├── UserService     [用户服务模块]
+├── ContentService  [内容服务模块]
+├── OrderService    [订单服务模块]
+├── CartService     [购物车服务模块]
+├── PayService      [支付服务模块]
+├── GoodsService    [商品服务模块]
+└── CustomService   [客服服务模块]
+```
+
+如上，我们简单的在一个单体里构建了各个服务模块，但是这些模块怎么通信呢？如下：
+
+```
+App::$app->get('demo/index/hello', [
+    'user' => 'TIGERB'
+]);
+```
+
+通过上面的方式我们就可以松耦合的方式进行单体下各个模块的通信和依赖了。与此同时，业务的发展是难以预估的，未来当我们向SOA的架构迁移时，很简单，我们只需要把以往的模块独立成各个项目，然后把App实例get方法的实现转变为RPC或者REST的策略即可，我们可以通过配置文件去调整对应的策略或者把自己的，第三方的实现注册进去即可。
 
 ##  MVC To MCL
 
-The tradition MVC pattern includes the model,view,controller layer. In general, you always write the business logic in the controller or model layer. But you will feel the code is diffdcult to read, maintain, expand after a long time. So I add a logic layer in the framework forcefully where you can implement the business logic by yourself. You can not only implement a tool class but also implement your business logic in a new subfolder, what's more, you can implement a gateway based on the pattern of responsibility (I will provide a example).
+The tradition MVC pattern includes the model,view,controller layer. In general, you always write the business logic in the controller or model layer. But you will feel the code is difficult to read, maintain, expand after a long time. So I add a logic layer in the framework forcefully where you can implement the business logic by yourself. You can not only implement a tool class but also implement your business logic in a new subfolder, what's more, you can implement a gateway based on the pattern of responsibility (I provided a example).
 
 In the end, the structure as follows:
 
@@ -176,7 +222,21 @@ In the end, the structure as follows:
 
 A gateway example：
 
-I build a gateway in the logics folder, the gateway entrance class code as follows:
+I build a gateway in the logics folder,gateway的结构如下：
+
+```
+gateway                     [Logics层目录下gateway逻辑目录]
+  ├── Check.php             [接口]
+  ├── CheckAppkey.php       [检验app key]
+  ├── CheckArguments.php    [校验必传参数]
+  ├── CheckAuthority.php    [校验访问权限]
+  ├── CheckFrequent.php     [校验访问频率]
+  ├── CheckRouter.php       [网关路由]
+  ├── CheckSign.php         [校验签名]
+  └── Entrance.php          [网关入口文件]
+```
+
+The gateway entrance class code as follows:
 
 ```
 // init：gateway common arguments must be not empty check
@@ -262,11 +322,88 @@ public                          [this is a resource directory to expose service 
 
 ##  ORM
 
+数据库对象关系映射ORM(Object Relation Map)是什么？按照我目前的理解：顾名思义是建立对象和抽象事物的关联关系，在数据库建模中model实体类其实就是具体的表，对表的操作其实就是对model实例的操作。可能绝大多数的人都要问“为什么要这样做，直接sql语句操作不好吗？搞得这么麻烦！”，我的答案：直接sql语句当然可以，一切都是灵活的，但是从一个项目的**可复用，可维护, 可扩展**出发，采用ORM思想处理数据操作是理所当然的，想想如果若干一段时间你看见代码里大段的难以阅读且无从复用的sql语句，你是什么样的心情。
+
+市面上对于ORM的具体实现有thinkphp系列框架的Active Record,yii系列框架的Active Record,laravel系列框架的Eloquent(据说是最优雅的)，那我们这里言简意赅就叫ORM了。接着为ORM建模，首先是ORM客户端实体DB：通过配置文件初始化不同的db策略，并封装了操作数据库的所有行为，最终我们通过DB实体就可以直接操作数据库了，这里的db策略目前我只实现了mysql(负责建立连接和db的底层操作)。接着我们把DB实体的sql解析功能独立成一个可复用的sql解析器的trait，具体作用：把对象的链式操作解析成具体的sql语句。最后，建立我们的模型基类model,model直接继承DB即可。最后的结构如下：
+
+```
+├── orm                         [对象关系模型]
+│      ├── Interpreter.php      [sql解析器]
+│      ├── DB.php               [数据库操作类]
+│      ├── Model.php            [数据模型基类]
+│      └── db                   [数据库类目录]
+│          └── Mysql.php        [mysql实体类]
+```
+
+**DB类使用示例**
+
+```
+/**
+ * DB操作示例
+ *
+ * findAll
+ *
+ * @return void
+ */
+public function dbFindAllDemo()
+{
+    $where = [
+        'id'   => ['>=', 2],
+    ];
+    $instance = DB::table('user');
+    $res      = $instance->where($where)
+                         ->orderBy('id asc')
+                         ->limit(5)
+                         ->findAll(['id','create_at']);
+    $sql      = $instance->sql;
+
+    return $res;
+}
+```
+
+**Model类使用示例**
+
+```
+// controller 代码
+/**
+ * model example
+ *
+ * @return mixed
+ */
+public function modelExample()
+{
+    $testTableModel = new TestTable();
+    return $testTableModel->modelFindDemo();
+}
+
+//TestTable model
+/**
+ * Model操作示例
+ *
+ * findAll
+ *
+ * @return void
+ */
+public function modelFindAllDemo()
+{
+    $where = [
+        'id'   => ['>=', 2],
+    ];
+    $res = $this->where($where)
+                ->orderBy('id asc')
+                ->limit(5)
+                ->findAll(['id','create_at']);
+    $sql = $this->sql;
+
+    return $res;
+}
+```
+
 ##  Service Container
 
 What's the service container?
 
-Service container is default to understand, I think it just a third party class, which can inject the class and instance. we can get the instance in the container very simple.
+Service container is difficultly understand, I think it just a third party class, which can inject the class and instance. we can get the instance in the container very simple.
 
 The meaning of the service container?
 
@@ -422,3 +559,5 @@ How to Contribute？
 cp ./.git-hooks/* ./git/hooks
 ```
 After that, launch a PR as usual.
+
+# TODO

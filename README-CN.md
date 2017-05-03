@@ -35,7 +35,7 @@
 #  框架目录一览
 
 ```
-app                             [应用目录]
+app                             [PHP应用目录]
 ├── demo                        [模块目录]
 │   ├── controllers             [控制器目录]
 │   │      └── Index.php        [默认控制器文件，输出json数据]
@@ -81,6 +81,7 @@ framework                       [Easy PHP核心框架目录]
 ├── App.php                     [框架类]
 ├── Container.php               [服务容器]
 ├── Helper.php                  [框架助手类]
+├── Log.php                     [框架日志类]
 ├── Load.php                    [自加载类]
 ├── Request.php                 [请求类]
 ├── Response.php                [响应类]
@@ -157,9 +158,20 @@ yarn.lock                       [yarn　lock文件]
 
 ##  配置文件模块
 
-加载框架自定义和用户自定义的配置文件，加载.env文件。
+加载框架自定义和用户自定义的配置文件。
 
 [file: framework/hanles/ConfigHandle.php]
+
+##  输入和输出
+
+- 定义请求对象：包含所有的请求信息
+- 定义响应对象：申明响应相关信息
+
+框架中所有的异常输出和控制器输出都是json格式，因为我认为在前后端完全分离的今天，这是很友善的，目前我们不需要再去考虑别的东西。
+
+[file: framework/Request.php]
+
+[file: framework/Response.php]
 
 ##  路由模块
 
@@ -212,17 +224,6 @@ App::$app->get('demo/index/hello', [
 通过上面的方式我们就可以松耦合的方式进行单体下各个模块的通信和依赖了。与此同时，业务的发展是难以预估的，未来当我们向SOA的架构迁移时，很简单，我们只需要把以往的模块独立成各个项目，然后把App实例get方法的实现转变为RPC或者REST的策略即可，我们可以通过配置文件去调整对应的策略或者把自己的，第三方的实现注册进去即可。
 
 [file: framework/hanles/RouterHandle.php]
-
-##  输入和输出
-
-- 定义请求对象：包含所有的请求信息
-- 定义响应对象：申明响应相关信息
-
-框架中所有的异常输出和控制器输出都是json格式，因为我认为在前后端完全分离的今天，这是很友善的，目前我们不需要再去考虑别的东西。
-
-[file: framework/Request.php]
-
-[file: framework/Response.php]
 
 ##  传统的MVC模式提倡为MCL模式
 
@@ -590,3 +591,5 @@ cp ./.git-hooks/* ./git/hooks
 ```
 
 然后正常发起PR即可, 所有的commit我都会进行代码格式(psr)验证和commit-msg验证，如果发生错误，请按照提示纠正即可。
+
+# TODO
