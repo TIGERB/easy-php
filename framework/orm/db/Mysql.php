@@ -227,4 +227,34 @@ class Mysql
             $this->pdoStatement->bindValue(":{$k}", $v);
         }
     }
+
+    /**
+     * stop auto commit transaction and start a transaction
+     *
+     * @return void
+     */
+    public function beginTransaction()
+    {
+        $this->pdo->beginTransaction();
+    }
+
+    /**
+     * commit a transaction
+     *
+     * @return void
+     */
+    public function commit()
+    {
+        $this->pdo->commit();
+    }
+
+    /**
+     * rollback a transaction
+     *
+     * @return void
+     */
+    public function rollBack()
+    {
+        $this->pdo->rollBack();
+    }
 }

@@ -253,6 +253,36 @@ class DB
     }
 
     /**
+     * stop auto commit transaction and start a transaction
+     *
+     * @return void
+     */
+    public function beginTransaction()
+    {
+        $this->dbInstance->beginTransaction();
+    }
+
+    /**
+     * commit a transaction
+     *
+     * @return void
+     */
+    public function commit()
+    {
+        $this->dbInstance->commit();
+    }
+
+    /**
+     * rollback a transaction
+     *
+     * @return void
+     */
+    public function rollBack()
+    {
+        $this->dbInstance->rollBack();
+    }
+
+    /**
      * 魔法函数__get
      *
      * @param  string $name  属性名称
