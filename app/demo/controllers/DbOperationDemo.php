@@ -7,21 +7,28 @@
  * author: TIERGB <https://github.com/TIGERB>
  */
 
-namespace App\Demo\Models;
+namespace App\Demo\Controllers;
 
 use Framework\App;
-use Framework\Orm\Model;
-use Framework\Exceptions\CoreHttpException;
+use Framework\Orm\DB;
 
 /**
- * model 演示
+ * ModelOperationDemo Controller
  *
- * model example
+ * @desc Model opeaation example
  *
  * @author TIERGB <https://github.com/TIGERB>
  */
-class TestTable extends Model
+class DbOperationDemo
 {
+    /**
+     * 控制器构造函数
+     */
+    public function __construct()
+    {
+        # code...
+    }
+
     /**
      * sql 操作示例
      *
@@ -29,15 +36,16 @@ class TestTable extends Model
      *
      * @return void
      */
-    public function modelFindOneDemo()
+    public function dbFindDemo()
     {
         $where = [
             'id'   => ['>=', 2],
         ];
-        $res = $this->where($where)
-                    ->orderBy('id asc')
-                    ->findOne();
-        $sql = $this->sql;
+        $instance = DB::table('user');
+        $res      = $instance->where($where)
+                             ->orderBy('id asc')
+                             ->findOne();
+        $sql      = $instance->sql;
 
         // return $sql;
         return $res;
@@ -50,16 +58,17 @@ class TestTable extends Model
      *
      * @return void
      */
-    public function modelFindAllDemo()
+    public function dbFindAllDemo()
     {
         $where = [
             'id'   => ['>=', 2],
         ];
-        $res      = $this->where($where)
+        $instance = DB::table('user');
+        $res      = $instance->where($where)
                              ->orderBy('id asc')
                              ->limit(5)
                              ->findAll(['id','create_at']);
-        $sql      = $this->sql;
+        $sql      = $instance->sql;
 
         // return $sql;
         return $res;
@@ -72,13 +81,14 @@ class TestTable extends Model
      *
      * @return void
      */
-    public function modelSaveDemo()
+    public function dbSaveDemo()
     {
         $data = [
             'nickname' => 'easy-php',
         ];
-        $res      = $this->save($data);
-        $sql      = $this->sql;
+        $instance = DB::table('user');
+        $res      = $instance->save($data);
+        $sql      = $instance->sql;
 
         // return $sql;
         return $res;
@@ -91,14 +101,15 @@ class TestTable extends Model
      *
      * @return void
      */
-    public function modelDeleteDemo()
+    public function dbDeleteDemo()
     {
         $where = [
             'id'   => ['>=', 2],
         ];
-        $res      = $this->where($where)
+        $instance = DB::table('user');
+        $res      = $instance->where($where)
                              ->delete();
-        $sql      = $this->sql;
+        $sql      = $instance->sql;
 
         // return $sql;
         return $res;
@@ -111,14 +122,17 @@ class TestTable extends Model
      *
      * @return void
      */
-    public function modelUpdateDemo($data = [])
+    public function dbUpdateDemo()
     {
         $where = [
             'id'   => ['>=', 2],
         ];
-        $res      = $this->where($where)
-                         ->update($data);
-        $sql      = $this->sql;
+        $instance = DB::table('user');
+        $res      = $instance->where($where)
+                             ->update([
+                                 'nickname' => 'easy'
+                             ]);
+        $sql      = $instance->sql;
 
         // return $sql;
         return $res;
@@ -131,14 +145,15 @@ class TestTable extends Model
      *
      * @return void
      */
-    public function modelCountDemo()
+    public function dbCountDemo()
     {
         $where = [
             'id'   => ['>=', 2],
         ];
-        $res      = $this->where($where)
-                         ->count('id as CountId');
-        $sql      = $this->sql;
+        $instance = DB::table('user');
+        $res      = $instance->where($where)
+                             ->count('id as CountId');
+        $sql      = $instance->sql;
 
         // return $sql;
         return $res;
@@ -151,14 +166,15 @@ class TestTable extends Model
      *
      * @return void
      */
-    public function modelSumDemo()
+    public function dbSumDemo()
     {
         $where = [
             'id'   => ['>=', 1],
         ];
-        $res      = $this->where($where)
+        $instance = DB::table('user');
+        $res      = $instance->where($where)
                              ->sum('id as SumId');
-        $sql      = $this->sql;
+        $sql      = $instance->sql;
 
         return $sql;
         return $res;
@@ -171,10 +187,11 @@ class TestTable extends Model
      *
      * @return void
      */
-    public function modelQueryDemo()
+    public function dbQueryDemo()
     {
-        $res      = $this->query('SELECT `id` as `SumId` FROM `user` WHERE `id` >= 1');
-        $sql      = $this->sql;
+        $instance = DB::table('user');
+        $res      = $instance->query('SELECT `id` as `SumId` FROM `user` WHERE `id` >= 1');
+        $sql      = $instance->sql;
 
         // return $sql;
         return $res;
