@@ -69,15 +69,16 @@ class Helper
      * log
      *
      * @param  array  $data     log数据
-     * @param  string $fileName log文件名
+     * @param  string $fileName log文件名 绝对路径
      * @return void
      */
     public static function log($data = [], $fileName = 'debug')
     {
+        $time = date('Y-m-d H:i:s', time());
         error_log(
-            json_encode($data, JSON_UNESCAPED_UNICODE)."\n",
+            "[{$time}]: " . json_encode($data, JSON_UNESCAPED_UNICODE)."\n",
             3,
-            App::$app->rootPath . '/runtime/log/' . $fileName . '.log'
+            $fileName . '.log'
         );
     }
 }

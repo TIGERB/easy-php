@@ -13,6 +13,7 @@ use Framework\Handles\ErrorHandle;
 use Framework\Handles\ExceptionHandle;
 use Framework\Handles\RouterHandle;
 use Framework\Handles\ConfigHandle;
+use Framework\Handles\LogHandle;
 use Framework\Handles\NosqlHandle;
 use Framework\Handles\UserDefinedHandle;
 use Framework\Exceptions\CoreHttpException;
@@ -47,6 +48,11 @@ try {
     $app->load(function () {
         // 加载预定义配置机制
         return new ConfigHandle();
+    });
+
+    $app->load(function () {
+        // 加载日志处理机制
+        return new LogHandle();
     });
 
     $app->load(function () {
