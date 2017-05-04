@@ -11,6 +11,7 @@ namespace App\Demo\Controllers;
 
 use Framework\App;
 use App\Demo\Models\TestTable;
+use Exception;
 
 /**
  * ModelOperationDemo Controller
@@ -36,23 +37,30 @@ class ModelOperationDemo
      */
     public function modelExample()
     {
-        $testTableModel = new TestTable();
+        try {
+            DB::beginTransaction();
+            $testTableModel = new TestTable();
 
-        // find one data
-        $testTableModel->modelFindOneDemo();
-        // find all data
-        $testTableModel->modelFindAllDemo();
-        // save data
-        $testTableModel->modelSaveDemo();
-        // delete data
-        $testTableModel->modelDeleteDemo();
-        // update data
-        $testTableModel->modelUpdateDemo([
-               'nickname' => 'easy-php'
-            ]);
-        // count data
-        $testTableModel->modelCountDemo();
-        
-        return [];
+            // find one data
+            $testTableModel->modelFindOneDemo();
+            // find all data
+            $testTableModel->modelFindAllDemo();
+            // save data
+            $testTableModel->modelSaveDemo();
+            // delete data
+            $testTableModel->modelDeleteDemo();
+            // update data
+            $testTableModel->modelUpdateDemo([
+                   'nickname' => 'easy-php'
+                ]);
+            // count data
+            $testTableModel->modelCountDemo();
+
+            DB::commit();
+            return 'success';
+        } catch (Exception $e) {
+            DB::rollBack();
+            return 'fail';
+        }
     }
 }

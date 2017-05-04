@@ -257,9 +257,13 @@ class DB
      *
      * @return void
      */
-    public function beginTransaction()
+    public static function beginTransaction()
     {
-        $this->dbInstance->beginTransaction();
+        $instance = APP::$container->setSingle('DB', function () {
+                return new DB();
+            }
+        );
+        $instance->dbInstance->beginTransaction();
     }
 
     /**
@@ -267,9 +271,13 @@ class DB
      *
      * @return void
      */
-    public function commit()
+    public static function commit()
     {
-        $this->dbInstance->commit();
+        $instance = APP::$container->setSingle('DB', function () {
+                return new DB();
+            }
+        );
+        $instance->dbInstance->commit();
     }
 
     /**
@@ -277,9 +285,13 @@ class DB
      *
      * @return void
      */
-    public function rollBack()
+    public static function rollBack()
     {
-        $this->dbInstance->rollBack();
+        $instance = APP::$container->setSingle('DB', function () {
+                return new DB();
+            }
+        );
+        $instance->dbInstance->rollBack();
     }
 
     /**

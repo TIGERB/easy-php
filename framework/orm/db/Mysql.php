@@ -166,7 +166,10 @@ class Mysql
     {
         $this->pdoStatement = $this->pdo->prepare($db->sql);
         $this->bindValue($db);
-        $this->pdoStatement->execute();
+        $res = $this->pdoStatement->execute();
+        if (! $res) {
+            return false;
+        }
         return $db->id  = $this->pdo->lastInsertId();
     }
 
