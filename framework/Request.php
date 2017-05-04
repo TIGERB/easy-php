@@ -149,6 +149,24 @@ class Request
             $this->getParams     = $_GET;
             $this->postParams    = $_POST;
         }
+
+        // 加载环境参数
+        $this->loadEnv($app);
+    }
+
+    /**
+     * 加载环境参数
+     *
+     * @param  App    $app 框架实例
+     * @return void
+     */
+    public function loadEnv(App $app)
+    {
+        $env = parse_ini_file($app->rootPath . '/.env', true);
+        if ($env === false) {
+            throw CoreHttpException('load env fail', 500);
+        }
+        $this->envParams = array_merge($_ENV, $env);
     }
 
     /**

@@ -35,6 +35,11 @@ try {
      * 挂载handles
      */
     $app->load(function () {
+        // 加载日志处理机制
+        return new LogHandle();
+    });
+    
+    $app->load(function () {
         // 加载错误处理机制
         return new ErrorHandle();
     });
@@ -48,11 +53,6 @@ try {
     $app->load(function () {
         // 加载预定义配置机制
         return new ConfigHandle();
-    });
-
-    $app->load(function () {
-        // 加载日志处理机制
-        return new LogHandle();
     });
 
     $app->load(function () {

@@ -47,7 +47,7 @@ class LogHandle implements Handle
      */
     public function register(App $app)
     {
-        App::$container->setSingle('loger', function () {
+        App::$container->setSingle('logger', function () {
             return new LogHandle();
         });
     }

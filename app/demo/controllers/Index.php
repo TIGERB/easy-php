@@ -83,14 +83,14 @@ class Index
         // 配置对象
         App::$container->getSingle('config');
         // 日志对象
-        $loger = App::$container->getSingle('loger');
-        $loger->write(['Easy PHP Loger']);
+        $logger = App::$container->getSingle('logger');
+        $logger->write(['Easy PHP logger']);
 
         return [];
     }
 
     /**
-     * 容器内获取实例演示
+     * 容器内获取nosql实例演示
      *
      * @return void
      */
