@@ -26,4 +26,8 @@ return [
         // 默认操作
         'default_action'     => 'hello',
     ],
+
+    /* 响应结果是否使用框架定义的rest风格 */
+    'rest_response' => true,
+
 ];
