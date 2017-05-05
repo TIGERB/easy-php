@@ -1,0 +1,49 @@
+<?php
+/********************************************
+ *                Easy PHP                  *
+ *                                          *
+ * A lightweight PHP framework for studying *
+ *                                          *
+ *                 TIERGB                   *
+ *      <https://github.com/TIGERB>         *
+ *                                          *
+ ********************************************/
+
+/**
+ * build project to phar file
+ *
+ * Thx for the project <https://github.com/SegmentFault/phar-sample>
+ *
+ * doc <http://php.net/manual/zh/phar.buildfromdirectory.php>
+ */
+
+$packageName = 'App';
+$ext = 'phar';
+$time = date('YmdHis', time());
+$packageName = "{$packageName}.{$time}.{$ext}";
+
+if (! file_exists(__DIR__ . '/runtime/build/')) {
+    mkdir(__DIR__ . '/runtime/build/');
+}
+
+$phar = new Phar(
+    __DIR__ . '/runtime/build/' . $packageName,
+    0,
+    $packageName
+);
+
+$phar->buildFromDirectory(__DIR__ . '/', '/\.php$/');
+$phar->buildFromDirectory(__DIR__ . '/', '/\.env$/');
+$phar->buildFromDirectory(__DIR__ . '/', '/^cli$/');
+
+$webIndex = "<?php
+Phar::mapPhar('{$packageName}');
+require 'phar://{$packageName}/public/index.php';
+__HALT_COMPILER();
+?>";
+
+$phar->setStub(
+    $webIndex
+);
+
+echo "Build success in 'runtime/build/{$packageName}' \n";
