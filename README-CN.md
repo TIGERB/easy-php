@@ -30,7 +30,7 @@
         ----> 视图渲染数据
 ```
 
-除此之外我们还需要单元测试、nosql支持、接口文档支持、一些规范辅助脚本等。最终框架的目录如下：
+除此之外我们还需要单元测试、nosql支持、接口文档支持、一些辅助脚本等。最终我的框架目录如下：
 
 #  框架目录一览
 
@@ -45,7 +45,7 @@ app                             [PHP应用目录]
 │   │   ├── tools               [工具类目录]
 │   │   └── UserDefinedCase.php [注册框架加载到路由前的处理用例]
 │   └── models                  [数据模型目录]
-│       └── TestTable.php       [默认模式文件，定义一一对应的数据模型]
+│       └── TestTable.php       [演示模型文件，定义一一对应的数据模型]
 ├── config                      [配置目录]
 │    ├── demo                   [模块配置目录]
 │    │   ├── config.php         [模块自定义配置]
@@ -66,6 +66,7 @@ framework                       [Easy PHP核心框架目录]
 │      ├── ExceptionHandle.php  [未捕获异常处理机制类]
 │      ├── ConfigHandle.php     [配置文件处理机制类]
 │      ├── NosqlHandle.php      [nosql处理机制类]
+│      ├── LogHandle.php        [log机制类]
 │      ├── UserDefinedHandle.php[用户自定义处理机制类]
 │      └── RouterHandle.php     [路由处理机制类]
 ├── orm                         [对象关系模型]
@@ -81,7 +82,6 @@ framework                       [Easy PHP核心框架目录]
 ├── App.php                     [框架类]
 ├── Container.php               [服务容器]
 ├── Helper.php                  [框架助手类]
-├── Log.php                     [框架日志类]
 ├── Load.php                    [自加载类]
 ├── Request.php                 [请求类]
 ├── Response.php                [响应类]
@@ -134,13 +134,18 @@ yarn.lock                       [yarn　lock文件]
 
 定义一个统一的入口文件，对外提供统一的访问文件。对外隐藏了内部的复杂性，类似企业服务总线的思想。
 
-[[file: public/index.php]()]
+```
+// 载入框架运行文件
+require('../framework/run.php');
+```
+
+[[file: public/index.php](https://github.com/TIGERB/easy-php/blob/master/public/index.php)]
 
 ##  自加载模块
 
 使用spl_autoload_register函数注册自加载函数到__autoload队列中，配合使用命名空间，当使用一个类的时候可以自动载入(require)类文件。注册完成自加载逻辑后，我们就可以使用use和配合命名空间申明对某个类文件的依赖。
 
-[file: framework/Load.php]
+[[file: framework/Load.php]()]
 
 ##  错误和异常模块
 
@@ -154,13 +159,13 @@ yarn.lock                       [yarn　lock文件]
 
 通过函数set_exception_handler注册未捕获异常处理方法，目的捕获未捕获的异常，例如返回友好的提示和异常信息。
 
-[file: framework/hanles/ErrorHandle.php]
+[[file: framework/hanles/ErrorHandle.php]()]
 
 ##  配置文件模块
 
 加载框架自定义和用户自定义的配置文件。
 
-[file: framework/hanles/ConfigHandle.php]
+[[file: framework/hanles/ConfigHandle.php]()]
 
 ##  输入和输出
 
@@ -169,9 +174,9 @@ yarn.lock                       [yarn　lock文件]
 
 框架中所有的异常输出和控制器输出都是json格式，因为我认为在前后端完全分离的今天，这是很友善的，目前我们不需要再去考虑别的东西。
 
-[file: framework/Request.php]
+[[file: framework/Request.php]()]
 
-[file: framework/Response.php]
+[[file: framework/Response.php]()]
 
 ##  路由模块
 
@@ -223,7 +228,7 @@ App::$app->get('demo/index/hello', [
 
 通过上面的方式我们就可以松耦合的方式进行单体下各个模块的通信和依赖了。与此同时，业务的发展是难以预估的，未来当我们向SOA的架构迁移时，很简单，我们只需要把以往的模块独立成各个项目，然后把App实例get方法的实现转变为RPC或者REST的策略即可，我们可以通过配置文件去调整对应的策略或者把自己的，第三方的实现注册进去即可。
 
-[file: framework/hanles/RouterHandle.php]
+[[file: framework/hanles/RouterHandle.php]()]
 
 ##  传统的MVC模式提倡为MCL模式
 
@@ -297,7 +302,7 @@ private $map = [
 
 视图View去哪了？由于选择了完全的前后端分离和SPA(单页应用), 所以传统的视图层也因此去掉了，详细的介绍看下面。
 
-[file: app/*]
+[[file: app/*]()]
 
 ##  使用Vue作为视图
 
@@ -321,9 +326,9 @@ frontend                        [前端源码和资源目录，这里存放我�
 **build步骤**
 
 ```
-npm install
+yarn install
 
-DOMAIN=http://你的域名 npm run test
+DOMAIN=http://你的域名 npm run dev
 ```
 
 **编译后**
@@ -337,7 +342,7 @@ public                          [公共资源目录，暴露到万维网]
 ├── index.html                  [前端入口文件,build生成的文件，不是发布分支忽略该文件]
 ```
 
-[file: frontend/*]
+[[file: frontend/*]()]
 
 ##  数据库对象关系映射
 
@@ -391,8 +396,33 @@ public function dbFindAllDemo()
  */
 public function modelExample()
 {
-    $testTableModel = new TestTable();
-    return $testTableModel->modelFindDemo();
+    try {
+
+        DB::beginTransaction();
+        $testTableModel = new TestTable();
+
+        // find one data
+        $testTableModel->modelFindOneDemo();
+        // find all data
+        $testTableModel->modelFindAllDemo();
+        // save data
+        $testTableModel->modelSaveDemo();
+        // delete data
+        $testTableModel->modelDeleteDemo();
+        // update data
+        $testTableModel->modelUpdateDemo([
+               'nickname' => 'easy-php'
+            ]);
+        // count data
+        $testTableModel->modelCountDemo();
+
+        DB::commit();
+        return 'success';
+
+    } catch (Exception $e) {
+        DB::rollBack();
+        return 'fail';
+    }
 }
 
 //TestTable model
@@ -418,9 +448,9 @@ public function modelFindAllDemo()
 }
 ```
 
-[file: framework/orm/*]
+[[file: framework/orm/*]()]
 
-##  服务容器
+##  服务容器模块
 
 什么是服务容器？
 
@@ -443,19 +473,22 @@ class Demo
 
 这样的写法没有什么逻辑上的问题，但是不符合设计模式的“最少知道原则”，因为之间产生了直接依赖，整个代码结构不够灵活是紧耦合的。所以我们就提供了一个第三方的实体，把直接依赖转变为依赖于第三方，我们获取依赖的实例直接通过第三方去完成以达到松耦合的目的，这里这个第三方充当的角色就类似系统架构中的“中间件”，都是协调依赖关系和去耦合的角色。最后，这里的第三方就是所谓的服务容器。
 
-在实现了一个服务容器之后，我把Rquest,Config等实例都以单例的方式注入到了服务容器中，当我们需要使用的时候从容器中获取即可，十分方便。使用如下：
+在实现了一个服务容器之后，我把Request,Config等实例都以单例的方式注入到了服务容器中，当我们需要使用的时候从容器中获取即可，十分方便。使用如下：
 
 ```
 // 注入单例
 App::$container->setSingle('别名，方便获取', '对象/闭包/类名');
 
 // 例，注入Request实例
-App::$container->setSingle('request', $request);
+App::$container->setSingle('request', function () {
+    // 匿名函数延时加载
+    return new Request();
+});
 // 获取Request对象
 App::$container->getSingle('request');
 ```
 
-##  Nosql的支持
+##  Nosql模块
 
 提供对nosql的支持，提供全局单例对象，借助我们的服务容器我们在框架启动的时候，通过配置文件的配置把需要的nosql实例注入到服务容器中。目前我们支持redis/memcahed/mongodb。
 
@@ -470,11 +503,11 @@ App::$container->getSingle('memcahed');
 App::$container->getSingle('mongodb');
 ```
 
-[file: framework/nosql/*]
+[[file: framework/nosql/*]()]
 
-##  接口文档生成和接口模拟
+##  接口文档生成和接口模拟模块
 
-通常我们写完一个接口后，接口文档是一个问题，我们这里使用Api Blueprint协议完成对接口文档的书写和mock，同时我们配合使用Swagger通过接口文档实现对接口的实时访问。
+通常我们写完一个接口后，接口文档是一个问题，我们这里使用Api Blueprint协议完成对接口文档的书写和mock，同时我们配合使用Swagger通过接口文档实现对接口的实时访问(目前未实现)。
 
 Api Blueprint接口描述协议选取的工具是snowboard,具体使用说明如下：
 
@@ -498,9 +531,9 @@ cd docs/apib
 open the website, http://localhost:8087/demo/index/hello
 ```
 
-[file: docs/*]
+[[file: docs/*]()]
 
-##  单元测试
+##  单元测试模块
 
 基于phpunit的单元测试，写单元测试是个好的习惯。
 
@@ -530,7 +563,7 @@ public function testDemo()
 
 [phpunit断言文档语法参考](https://phpunit.de/manual/current/zh_cn/appendixes.assertions.html)
 
-[file: tests/*]
+[[file: tests/*]()]
 
 ##  Git钩子配置
 
@@ -539,50 +572,46 @@ public function testDemo()
 - 代码规范：配合使用php_codesniffer，在代码提交前对代码的编码格式进行强制验证。
 - commit-msg规范：采用ruanyifeng的commit msg规范，对commit msg进行格式验证，增强git log可读性和便于后期查错和统计log等, 这里使用了[Treri](https://github.com/Treri)的commit-msg脚本，Thx~。
 
-[file: ./git-hooks/*]
+[[file: ./git-hooks/*]()]
 
 # 如何使用?
 
-composer install
+执行：
+
+- composer install
+- chmod -R 777 runtime
+
+**网站服务模式:**
 
 ```
-网站服务模式:
+步骤 1: yarn install
+步骤 2: DOMAIN=http://localhost:666 npm run demo
+步骤 3: cd public
+步骤 4: php -S localhost:666
 
-步骤 1: cd public
-步骤 2: php -S localhost:666
-步骤 3: 打开网址 'http://localhost:666'
+访问网站：http://localhost:666/index.html
+访问接口：http://localhost:666/Demo/Index/hello
 
-例如, http://localhost:666/Demo/Index/hello
+demo如下：
+```
 
---------------------------------------------
+<p align="center"><img width="36%" src="demo.gif"><p>
 
-客户端脚本模式:
+**客户端脚本模式:**
 
+```
 php cli --method=<module.controller.action> --<arguments>=<value> ...
 
 例如, php cli --method=demo.index.get --username=easy-php
-
---------------------------------------------
+```
 
 获取帮助:
 
 使用命令 php cli 或者 php cli --help
 
---------------------------------------------
-
-前端编译:
-
-步骤 1: npm install
-步骤 2: DOMAIN=http://localhost:666 npm run test
-
-按照上面的步骤，我们启动了php内置的server服务，访问http://localhost:666/index.html即可,demo如下
-```
-
-<p align="center"><img width="30%" src="demo.gif"><p>
-
 # 问题和贡献
 
-如果大家发现了什么问题，可以给我提[issue](https://github.com/TIGERB/easy-php/issues)或者PR。
+不足的地方还有很多，如果大家发现了什么问题，可以给我提[issue](https://github.com/TIGERB/easy-php/issues)或者PR。
 
 如何贡献？
 
@@ -593,3 +622,13 @@ cp ./.git-hooks/* ./git/hooks
 然后正常发起PR即可, 所有的commit我都会进行代码格式(psr)验证和commit-msg验证，如果发生错误，请按照提示纠正即可。
 
 # TODO
+
+- 变更Helper助手类的成员方法为框架函数，简化使用提高生产效率
+- 提供更友善的开发api帮助
+- 模块支持数据库nosql自定义配置
+- 支持mysql主从配置
+- ORM提供更多链式操作api
+- 框架log行为进行级别分类
+- 想办法解决上线部署是配置文件问题
+- 性能测试和优化
+- ...

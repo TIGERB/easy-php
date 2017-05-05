@@ -65,6 +65,7 @@ framework                       [easy-php framework directory]
 │      ├── ExceptionHandle.php  [exception handle class]
 │      ├── ConfigHandle.php     [config handle class]
 │      ├── NosqlHandle.php      [nosql handle class]
+│      ├── LogHandle.php        [log handle class]
 │      ├── UserDefinedHandle.php[user defined handle class]
 │      └── RouterHandle.php     [router handle class]
 ├── orm                         [datebase object relation map class directory]
@@ -80,7 +81,6 @@ framework                       [easy-php framework directory]
 ├── App.php                     [this application class file]
 ├── Container.php               [container class file]
 ├── Helper.php                  [helper class file]
-├── Log.php                     [log class file]
 ├── Load.php                    [autoload class file]
 ├── Request.php                 [request object class file]
 ├── Response.php                [response object class file]
@@ -133,6 +133,11 @@ yarn.lock                       [yarn　lock file]
 
 Defined a entrance file that provide a uniform file for user visit, which hide the complex logic like the enterprise service bus.
 
+```
+// require the application run file
+require('../framework/run.php');
+```
+
 ##  Autoload Module
 
 Register a autoload function in the __autoload queue by used spl_autoload_register, after that, we can use a class by namespace and keyword 'use'.
@@ -156,49 +161,49 @@ Loading framework-defined and user-defined config files.
 - Request  Object: contains all the requested information.
 - Response Object: contains all the response information.
 
-框架中所有的异常输出和控制器输出都是json格式，因为我认为在前后端完全分离的今天，这是很友善的，目前我们不需要再去考虑别的东西。
+All output is json in the framework, neithor framework's core error or business logic's output, beacuse I think is friendly.
 
 ##  Route Handle Module
 
-Execute the target controller's function by the router parse the url information.我在这里把路由大致分成了四类：
+Execute the target controller's function by the router parse the url information.Is composed of four types of:
 
-**传统路由**
+**tradition router**
 
 ```
 domain/index.php?module=Demo&contoller=Index&action=test&username=test
 ```
 
-**pathinfo路由**
+**pathinfo router**
 
 ```
 domain/demo/index/modelExample
 ```
 
-**用户自定义路由**
+**user-defined router**
 
 ```
-// 定义在config/moduleName/route.php文件中，这个的this指向RouterHandle实例
+// config/moduleName/route.php, this 'this' point to RouterHandle instance
 $this->get('v1/user/info', function (Framework\App $app) {
     return 'Hello Get Router';
 });
 ```
 
-**微单体路由**
+**micro monolith router**
 
-我在这里详细说下这里所谓的微单体路由，面向SOA和微服务架构大行其道的今天，有很多的团队都在向服务化迈进，但是服务化中困难最大和成本最高的地方之一应该就是分布式的事务问题。这导致对于小的团队从单体架构走向服务架构难免困难重重，所以有人提出来了微单体架构，按照我的理解就是在一个单体架构的SOA过程，我们把微服务中的的各个服务还是以模块的方式放在同一个单体中，比如：
+What's the micro monolith router? There are a lot of teams are moving in the SOA service structure or micro service structure, I think it is difficult for a small team. But the micro monolith be born, what's this? In my opinion, this is a SOA process for a monolith application.For example:
 
 ```
 app
-├── UserService     [用户服务模块]
-├── ContentService  [内容服务模块]
-├── OrderService    [订单服务模块]
-├── CartService     [购物车服务模块]
-├── PayService      [支付服务模块]
-├── GoodsService    [商品服务模块]
-└── CustomService   [客服服务模块]
+├── UserService     [user service module]
+├── ContentService  [content service module]
+├── OrderService    [order service module]
+├── CartService     [cart service module]
+├── PayService      [pay service module]
+├── GoodsService    [goods service module]
+└── CustomService   [custom service module]
 ```
 
-如上，我们简单的在一个单体里构建了各个服务模块，但是这些模块怎么通信呢？如下：
+As above, we implemented a easy micro monolith structure.But how  these module to communicate with each other? As follows:
 
 ```
 App::$app->get('demo/index/hello', [
@@ -206,7 +211,7 @@ App::$app->get('demo/index/hello', [
 ]);
 ```
 
-通过上面的方式我们就可以松耦合的方式进行单体下各个模块的通信和依赖了。与此同时，业务的发展是难以预估的，未来当我们向SOA的架构迁移时，很简单，我们只需要把以往的模块独立成各个项目，然后把App实例get方法的实现转变为RPC或者REST的策略即可，我们可以通过配置文件去调整对应的策略或者把自己的，第三方的实现注册进去即可。
+So we can resolve this problem loose coupling. In the meantime, we can exchange our application to the SOA structure easily, beacuse we only need to change the method get implementing way in the App class. Such as, RPC, REST. etc.
 
 ##  MVC To MCL
 
@@ -222,18 +227,18 @@ In the end, the structure as follows:
 
 A gateway example：
 
-I build a gateway in the logics folder,gateway的结构如下：
+I built a gateway in the logics folder, structure as follows：
 
 ```
-gateway                     [Logics层目录下gateway逻辑目录]
-  ├── Check.php             [接口]
-  ├── CheckAppkey.php       [检验app key]
-  ├── CheckArguments.php    [校验必传参数]
-  ├── CheckAuthority.php    [校验访问权限]
-  ├── CheckFrequent.php     [校验访问频率]
-  ├── CheckRouter.php       [网关路由]
-  ├── CheckSign.php         [校验签名]
-  └── Entrance.php          [网关入口文件]
+gateway                     [gateway directory in logics]
+  ├── Check.php             [interface]
+  ├── CheckAppkey.php       [check app key]
+  ├── CheckArguments.php    [check require arguments]
+  ├── CheckAuthority.php    [check auth]
+  ├── CheckFrequent.php     [check call frequent]
+  ├── CheckRouter.php       [router]
+  ├── CheckSign.php         [check sign]
+  └── Entrance.php          [entrance file]
 ```
 
 The gateway entrance class code as follows:
@@ -306,7 +311,7 @@ frontend                        [application frontend source code directory]
 ```
 npm install
 
-DOMAIN=http://yourdomain npm run test
+DOMAIN=http://yourdomain npm run dev
 ```
 
 **After build**
@@ -322,24 +327,24 @@ public                          [this is a resource directory to expose service 
 
 ##  ORM
 
-数据库对象关系映射ORM(Object Relation Map)是什么？按照我目前的理解：顾名思义是建立对象和抽象事物的关联关系，在数据库建模中model实体类其实就是具体的表，对表的操作其实就是对model实例的操作。可能绝大多数的人都要问“为什么要这样做，直接sql语句操作不好吗？搞得这么麻烦！”，我的答案：直接sql语句当然可以，一切都是灵活的，但是从一个项目的**可复用，可维护, 可扩展**出发，采用ORM思想处理数据操作是理所当然的，想想如果若干一段时间你看见代码里大段的难以阅读且无从复用的sql语句，你是什么样的心情。
+What's the ORM(Object Relation Map)? In my opinion, ORM is a thought that build a relationship of object and the abstract things.The model is the database's table and the model's instance is a operation for the table."Why do you do that, use the sql directly is not good?", my answer:No, you can do what you like to do, everything is flexable, but it's not be suggested from a perspective of a framework's **reusable, maintainable and extensible**.
 
-市面上对于ORM的具体实现有thinkphp系列框架的Active Record,yii系列框架的Active Record,laravel系列框架的Eloquent(据说是最优雅的)，那我们这里言简意赅就叫ORM了。接着为ORM建模，首先是ORM客户端实体DB：通过配置文件初始化不同的db策略，并封装了操作数据库的所有行为，最终我们通过DB实体就可以直接操作数据库了，这里的db策略目前我只实现了mysql(负责建立连接和db的底层操作)。接着我们把DB实体的sql解析功能独立成一个可复用的sql解析器的trait，具体作用：把对象的链式操作解析成具体的sql语句。最后，建立我们的模型基类model,model直接继承DB即可。最后的结构如下：
+On the market for the implemention of the ORM, such as: Active Record in thinkphp and yii, Eloquent in laravel, then we call the ORM here is "ORM" simply. The "ORM" structure in the framework as follows:
 
 ```
-├── orm                         [对象关系模型]
-│      ├── Interpreter.php      [sql解析器]
-│      ├── DB.php               [数据库操作类]
-│      ├── Model.php            [数据模型基类]
-│      └── db                   [数据库类目录]
-│          └── Mysql.php        [mysql实体类]
+├── orm                         
+│      ├── Interpreter.php      [sql Interpreter]
+│      ├── DB.php               [database operate class]
+│      ├── Model.php            [base model class]
+│      └── db                   
+│          └── Mysql.php        [mysql class]
 ```
 
-**DB类使用示例**
+**DB example**
 
 ```
 /**
- * DB操作示例
+ * DB operation example
  *
  * findAll
  *
@@ -361,10 +366,10 @@ public function dbFindAllDemo()
 }
 ```
 
-**Model类使用示例**
+**Model example**
 
 ```
-// controller 代码
+// controller
 /**
  * model example
  *
@@ -372,13 +377,38 @@ public function dbFindAllDemo()
  */
 public function modelExample()
 {
-    $testTableModel = new TestTable();
-    return $testTableModel->modelFindDemo();
+    try {
+
+        DB::beginTransaction();
+        $testTableModel = new TestTable();
+
+        // find one data
+        $testTableModel->modelFindOneDemo();
+        // find all data
+        $testTableModel->modelFindAllDemo();
+        // save data
+        $testTableModel->modelSaveDemo();
+        // delete data
+        $testTableModel->modelDeleteDemo();
+        // update data
+        $testTableModel->modelUpdateDemo([
+               'nickname' => 'easy-php'
+            ]);
+        // count data
+        $testTableModel->modelCountDemo();
+
+        DB::commit();
+        return 'success';
+
+    } catch (Exception $e) {
+        DB::rollBack();
+        return 'fail';
+    }
 }
 
 //TestTable model
 /**
- * Model操作示例
+ * Model example
  *
  * findAll
  *
@@ -429,7 +459,10 @@ After implements a service container, I put the Rquest, Config and other instanc
 App::$container->setSingle('alias', 'object/closure/class name');
 
 // Such as，Inject Request instance
-App::$container->setSingle('request', $request);
+App::$container->setSingle('request', function () {
+    // closure function lazy load
+    return new Request();
+});
 // get Request instance
 App::$container->getSingle('request');
 ```
@@ -451,7 +484,7 @@ App::$container->getSingle('mongodb');
 
 ##  Api Docs
 
-Usually after we write an api, the api documentation is a problem, we use the Api Blueprint protocol to write the api document and mock. At the same time, we can request the api real-timely by used Swagger.
+Usually after we write an api, the api documentation is a problem, we use the Api Blueprint protocol to write the api document and mock. At the same time, we can request the api real-timely by used Swagger　(unavailable).
 
 I chose the Api Blueprint's tool snowboard, detail as follows：
 
@@ -512,42 +545,37 @@ public function testDemo()
 
 # How to use ?
 
-composer install
+Run：
+
+- composer install
+- chmod -R 777 runtime
+
+**Web Server Mode:**
 
 ```
-Web Server Mode:
+step 1: yarn install
+step 2: DOMAIN=http://localhost:666 npm run demo
+step 3: cd public
+step 4: php -S localhost:666
 
-step 1: cd public
-step 2: php -S localhost:666
-step 3: open the website 'http://localhost:666'
+visit web：http://localhost:666/index.html
+visit api：http://localhost:666/Demo/Index/hello
 
-For example, http://localhost:666/Demo/Index/hello
+demo as follows：
+```
+<p align="center"><img width="36%" src="demo.gif"><p>
 
---------------------------------------------
+**Cli Mode:**
 
-Cli Mode:
-
+```
 php cli --method=<module.controller.action> --<arguments>=<value> ...
 
 For example, php cli --method=demo.index.get --username=easy-php
-
---------------------------------------------
+```
 
 Get Help:
 
 Use php cli OR php cli --help
-
---------------------------------------------
-
-Frontend compile:
-
-step 1: npm install
-step 2: DOMAIN=http://localhost:666 npm run test
-
-open the website http://localhost:666/index.html, the demo as follows
-```
-
-<p align="center"><img width="30%" src="demo.gif"><p>
 
 # Question&Contribution
 
@@ -561,3 +589,13 @@ cp ./.git-hooks/* ./git/hooks
 After that, launch a PR as usual.
 
 # TODO
+
+- Change Helper's method to the framework's function
+- Provide much friendly help for user
+- Module's config support module-defined mysql and nosql configuration
+- Support master-salve mysql configuration
+- ORM provide more apis
+- Make different rank for log
+- Resolve config problem when publish our project
+- The performance test and optimize
+- ...
