@@ -102,6 +102,7 @@ public                          [this is a resource directory to expose service 
 ├── index.php                   [entrance php script file]
 runtime                         [temporary file such as log]
 ├── logs                        [log directory]
+├── build                       [phar directory build by build script]
 tests                           [unit test directory]
 ├── demo                        [module name]
 │      └── DemoTest.php         [test class file]
@@ -109,10 +110,11 @@ tests                           [unit test directory]
 vendor                          [composer vendor directory]
 .git-hooks                      [git hooks directory]
 ├── pre-commit                  [git pre-commit example file]
-└── commit-msg                  [git commit-msg example file]
+├── commit-msg                  [git commit-msg example file]
 .babelrc                        [babel　config file]
 .env                            [the environment variables file]
 .gitignore                      [git ignore config file]
+build                           [build php code to phar file script]
 cli                             [run this framework with the php cli mode]
 LICENSE                         [lincese　file]
 logo.png                        [logo picture]
@@ -138,9 +140,13 @@ Defined a entrance file that provide a uniform file for user visit, which hide t
 require('../framework/run.php');
 ```
 
+[[file: public/index.php](https://github.com/TIGERB/easy-php/blob/master/public/index.php)]
+
 ##  Autoload Module
 
 Register a autoload function in the __autoload queue by used spl_autoload_register, after that, we can use a class by namespace and keyword 'use'.
+
+[[file: framework/Load.php](https://github.com/TIGERB/easy-php/blob/master/framework/Load.php)]
 
 ##  Error&Exception Handle Module
 
@@ -148,13 +154,19 @@ Register a autoload function in the __autoload queue by used spl_autoload_regist
 
 Register a function by used set_error_handler to handle error, but it can't handle the following error, E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING and the E_STRICT produced by the file which called set_error_handler function. So, we need use register_shutdown_function and error_get_last to handle this finally error which set_error_handler can't handle. When the framework running, we can handle the error by ourself, such as, give a friendly error messge for client.
 
+[[file: framework/hanles/ErrorHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/ErrorHandle.php)]
+
 - Catch exception:
 
 Register a function by used set_exception_handler to handle the exception which is not be catched, which can give a friendly error messge for client.
 
+[[file: framework/hanles/ExceptionHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/ExceptionHandle.php)]
+
 ##  Config Handle Module
 
 Loading framework-defined and user-defined config files.
+
+[[file: framework/hanles/ConfigHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/ConfigHandle.php)]
 
 ##  Request&Response Module
 
@@ -162,6 +174,10 @@ Loading framework-defined and user-defined config files.
 - Response Object: contains all the response information.
 
 All output is json in the framework, neithor framework's core error or business logic's output, beacuse I think is friendly.
+
+[[file: framework/Request.php](https://github.com/TIGERB/easy-php/blob/master/framework/Request.php)]
+
+[[file: framework/Response.php](https://github.com/TIGERB/easy-php/blob/master/framework/Response.php)]
 
 ##  Route Handle Module
 
@@ -212,6 +228,8 @@ App::$app->get('demo/index/hello', [
 ```
 
 So we can resolve this problem loose coupling. In the meantime, we can exchange our application to the SOA structure easily, beacuse we only need to change the method get implementing way in the App class. Such as, RPC, REST. etc.
+
+[[file: framework/hanles/RouterHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/RouterHandle.php)]
 
 ##  MVC To MCL
 
@@ -285,7 +303,9 @@ private $map = [
 ```
 So, the gateway is running.But what's the UserDefinedCase that can be loading before RouterHandle.
 
-Where is the view layer?I abandon it, beacuse I chose the SPA for frontend, detail as follows:
+Where is the view layer?I abandon it, beacuse I chose the SPA for frontend, detail as follows.
+
+[[file: app/*](https://github.com/TIGERB/easy-php/tree/master/app/demo)]
 
 ##  Using Vue For View
 
@@ -324,6 +344,8 @@ public                          [this is a resource directory to expose service 
 │    └── ...
 ├── index.html                  [entrance html file]
 ```
+
+[[file: frontend/*](https://github.com/TIGERB/easy-php/tree/master/frontend)]
 
 ##  ORM
 
@@ -429,6 +451,8 @@ public function modelFindAllDemo()
 }
 ```
 
+[[file: framework/orm/*](https://github.com/TIGERB/easy-php/tree/master/framework/orm)]
+
 ##  Service Container
 
 What's the service container?
@@ -467,6 +491,8 @@ App::$container->setSingle('request', function () {
 App::$container->getSingle('request');
 ```
 
+[[file: framework/Container](https://github.com/TIGERB/easy-php/blob/master/framework/Container.php)]
+
 ##  Nosql Support
 
 Inject the nosql's single instance in service container when the framework loading, you can decide what nosql you need use whit the configuration. At present we support redis/memcahed/mongodb.
@@ -481,6 +507,8 @@ App::$container->getSingle('memcahed');
 // get mongodb instance
 App::$container->getSingle('mongodb');
 ```
+
+[[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
 
 ##  Api Docs
 
@@ -507,6 +535,8 @@ cd docs/apib
 
 open the website, http://localhost:8087/demo/index/hello
 ```
+
+[[file: docs/*](https://github.com/TIGERB/easy-php/tree/master/docs)]
 
 ##  PHPunit
 
@@ -538,10 +568,34 @@ public function testDemo()
 
 [phpunit assertions manual](https://phpunit.de/manual/current/en/appendixes.assertions.html)
 
+[[file: tests/*](https://github.com/TIGERB/easy-php/tree/master/tests)]
+
 ##  Git Hooks
 
 - The standard of coding:  verify the coding forcefully before commit by used php_codesniffer
 - The standard of commit-msg: verify the commit-msg forcefully before commit by used the script commit-msg wrote by [Treri](https://github.com/Treri), which can enhance the git log readability and debugging, log analysis usefully, etc.
+
+[[file: ./git-hooks/*](https://github.com/TIGERB/easy-php/tree/master/.git-hooks)]
+
+## Script
+
+**cli script**
+
+Run the framework with cli mode, detail as instruction.
+
+**build script**
+
+Build the application in the runtime/build folder, such as:
+
+```
+runtime/build/App.20170505085503.phar
+
+<?php
+// require the phar file in index.php file
+require('runtime/build/App.20170505085503.phar');
+```
+
+[[file: ./build](https://github.com/TIGERB/easy-php/tree/master/build)]
 
 # How to use ?
 
@@ -563,7 +617,7 @@ visit api：http://localhost:666/Demo/Index/hello
 
 demo as follows：
 ```
-<p align="center"><img width="36%" src="demo.gif"><p>
+<p align="center"><img width="30%" src="demo.gif"><p>
 
 **Cli Mode:**
 
@@ -590,6 +644,7 @@ After that, launch a PR as usual.
 
 # TODO
 
+- Use the lazy load thought to optimize the framework
 - Change Helper's method to the framework's function
 - Provide much friendly help for user
 - Module's config support module-defined mysql and nosql configuration

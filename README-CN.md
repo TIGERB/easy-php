@@ -103,6 +103,7 @@ public                          [公共资源目录，暴露到万维网]
 ├── index.php                   [后端入口文件]
 runtime                         [临时目录]
 ├── logs                        [日志目录]
+├── build                       [php打包生成phar文件目录]
 tests                           [单元测试目录]
 ├── demo                        [模块名称]
 │      └── DemoTest.php         [测试演示]
@@ -110,10 +111,11 @@ tests                           [单元测试目录]
 vendor                          [composer目录]
 .git-hooks                      [git钩子目录]
 ├── pre-commit                  [git pre-commit预commit钩子示例文件]
-└── commit-msg                  [git commit-msg示例文件]
+├── commit-msg                  [git commit-msg示例文件]
 .babelrc                        [babel配置文件]
 .env                            [环境变量文件]
 .gitignore                      [git忽略文件配置]
+build                           [php打包脚本]
 cli                             [框架cli模式运行脚本]
 LICENSE                         [lincese文件]
 logo.png                        [框架logo图片]
@@ -145,7 +147,7 @@ require('../framework/run.php');
 
 使用spl_autoload_register函数注册自加载函数到__autoload队列中，配合使用命名空间，当使用一个类的时候可以自动载入(require)类文件。注册完成自加载逻辑后，我们就可以使用use和配合命名空间申明对某个类文件的依赖。
 
-[[file: framework/Load.php]()]
+[[file: framework/Load.php](https://github.com/TIGERB/easy-php/blob/master/framework/Load.php)]
 
 ##  错误和异常模块
 
@@ -155,17 +157,19 @@ require('../framework/run.php');
 
 通过函数set_error_handler注册用户自定义错误处理方法，但是set_error_handler不能处理以下级别错误，E_ERROR、 E_PARSE、 E_CORE_ERROR、 E_CORE_WARNING、 E_COMPILE_ERROR、 E_COMPILE_WARNING，和在 调用 set_error_handler() 函数所在文件中产生的大多数 E_STRICT。所以我们需要使用register_shutdown_function配合error_get_last获取脚本终止执行的最后错误，目的是对于不同错误级别和致命错误进行自定义处理，例如返回友好的提示的错误信息。
 
+[[file: framework/hanles/ErrorHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/ErrorHandle.php)]
+
 - 异常:
 
 通过函数set_exception_handler注册未捕获异常处理方法，目的捕获未捕获的异常，例如返回友好的提示和异常信息。
 
-[[file: framework/hanles/ErrorHandle.php]()]
+[[file: framework/hanles/ExceptionHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/ExceptionHandle.php)]
 
 ##  配置文件模块
 
 加载框架自定义和用户自定义的配置文件。
 
-[[file: framework/hanles/ConfigHandle.php]()]
+[[file: framework/hanles/ConfigHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/ConfigHandle.php)]
 
 ##  输入和输出
 
@@ -174,9 +178,9 @@ require('../framework/run.php');
 
 框架中所有的异常输出和控制器输出都是json格式，因为我认为在前后端完全分离的今天，这是很友善的，目前我们不需要再去考虑别的东西。
 
-[[file: framework/Request.php]()]
+[[file: framework/Request.php](https://github.com/TIGERB/easy-php/blob/master/framework/Request.php)]
 
-[[file: framework/Response.php]()]
+[[file: framework/Response.php](https://github.com/TIGERB/easy-php/blob/master/framework/Response.php)]
 
 ##  路由模块
 
@@ -228,7 +232,7 @@ App::$app->get('demo/index/hello', [
 
 通过上面的方式我们就可以松耦合的方式进行单体下各个模块的通信和依赖了。与此同时，业务的发展是难以预估的，未来当我们向SOA的架构迁移时，很简单，我们只需要把以往的模块独立成各个项目，然后把App实例get方法的实现转变为RPC或者REST的策略即可，我们可以通过配置文件去调整对应的策略或者把自己的，第三方的实现注册进去即可。
 
-[[file: framework/hanles/RouterHandle.php]()]
+[[file: framework/hanles/RouterHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/RouterHandle.php)]
 
 ##  传统的MVC模式提倡为MCL模式
 
@@ -302,7 +306,7 @@ private $map = [
 
 视图View去哪了？由于选择了完全的前后端分离和SPA(单页应用), 所以传统的视图层也因此去掉了，详细的介绍看下面。
 
-[[file: app/*]()]
+[[file: app/*](https://github.com/TIGERB/easy-php/tree/master/app/demo)]
 
 ##  使用Vue作为视图
 
@@ -342,7 +346,7 @@ public                          [公共资源目录，暴露到万维网]
 ├── index.html                  [前端入口文件,build生成的文件，不是发布分支忽略该文件]
 ```
 
-[[file: frontend/*]()]
+[[file: frontend/*](https://github.com/TIGERB/easy-php/tree/master/frontend)]
 
 ##  数据库对象关系映射
 
@@ -448,7 +452,7 @@ public function modelFindAllDemo()
 }
 ```
 
-[[file: framework/orm/*]()]
+[[file: framework/orm/*](https://github.com/TIGERB/easy-php/tree/master/framework/orm)]
 
 ##  服务容器模块
 
@@ -481,12 +485,14 @@ App::$container->setSingle('别名，方便获取', '对象/闭包/类名');
 
 // 例，注入Request实例
 App::$container->setSingle('request', function () {
-    // 匿名函数延时加载
+    // 匿名函数懒加载
     return new Request();
 });
 // 获取Request对象
 App::$container->getSingle('request');
 ```
+
+[[file: framework/Container](https://github.com/TIGERB/easy-php/blob/master/framework/Container.php)]
 
 ##  Nosql模块
 
@@ -503,11 +509,11 @@ App::$container->getSingle('memcahed');
 App::$container->getSingle('mongodb');
 ```
 
-[[file: framework/nosql/*]()]
+[[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
 
 ##  接口文档生成和接口模拟模块
 
-通常我们写完一个接口后，接口文档是一个问题，我们这里使用Api Blueprint协议完成对接口文档的书写和mock，同时我们配合使用Swagger通过接口文档实现对接口的实时访问(目前未实现)。
+通常我们写完一个接口后，接口文档是一个问题，我们这里使用Api Blueprint协议完成对接口文档的书写和mock(可用)，同时我们配合使用Swagger通过接口文档实现对接口的实时访问(目前未实现)。
 
 Api Blueprint接口描述协议选取的工具是snowboard,具体使用说明如下：
 
@@ -531,7 +537,7 @@ cd docs/apib
 open the website, http://localhost:8087/demo/index/hello
 ```
 
-[[file: docs/*]()]
+[[file: docs/*](https://github.com/TIGERB/easy-php/tree/master/docs)]
 
 ##  单元测试模块
 
@@ -563,7 +569,7 @@ public function testDemo()
 
 [phpunit断言文档语法参考](https://phpunit.de/manual/current/zh_cn/appendixes.assertions.html)
 
-[[file: tests/*]()]
+[[file: tests/*](https://github.com/TIGERB/easy-php/tree/master/tests)]
 
 ##  Git钩子配置
 
@@ -572,7 +578,27 @@ public function testDemo()
 - 代码规范：配合使用php_codesniffer，在代码提交前对代码的编码格式进行强制验证。
 - commit-msg规范：采用ruanyifeng的commit msg规范，对commit msg进行格式验证，增强git log可读性和便于后期查错和统计log等, 这里使用了[Treri](https://github.com/Treri)的commit-msg脚本，Thx~。
 
-[[file: ./git-hooks/*]()]
+[[file: ./git-hooks/*](https://github.com/TIGERB/easy-php/tree/master/.git-hooks)]
+
+## 辅助脚本
+
+**cli脚本**
+
+以命令行的方式运行框架，具体见使用说明。
+
+**build脚本**
+
+打包PHP项目脚本，打包整个项目到runtime/build目录，例如：
+
+```
+runtime/build/App.20170505085503.phar
+
+<?php
+// 入口文件引入包文件即可
+require('runtime/build/App.20170505085503.phar');
+```
+
+[[file: ./build](https://github.com/TIGERB/easy-php/tree/master/build)]
 
 # 如何使用?
 
@@ -595,7 +621,7 @@ public function testDemo()
 demo如下：
 ```
 
-<p align="center"><img width="36%" src="demo.gif"><p>
+<p align="center"><img width="30%" src="demo.gif"><p>
 
 **客户端脚本模式:**
 
@@ -613,6 +639,8 @@ php cli --method=<module.controller.action> --<arguments>=<value> ...
 
 不足的地方还有很多，如果大家发现了什么问题，可以给我提[issue](https://github.com/TIGERB/easy-php/issues)或者PR。
 
+或者你觉着在这个框架实现的细节你想了解的，一样可以给我提[issue](https://github.com/TIGERB/easy-php/issues)，后面我会总结成相应的文章分享给大家。
+
 如何贡献？
 
 ```
@@ -623,6 +651,7 @@ cp ./.git-hooks/* ./git/hooks
 
 # TODO
 
+- 懒加载优化框架加载流程
 - 变更Helper助手类的成员方法为框架函数，简化使用提高生产效率
 - 提供更友善的开发api帮助
 - 模块支持数据库nosql自定义配置
