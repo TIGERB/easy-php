@@ -40,7 +40,7 @@ class LogHandle implements Handle
     private $logFileName = 'easy-php-framework-run';
 
     /**
-     * 延时注册Loger实例到容器
+     * 延时注册Logger实例到容器
      *
      * @param  App    $app 框架实例
      * @return void

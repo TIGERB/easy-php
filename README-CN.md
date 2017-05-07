@@ -7,7 +7,7 @@
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
 
-<p align="center"> 从0开始搭建一个属于你自己的PHP框架 <p>
+<p align="center"> 从0开始构建一个属于你自己的PHP框架 <p>
 
 <p align="center"> <a href="./README.md">英文版</a>　<p>
 
@@ -209,7 +209,7 @@ $this->get('v1/user/info', function (Framework\App $app) {
 
 **微单体路由**
 
-我在这里详细说下这里所谓的微单体路由，面向SOA和微服务架构大行其道的今天，有很多的团队都在向服务化迈进，但是服务化中困难最大和成本最高的地方之一应该就是分布式的事务问题。这导致对于小的团队从单体架构走向服务架构难免困难重重，所以有人提出来了微单体架构，按照我的理解就是在一个单体架构的SOA过程，我们把微服务中的的各个服务还是以模块的方式放在同一个单体中，比如：
+我在这里详细说下这里所谓的微单体路由，面向SOA和微服务架构大行其道的今天，有很多的团队都在向服务化迈进，但是服务化过程中很多问题的复杂度都是指数级的增长，例如分布式的事务，服务部署，跨服务问题追踪等等。这导致对于小的团队从单体架构走向服务架构难免困难重重，所以有人提出来了微单体架构，按照我的理解就是在一个单体架构的SOA过程，我们把微服务中的的各个服务还是以模块的方式放在同一个单体中，比如：
 
 ```
 app
@@ -561,7 +561,7 @@ public function testDemo()
 {
     $this->assertEquals(
         'Hello Easy PHP',
-        // 执行demo模块index控制器hello操作，断言结果是不是等于Hello Easy PHP　
+        // 执行demo模块index控制器hello操作，断言结果是不是等于'Hello Easy PHP'　
         App::$app->get('demo/index/hello')
     );
 }
@@ -649,9 +649,12 @@ cp ./.git-hooks/* ./git/hooks
 
 然后正常发起PR即可, 所有的commit我都会进行代码格式(psr)验证和commit-msg验证，如果发生错误，请按照提示纠正即可。
 
+项目地址：[https://github.com/TIGERB/easy-php](https://github.com/TIGERB/easy-php)
+
 # TODO
 
 - 懒加载优化框架加载流程
+- 性能测试和优化
 - 变更Helper助手类的成员方法为框架函数，简化使用提高生产效率
 - 提供更友善的开发api帮助
 - 模块支持数据库nosql自定义配置
@@ -659,5 +662,5 @@ cp ./.git-hooks/* ./git/hooks
 - ORM提供更多链式操作api
 - 框架log行为进行级别分类
 - 想办法解决上线部署是配置文件问题
-- 性能测试和优化
+- 基于phar文件和git webhook自动化打包部署
 - ...

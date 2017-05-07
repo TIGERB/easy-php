@@ -29,7 +29,7 @@ Entry file ----> Register autoload function
            ----> View
 ```
 
-In addition, unit test, nosql support, api documents and some auxiliary scripts, etc.The Easy PHP framework directory as follows:
+In addition, unit test, nosql support, api documents and some auxiliary scripts, etc. Finnally, My framework directory as follows:
 
 #  Project Directory Structure
 
@@ -206,7 +206,7 @@ $this->get('v1/user/info', function (Framework\App $app) {
 
 **micro monolith router**
 
-What's the micro monolith router? There are a lot of teams are moving in the SOA service structure or micro service structure, I think it is difficult for a small team. But the micro monolith be born, what's this? In my opinion, this is a SOA process for a monolith application.For example:
+What's the micro monolith router? There are a lot of teams are moving in the SOA service structure or micro service structure, I think it is difficult for a small team. So the micro monolith was born, what's this? In my opinion, this is a SOA process for a monolith application.For example:
 
 ```
 app
@@ -219,7 +219,7 @@ app
 └── CustomService   [custom service module]
 ```
 
-As above, we implemented a easy micro monolith structure.But how  these module to communicate with each other? As follows:
+As above, we implemented a easy micro monolith structure.But how these module to communicate with each other? As follows:
 
 ```
 App::$app->get('demo/index/hello', [
@@ -227,7 +227,7 @@ App::$app->get('demo/index/hello', [
 ]);
 ```
 
-So we can resolve this problem loose coupling. In the meantime, we can exchange our application to the SOA structure easily, beacuse we only need to change the method get implementing way in the App class. Such as, RPC, REST. etc.
+So we can resolve this problem loose coupling. In the meantime, we can exchange our application to the SOA structure easily, beacuse we only need to change the method get implementing way in the App class, the way contain RPC, REST. etc.
 
 [[file: framework/hanles/RouterHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/RouterHandle.php)]
 
@@ -329,7 +329,7 @@ frontend                        [application frontend source code directory]
 **Build Step**
 
 ```
-npm install
+yarn install
 
 DOMAIN=http://yourdomain npm run dev
 ```
@@ -349,7 +349,7 @@ public                          [this is a resource directory to expose service 
 
 ##  ORM
 
-What's the ORM(Object Relation Map)? In my opinion, ORM is a thought that build a relationship of object and the abstract things.The model is the database's table and the model's instance is a operation for the table."Why do you do that, use the sql directly is not good?", my answer:No, you can do what you like to do, everything is flexable, but it's not be suggested from a perspective of a framework's **reusable, maintainable and extensible**.
+What's the ORM(Object Relation Map)? In my opinion, ORM is a thought that build a relationship of object and the abstract things.The model is the database's table and the model's instance is a operation for the table."Why do you do that, use the sql directly is not good?", my answer:you can do what you like to do, everything is flexable, but it's not be suggested from a perspective of a framework's **reusable, maintainable and extensible**.
 
 On the market for the implemention of the ORM, such as: Active Record in thinkphp and yii, Eloquent in laravel, then we call the ORM here is "ORM" simply. The "ORM" structure in the framework as follows:
 
@@ -581,7 +581,7 @@ public function testDemo()
 
 **cli script**
 
-Run the framework with cli mode, detail as instruction.
+Run the framework with cli mode, detail in the instruction.
 
 **build script**
 
@@ -642,8 +642,11 @@ cp ./.git-hooks/* ./git/hooks
 ```
 After that, launch a PR as usual.
 
+project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/easy-php)
+
 # TODO
 
+- The performance test and optimize
 - Use the lazy load thought to optimize the framework
 - Change Helper's method to the framework's function
 - Provide much friendly help for user
@@ -652,5 +655,5 @@ After that, launch a PR as usual.
 - ORM provide more apis
 - Make different rank for log
 - Resolve config problem when publish our project
-- The performance test and optimize
+- implement auto deploy by used phar and git webhook
 - ...
