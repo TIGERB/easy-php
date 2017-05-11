@@ -51,6 +51,11 @@ try {
      * Load all kinds of handles
      */
     $app->load(function () {
+        // 加载预定义配置机制 Loading config handle
+        return new ConfigHandle();
+    });
+
+    $app->load(function () {
         // 加载日志处理机制 Loading log handle
         return new LogHandle();
     });
@@ -67,11 +72,6 @@ try {
     //     //  I'm not used it, because this file catch all exception
     //     return new ExceptionHandle();
     // });
-
-    $app->load(function () {
-        // 加载预定义配置机制 Loading config handle
-        return new ConfigHandle();
-    });
 
     $app->load(function () {
         // 加载nosql机制 Loading nosql handle
