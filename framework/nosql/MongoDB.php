@@ -17,14 +17,18 @@ use MongoDB\Client;
 /**
  * MongoDB操作类
  *
+ * mongodb class
+ *
  * @author TIERGB <https://github.com/TIGERB>
  */
 class MongoDB
 {
     /**
-     * 构造函数
+     * 初始化
+     *
+     * Init
      */
-    public function __construct()
+    public　static function init()
     {
         $config = App::$container->getSingle('config');
         $config = $config->config['mongoDB'];
@@ -37,6 +41,6 @@ class MongoDB
             ]
         );
         $database = $client->selectDatabase($config['database']);
-        App::$container->setSingle('mongoDB', $database);
+        return $database;
     }
 }

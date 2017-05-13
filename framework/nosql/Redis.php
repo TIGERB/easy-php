@@ -17,19 +17,23 @@ use Redis as rootRedis;
 /**
  * redis操作类
  *
+ * Redis class
+ *
  * @author TIERGB <https://github.com/TIGERB>
  */
 class Redis
 {
     /**
-     * 构造函数
+     * 初始化
+     *
+     * Init redis
      */
-    public function __construct()
+    public static function init()
     {
         $config = App::$container->getSingle('config');
         $config = $config->config['redis'];
         $redis = new rootRedis();
         $redis->connect($config['host'], $config['port']);
-        App::$container->setSingle('redis', $redis);
+        return $redis;
     }
 }
