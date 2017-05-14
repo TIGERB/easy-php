@@ -22,14 +22,16 @@ use Memcached as rootMemcached;
 class Memcached
 {
     /**
-     * 构造函数
+     * 初始化
+     *
+     * init
      */
-    public function __construct()
+    public static function init()
     {
         $config = App::$container->getSingle('config');
         $config = $config->config['memcached'];
-        $redis  = new rootMemcached();
-        $redis->addServer($config['host'], $config['port']);
-        App::$container->setSingle('memcached', $redis);
+        $memcached  = new rootMemcached();
+        $memcached->addServer($config['host'], $config['port']);
+        return $memcached;
     }
 }

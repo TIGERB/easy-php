@@ -1,8 +1,8 @@
 {
     "name": "TIGERB/easy-php",
     "description": "A lightweight PHP framework for studying",
-    "version":"0.3.6",
-    "type": "framework",
+    "version":"0.6.7",
+    "type": "framework, easy-php, php framework",
     "authors": [
         {
             "name": "tigerb",

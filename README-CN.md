@@ -3,7 +3,7 @@
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.6-green.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.7-green.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-148KB-orange.svg" alt="Framework Size"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework--phar-76KB-red.svg" alt="Framework Phar Size"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
@@ -607,6 +607,7 @@ require('runtime/build/App.20170505085503.phar');
 执行：
 
 - composer install
+- cp .env.example .env
 - chmod -R 777 runtime
 
 **网站服务模式:**
@@ -655,9 +656,6 @@ cp ./.git-hooks/* ./git/hooks
 
 # TODO
 
-- 懒加载优化框架加载流程
-- 性能测试和优化
-- 变更Helper助手类的成员方法为框架函数，简化使用提高生产效率
 - 提供更友善的开发api帮助
 - 模块支持数据库nosql自定义配置
 - 支持mysql主从配置
@@ -666,3 +664,11 @@ cp ./.git-hooks/* ./git/hooks
 - 想办法解决上线部署是配置文件问题
 - 基于phar文件和git webhook自动化打包部署
 - ...
+
+# DONE
+
+- v0.6.7(2017/05/14)
+    - 修复未设置默认时区
+    - 懒加载优化框架加载流程
+    - 变更Helper助手类的成员方法为框架函数，简化使用提高生产效率
+    - 性能测试和优化
