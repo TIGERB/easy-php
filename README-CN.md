@@ -607,6 +607,7 @@ require('runtime/build/App.20170505085503.phar');
 执行：
 
 - composer install
+- cp .env.example .env
 - chmod -R 777 runtime
 
 **网站服务模式:**

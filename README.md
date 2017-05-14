@@ -604,6 +604,7 @@ require('runtime/build/App.20170505085503.phar');
 Run：
 
 - composer install
+- cp .env.example .env
 - chmod -R 777 runtime
 
 **Web Server Mode:**
