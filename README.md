@@ -3,7 +3,7 @@
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.6-green.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.7-green.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-148KB-orange.svg" alt="Framework Size"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework--phar-76KB-red.svg" alt="Framework Phar Size"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
@@ -649,9 +649,6 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 # TODO
 
-- The performance test and optimize
-- Use the lazy load thought to optimize the framework
-- Change Helper's method to the framework's function
 - Provide much friendly help for user
 - Module's config support module-defined mysql and nosql configuration
 - Support master-salve mysql configuration
@@ -660,3 +657,12 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 - Resolve config problem when publish our project
 - implement auto deploy by used phar and git webhook
 - ...
+
+
+# DONE
+
+- v0.6.7(2017/05/14)
+    - fix not set default time zone
+    - The performance test and optimize
+    - Use the lazy load thought to optimize the framework
+    - Change Helper's method to the framework's function
