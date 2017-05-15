@@ -1,19 +1,34 @@
 {
-    "name": "TIGERB/easy-php",
+    "name": "tigerb/easy-php",
     "description": "A lightweight PHP framework for studying",
-    "version":"0.6.7",
+    "version": "0.6.7",
     "type": "framework, easy-php, php framework",
-    "authors": [
-        {
-            "name": "tigerb",
-            "email": "tigerbcode@gmail.com"
-        }
-    ],
+    "homepage": "http://php.tiegrb.cn/",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "authors": [{
+        "name": "tigerb",
+        "email": "tigerbcode@gmail.com"
+    }],
     "require-dev": {
         "squizlabs/php_codesniffer": "*",
         "phpunit/phpunit": "^6.0"
     },
     "require": {
         "mongodb/mongodb": "^1.1"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "cp .env.example .env",
+            "chmod -R 777 runtime",
+            "composer dump-autoload --optimize"
+        ],
+        "post-root-project-cmd": [
+            "composer install"
+        ],
+        "pre-status-cmd": [
+            "cp .env.example .env",
+            "rm -rf runtime/*"
+        ]
     }
 }
