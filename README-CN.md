@@ -606,17 +606,14 @@ require('runtime/build/App.20170505085503.phar');
 
 执行：
 
-- composer install
-- cp .env.example .env
-- chmod -R 777 runtime
+> composer create-project tigerb/easy-php easy  --prefer-dist && cd easy
 
 **网站服务模式:**
 
 ```
 步骤 1: yarn install
 步骤 2: DOMAIN=http://localhost:666 npm run demo
-步骤 3: cd public
-步骤 4: php -S localhost:666
+步骤 3: cd public && sudo php -S localhost:666
 
 访问网站：http://localhost:666/index.html
 访问接口：http://localhost:666/Demo/Index/hello

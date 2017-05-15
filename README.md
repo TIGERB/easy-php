@@ -603,17 +603,14 @@ require('runtime/build/App.20170505085503.phar');
 
 Run：
 
-- composer install
-- cp .env.example .env
-- chmod -R 777 runtime
+> composer create-project tigerb/easy-php easy  --prefer-dist && cd easy
 
 **Web Server Mode:**
 
 ```
 step 1: yarn install
 step 2: DOMAIN=http://localhost:666 npm run demo
-step 3: cd public
-step 4: php -S localhost:666
+step 3: cd public && sudo php -S localhost:666
 
 visit web：http://localhost:666/index.html
 visit api：http://localhost:666/Demo/Index/hello
