@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>Easy Vue</title>
+    <meta name="keywords" content="vue,vuejs,vue基础教程,vue新手教程,easy vue"/>
+    <meta name="description" content="an easy example using vue to implement easy web"/>
+    <link rel="shortcut icon" href="./dist/easy-vue.jpg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style media="screen">
+        .pc-show {
+            width: 1100px;
+            height: 760px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+        .pc-slogan {
+            width: 650px;
+            display: block;
+            float: left;
+        }
+
+        .pc-slogan p {
+            text-align: center;
+            padding-top: 280px;
+            padding-bottom: 20px;
+            color: #bbb;
+            font-size: 18px;
+            font-family: monospace;
+        }
+
+        .pc-slogan h6 {
+            text-align: center;
+            background-color: #bbb;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            color: #fff;
+            font-size: 19px;
+            font-weight: lighter;
+            border: 1px solid #bbb;
+            border-radius: 16px;
+        }
+
+        .pc-slogan h6 span {
+            color: #8ff;
+        }
+
+        .pc-github{
+          width: 190px;
+          margin: 50px auto;
+        }
+        .pc-github iframe{
+          width: 90px;
+        }
+
+        .pc-phone {
+            margin-left: 20px;
+            min-width: 350px;
+            display: inline-block;
+            width: 350px;
+            height: 760px;
+            background: url('http://vue.tigerb.cn/dist/phone.png') no-repeat;
+            background-size: cover;
+        }
+
+        .pc-phone iframe {
+            width: 326px;
+            height: 560px;
+            margin: 100px 12px;
+        }
+    </style>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?e08c44649498e1704a0c238d55523c5f";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+
+<body>
+    <!-- pc -->
+    <div id="pc" class="pc-show">
+        <div class="pc-slogan">
+            <p>
+                A lightweight PHP framework for Studying
+            </p>
+            <h6>
+                <span>INSTALL:</span> composer create-project tigerb/easy-php easy --prefer-dist
+            </h6>
+            <div class="pc-github">
+            <iframe src="https://ghbtns.com/github-btn.html?user=tigerb&repo=easy-php&type=star&count=true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
+            <iframe src="https://ghbtns.com/github-btn.html?user=tigerb&repo=easy-php&type=fork&count=true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
+            </div>
+        </div>
+        <div class="pc-phone">
+            <iframe src="http://easy-php.tigerb.cn/" frameborder="0"></iframe>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var width = window.screen.width;
+    if (width < 900) {
+        console.log(1);
+        window.location = 'http://easy-php.tigerb.cn/';
+    }
+</script>
+</body>
+
+</html>
