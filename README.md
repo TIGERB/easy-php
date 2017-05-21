@@ -31,7 +31,7 @@ Entry file ----> Register autoload function
            ----> View
 ```
 
-In addition, unit test, nosql support, api documents and some auxiliary scripts, etc. Finnally, My framework directory as follows:
+In addition, unit test, nosql support, api documents and some auxiliary scripts, e.g. Finnally, My framework directory as follows:
 
 #  Project Directory Structure
 
@@ -114,7 +114,7 @@ vendor                          [composer vendor directory]
 ├── pre-commit                  [git pre-commit example file]
 ├── commit-msg                  [git commit-msg example file]
 .babelrc                        [babel　config file]
-.env                            [the environment variables file]
+.env.example                    [the environment variables example file]
 .gitignore                      [git ignore config file]
 build                           [build php code to phar file script]
 cli                             [run this framework with the php cli mode]
@@ -176,6 +176,14 @@ Loading framework-defined and user-defined config files.
 - Response Object: contains all the response information.
 
 All output is json in the framework, neithor framework's core error or business logic's output, beacuse I think is friendly.
+
+# Request param check, Support require/length/number check at present. Use as follows:
+```
+$request = App::$container->getSingle('request');
+$request->check('username', 'require');
+$request->check('password', 'length', 12);
+$request->check('code', 'number');
+```
 
 [[file: framework/Request.php](https://github.com/TIGERB/easy-php/blob/master/framework/Request.php)]
 

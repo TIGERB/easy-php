@@ -46,6 +46,7 @@ class DbOperationDemo
                              ->orderBy('id asc')
                              ->findOne();
         $sql      = $instance->sql;
+        $database = $instance->masterSlave;
 
         // return $sql;
         return $res;
@@ -69,6 +70,7 @@ class DbOperationDemo
                              ->limit(5)
                              ->findAll(['id','create_at']);
         $sql      = $instance->sql;
+        $database = $instance->masterSlave;
 
         // return $sql;
         return $res;
