@@ -49,7 +49,15 @@ class ExceptionHandle implements Handle
      */
     public function exceptionHandler($exception)
     {
-        throw $exception;
-    }
+        $exceptionInfo = [
+            'code'       => $exception->getCode(),
+            'message'    => $exception->getMessage(),
+            'file'       => $exception->getFile(),
+            'line'       => $exception->getLine(),
+            'trace'      => $exception->getTrace(),
+            'previous'   => $exception->getPrevious()
+        ];
 
+        CoreHttpException::reponseErr($exceptionInfo);
+    }
 }

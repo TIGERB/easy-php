@@ -65,13 +65,10 @@ try {
         return new ErrorHandle();
     });
 
-    // $app->load(function () {
-    //     //  加载异常处理机制　由于本文件全局catch了异常　所以不存在未捕获异常
-    //     //　可省略注册未捕获异常Handle
-    //     //  Loading exception handle.
-    //     //  I'm not used it, because this file catch all exception
-    //     return new ExceptionHandle();
-    // });
+    $app->load(function () {
+        //  加载异常处理机制 Loading exception handle.
+        return new ExceptionHandle();
+    });
 
     $app->load(function () {
         // 加载nosql机制 Loading nosql handle
@@ -117,7 +114,7 @@ try {
     $app->response(function () {
         return new Response();
     });
-} catch (CoreHttpException $e) {
+} catch (CoreHttException $e) {
     /**
      * 捕获异常
      *
