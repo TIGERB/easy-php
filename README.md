@@ -3,13 +3,13 @@
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.7-green.svg" alt="Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-148KB-orange.svg" alt="Framework Size"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.9-green.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-152KB-orange.svg" alt="Framework Size"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework--phar-76KB-red.svg" alt="Framework Phar Size"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
 
-<p align="center"> A lightweight PHP framework for studying <p>
+<p align="center"> A Faster Lightweight Full-Stack PHP Framework <p>
 
 <p align="center"> <a href="./README-CN.md">中文版</a>　<p>
 
@@ -168,6 +168,31 @@ Register a function by used set_exception_handler to handle the exception which 
 
 Loading framework-defined and user-defined config files.
 
+For example，the master-salve database config：
+
+```
+[database]
+dbtype   = mysqldb
+dbprefix = easy
+dbname   = easyphp
+dbhost   = localhost
+username = easyphp
+password = easyphp
+slave    = 0,1
+
+[database-slave-0]
+dbname   = easyphp
+dbhost   = localhost
+username = easyphp
+password = easyphp
+
+[database-slave-1]
+dbname   = easyphp
+dbhost   = localhost
+username = easyphp
+password = easyphp
+```
+
 [[file: framework/hanles/ConfigHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/ConfigHandle.php)]
 
 ##  Request&Response Module
@@ -177,7 +202,7 @@ Loading framework-defined and user-defined config files.
 
 All output is json in the framework, neithor framework's core error or business logic's output, beacuse I think is friendly.
 
-# Request param check, Support require/length/number check at present. Use as follows:
+##### Request param check, Support require/length/number check at present. Use as follows:
 ```
 $request = App::$container->getSingle('request');
 $request->check('username', 'require');
@@ -671,3 +696,7 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
     - The performance test and optimize
     - Use the lazy load thought to optimize the framework
     - Change Helper's method to the framework's function
+- v0.6.9(2017/05/22)
+    - more friendly for api develop process
+        + request param check：require/length/number
+    - support master-salve config for db

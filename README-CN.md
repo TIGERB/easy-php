@@ -3,8 +3,8 @@
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.7-green.svg" alt="Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-148KB-orange.svg" alt="Framework Size"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.9-green.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-152KB-orange.svg" alt="Framework Size"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework--phar-76KB-red.svg" alt="Framework Phar Size"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
@@ -171,6 +171,31 @@ require('../framework/run.php');
 
 加载框架自定义和用户自定义的配置文件。
 
+例如，数据库主从配置.env文件参数示例：
+
+```
+[database]
+dbtype   = mysqldb
+dbprefix = easy
+dbname   = easyphp
+dbhost   = localhost
+username = easyphp
+password = easyphp
+slave    = 0,1
+
+[database-slave-0]
+dbname   = easyphp
+dbhost   = localhost
+username = easyphp
+password = easyphp
+
+[database-slave-1]
+dbname   = easyphp
+dbhost   = localhost
+username = easyphp
+password = easyphp
+```
+
 [[file: framework/hanles/ConfigHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/ConfigHandle.php)]
 
 ##  输入和输出
@@ -180,7 +205,7 @@ require('../framework/run.php');
 
 框架中所有的异常输出和控制器输出都是json格式，因为我认为在前后端完全分离的今天，这是很友善的，目前我们不需要再去考虑别的东西。
 
-# 请求参数校验，目前提供必传，长度，数字类型校验，使用如下
+##### 请求参数校验，目前提供必传，长度，数字类型校验，使用如下
 ```
 $request = App::$container->getSingle('request');
 $request->check('username', 'require');
