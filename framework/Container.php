@@ -108,8 +108,7 @@ class Container
             if (array_key_exists($alias, $this->instanceMap)) {
                 return $this->instanceMap[$alias];
             }
-            $this->instanceMap[$alias] = $object();
-            return $this->instanceMap[$alias];
+            $this->instanceMap[$alias] = $object;
         }
         if (is_object($alias)) {
             $className = get_class($alias);
@@ -144,14 +143,24 @@ class Container
      *
      * get a sington instance
      *
-     * @param  string $alias 类名或别名
+     * @param  string  $alias   类名或别名
+     * @param  Closure $closure 闭包
      * @return object
      */
-    public function getSingle($alias = '')
+    public function getSingle($alias = '', $closure = '')
     {
         if (array_key_exists($alias, $this->instanceMap)) {
-            return $this->instanceMap[$alias];
+            $instance = $this->instanceMap[$alias];
+            if (is_callable($instance)) {
+                return $instance();
+            }
+            return $instance;
         }
+
+        if (is_callable($closure)) {
+            return $this->instanceMap[$alias] = $closure();
+        }
+
         throw new CoreHttpException(
             404,
             'Class:' . $alias

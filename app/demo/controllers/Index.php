@@ -10,7 +10,7 @@
 namespace App\Demo\Controllers;
 
 use Framework\App;
-use Framework\Loger;
+use Framework\Logger;
 
 /**
  * Index Controller
@@ -42,12 +42,16 @@ class Index
      *
      * @param   string $username 用户名
      * @param   string $password 密码
-     * @example domain/Demo/Index/get?username=test&password=123456
+     * @param   number code      验证码
+     * @example domain/Demo/Index/test?username=tigerb&password=123456789987&code=123456
      * @return  json
      */
     public function test()
     {
         $request = App::$container->getSingle('request');
+        $request->check('username', 'require');
+        $request->check('password', 'length', 12);
+        $request->check('code', 'number');
         return [
             'username' =>  $request->get('username', 'default value')
         ];

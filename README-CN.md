@@ -3,8 +3,8 @@
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.7-green.svg" alt="Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-148KB-orange.svg" alt="Framework Size"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.9-green.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-152KB-orange.svg" alt="Framework Size"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework--phar-76KB-red.svg" alt="Framework Phar Size"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
@@ -115,7 +115,7 @@ vendor                          [composer目录]
 ├── pre-commit                  [git pre-commit预commit钩子示例文件]
 ├── commit-msg                  [git commit-msg示例文件]
 .babelrc                        [babel配置文件]
-.env                            [环境变量文件]
+.env.example                    [环境变量示例文件]
 .gitignore                      [git忽略文件配置]
 build                           [php打包脚本]
 cli                             [框架cli模式运行脚本]
@@ -171,6 +171,31 @@ require('../framework/run.php');
 
 加载框架自定义和用户自定义的配置文件。
 
+例如，数据库主从配置.env文件参数示例：
+
+```
+[database]
+dbtype   = mysqldb
+dbprefix = easy
+dbname   = easyphp
+dbhost   = localhost
+username = easyphp
+password = easyphp
+slave    = 0,1
+
+[database-slave-0]
+dbname   = easyphp
+dbhost   = localhost
+username = easyphp
+password = easyphp
+
+[database-slave-1]
+dbname   = easyphp
+dbhost   = localhost
+username = easyphp
+password = easyphp
+```
+
 [[file: framework/hanles/ConfigHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/ConfigHandle.php)]
 
 ##  输入和输出
@@ -179,6 +204,14 @@ require('../framework/run.php');
 - 定义响应对象：申明响应相关信息
 
 框架中所有的异常输出和控制器输出都是json格式，因为我认为在前后端完全分离的今天，这是很友善的，目前我们不需要再去考虑别的东西。
+
+##### 请求参数校验，目前提供必传，长度，数字类型校验，使用如下
+```
+$request = App::$container->getSingle('request');
+$request->check('username', 'require');
+$request->check('password', 'length', 12);
+$request->check('code', 'number');
+```
 
 [[file: framework/Request.php](https://github.com/TIGERB/easy-php/blob/master/framework/Request.php)]
 
@@ -669,3 +702,8 @@ cp ./.git-hooks/* ./git/hooks
     - 懒加载优化框架加载流程
     - 变更Helper助手类的成员方法为框架函数，简化使用提高生产效率
     - 性能测试和优化
+
+- v0.6.9(2017/05/21)
+    - 提供更友善的开发api帮助
+        + 请求参数校验：require/length/number
+    - 支持mysql主从配置
