@@ -1,117 +1,294 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="utf-8">
-    <title>Easy Vue</title>
-    <meta name="keywords" content="vue,vuejs,vue基础教程,vue新手教程,easy vue"/>
-    <meta name="description" content="an easy example using vue to implement easy web"/>
-    <link rel="shortcut icon" href="./dist/easy-vue.jpg"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <style media="screen">
-        .pc-show {
-            width: 1100px;
-            height: 760px;
-            margin: auto;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-        }
+<!DOCTYPE HTML>
 
-        .pc-slogan {
-            width: 650px;
-            display: block;
-            float: left;
-        }
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Easy PHP</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="A Faster Lightweight Full-Stack PHP Framework" />
+	<meta name="keywords" content="easy-php, faster php framework, php framework" />
 
-        .pc-slogan p {
-            text-align: center;
-            padding-top: 280px;
-            padding-bottom: 20px;
-            color: #bbb;
-            font-size: 18px;
-            font-family: monospace;
-        }
 
-        .pc-slogan h6 {
-            text-align: center;
-            background-color: #bbb;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            color: #fff;
-            font-size: 19px;
-            font-weight: lighter;
-            border: 1px solid #bbb;
-            border-radius: 16px;
-        }
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
 
-        .pc-slogan h6 span {
-            color: #8ff;
-        }
+	<!-- <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet"> -->
 
-        .pc-github{
-          width: 190px;
-          margin: 50px auto;
-        }
-        .pc-github iframe{
-          width: 90px;
-        }
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Themify Icons-->
+	<link rel="stylesheet" href="css/themify-icons.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
 
-        .pc-phone {
-            margin-left: 20px;
-            min-width: 350px;
-            display: inline-block;
-            width: 350px;
-            height: 760px;
-            background: url('http://vue.tigerb.cn/dist/phone.png') no-repeat;
-            background-size: cover;
-        }
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
 
-        .pc-phone iframe {
-            width: 326px;
-            height: 560px;
-            margin: 100px 12px;
-        }
-    </style>
-    <script>
-        var _hmt = _hmt || [];
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<script type='text/javascript'>
+      var _vds = _vds || [];
+      window._vds = _vds;
+      (function(){
+        _vds.push(['setAccountId', 'a39941187fd92be8']);
         (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?e08c44649498e1704a0c238d55523c5f";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
+          var vds = document.createElement('script');
+          vds.type='text/javascript';
+          vds.async = true;
+          vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(vds, s);
         })();
-    </script>
-</head>
+      })();
+  </script>
 
-<body>
-    <!-- pc -->
-    <div id="pc" class="pc-show">
-        <div class="pc-slogan">
-            <p>
-                A lightweight PHP framework for Studying
-            </p>
-            <h6>
-                <span>INSTALL:</span> composer create-project tigerb/easy-php easy --prefer-dist
-            </h6>
-            <div class="pc-github">
-            <iframe src="https://ghbtns.com/github-btn.html?user=tigerb&repo=easy-php&type=star&count=true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
-            <iframe src="https://ghbtns.com/github-btn.html?user=tigerb&repo=easy-php&type=fork&count=true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
-            </div>
-        </div>
-        <div class="pc-phone">
-            <iframe src="http://easy-php.tigerb.cn/" frameborder="0"></iframe>
-        </div>
-    </div>
-</body>
-<script type="text/javascript">
-    var width = window.screen.width;
-    if (width < 900) {
-        console.log(1);
-        window.location = 'http://easy-php.tigerb.cn/';
-    }
-</script>
-</body>
 
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<body>
+
+	<div class="gtco-loader"></div>
+
+	<div id="page">
+	<nav class="gtco-nav" role="navigation">
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-sm-4 col-xs-12">
+					<div id="gtco-logo"><a href="/index.html">Easy PHP</a></div>
+				</div>
+				<div class="col-xs-8 text-right menu-1">
+					<ul>
+						<li class="active"><a href="/index.html">Home</a></li>
+						<li><a href="https://www.gitbook.com/book/tigerb/easy-php-documents">Document</a></li>
+						<li><a href="https://github.com/TIGERB/easy-php">Github</a></li>
+						<li><a href="/index-cn.html">中文</a></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</nav>
+
+	<header id="gtco-header" class="gtco-cover" role="banner" style="background-color:#0099CC;">
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-md-12 col-md-offset-0 text-left">
+					<div class="display-t">
+						<div class="display-tc">
+							<h1 class="animate-box" data-animate-effect="fadeInUp" style="text-align: center">
+								<img src="./images/logo-white.png" style="display: inline;" alt="">
+							</h1>
+							<h2 class="animate-box" data-animate-effect="fadeInUp" style="text-align: center; margin-bottom: 36px">
+								A Faster Lightweight Full-Stack PHP Framework
+							</h2>
+							<div style="text-align: center; margin-bottom: 100px">
+						      <iframe src="https://ghbtns.com/github-btn.html?user=tigerb&repo=easy-php&type=star&count=true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
+						      <iframe src="https://ghbtns.com/github-btn.html?user=tigerb&repo=easy-php&type=fork&count=true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div id="gtco-features-3">
+		<div class="gtco-container">
+			<div class="gtco-flex">
+				<div class="feature feature-1 animate-box" data-animate-effect="fadeInUp">
+					<div class="feature-inner">
+						<h3>Easier</h3>
+						<p style="text-align: left">
+							The whole core framework file size is just 150kb, It's so slim. The framework be made up of a App class and the different of modules, such as route, config e.g. In the meantime, The framework support a series of friendly help for the api development.
+						</p>
+					</div>
+				</div>
+				<div class="feature feature-2 animate-box" data-animate-effect="fadeInUp">
+					<div class="feature-inner">
+						<h3>Faster</h3>
+						<p style="text-align: left">
+							Running speed like lightning, The framework just load what you need. When you output a "Hello World" , It just spend around one millisecond.
+						</p>
+					</div>
+				</div>
+				<div class="feature feature-3 animate-box" data-animate-effect="fadeInUp">
+					<div class="feature-inner">
+						<h3>Better</h3>
+						<p style="text-align: left">
+							Separate-frontend-and-backend structure and using Vue. Support PHP unit test and run the framework by php cli mode. Integated the api blueprint protocol and support api mock.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="gtco-features">
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center gtco-heading animate-box">
+					<h2>Feature Instruction</h2>
+					<p></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="animate-box" data-animate-effect="fadeIn">
+						<h3>Micro Monolith Router</h3>
+						<p>What's the micro monolith router? There are a lot of teams are moving in the SOA service structure or micro service structure, I think it is difficult for a small team. So the micro monolith was born, what's this? In my opinion, this is a SOA process for a monolith application. </p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="animate-box" data-animate-effect="fadeIn">
+						<h3>MVC To MCL</h3>
+						<p>The tradition MVC pattern includes the model,view,controller layer. In general, you always write the　business logic in the controller or model layer. But you will feel the code is difficult to read, maintain, expand after a long time. So I add a logic layer in the framework forcefully where you can implement the business logic by yourself. </p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="animate-box" data-animate-effect="fadeIn">
+						<h3>User-Defined</h3>
+						<p>The UserDefinedCase in the logics folder that can be loading before RouterHandle, where you can implement you logic before controller</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="animate-box" data-animate-effect="fadeIn">
+						<h3>Using Vue For View</h3>
+						<p>The separate-frontend-and-backend and two-way data binding, modular is so popular.In the meantime, I moved the project easy-vue that built by myself to the framework as the view layer. </p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="animate-box" data-animate-effect="fadeIn">
+						<h3>Service Container</h3>
+						<p>Service container is difficultly understand, I think it just a third party class, which can inject the class and instance. we can get the instance in the container very simple.</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="animate-box" data-animate-effect="fadeIn">
+						<h3>API Friendly</h3>
+						<p>All output is json in the framework, neithor framework's core error or business logic's output, which is so friendly.Provide request param check and a gateway example in the demo/logics/gateway</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="animate-box" data-animate-effect="fadeIn">
+						<h3>Git Hooks</h3>
+						<p>Verify the coding forcefully before commit by used php_codesniffer. And verify the commit-msg forcefully before commit by used the script commit-msg wrote by Treri, which can enhance the git log readability and debugging, log analysis usefully, etc.
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="animate-box" data-animate-effect="fadeIn">
+						<h3>Api Docs</h3>
+						<p>Usually after we write an api, the api documentation is a problem, we use the Api Blueprint protocol to write the api document and mock. At the same time, we can request the api real-timely by used Swagger. </p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="gtco-products">
+		<div class="gtco-container">
+			<div class="row animate-box">
+				<div class="col-md-8 col-md-offset-2 text-center gtco-heading animate-box">
+					<h2>Quick Install</h2>
+					<p style="border-radius: 30px; background-color: #0099CC; color: #fff; font-size: 20px; padding: 10px 0;">
+						composer create-project tigerb/easy-php easy --prefer-dist && cd easy
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer id="gtco-footer" role="contentinfo">
+		<div class="gtco-container">
+			<div class="row row-p	b-md">
+
+				<div class="col-md-4">
+					<div class="gtco-widget">
+						<h3>Why do we need to build a PHP framework by ourself?</h3>
+						<p>Maybe the most of people will say "There have so many PHP frameworks be provided, but we still made a wheel?". My point is "Made a wheel is not our purpose, we will get a few of knowledge when making a wheel which is our really purpose".</p>
+					</div>
+				</div>
+
+				<div class="col-md-4 col-md-push-1">
+					<div class="gtco-widget">
+						<h3>Links</h3>
+						<ul class="gtco-footer-links">
+							<li><a href="http://vue.tigerb.cn/">Easy Vue</a></li>
+							<li><a href="https://github.com/TIGERB/easy-tips">Easy Tips</a></li>
+							<li><a href="https://github.com/TIGERB/easy-mipush">Easy Mipush</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="gtco-widget">
+						<h3>Get In Touch</h3>
+						<ul class="gtco-quick-contact">
+							<li><a href="mailto:tigerbcode@gmail.com"><i class="icon-mail2"></i>tigerbcode@gmail.com</a></li>
+							<li><a href="https://github.com/TIGERB"><i class="icon-github"></i>github.com/TIGERB</a></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row copyright">
+				<div class="col-md-12">
+					<p class="pull-left">
+						<small class="block">&copy; 2017 TIGERB.cn All Rights Reserved.</small>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- countTo -->
+	<script src="js/jquery.countTo.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+
+	</body>
 </html>
