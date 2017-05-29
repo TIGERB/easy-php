@@ -1,0 +1,15 @@
+# encrypt ssh private key
+# travis encrypt-file ~/.ssh/id_rsa --add
+
+language: php
+php:
+- '5.4'
+before_install:
+# - openssl aes-256-cbc -K $encrypted_fee1ab4be628_key -iv $encrypted_fee1ab4be628_iv
+#   -in id_rsa.enc -out ~/.ssh/id_rsa -d
+# - chmod 600 ~/.ssh/id_rsa
+# - echo -e "Host ip\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- composer install
+
+after_success:
+# - ssh username@ip 'cd /path/project_name && git pull origin release'
