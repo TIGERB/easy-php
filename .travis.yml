@@ -13,3 +13,4 @@ before_install:
 
 after_success:
 # - ssh username@ip 'cd /path/project_name && git pull origin release'
+- bash <(curl -s https://codecov.io/bash) -t b0e9bd7b-cb0c-4991-8941-053e7309fe7b

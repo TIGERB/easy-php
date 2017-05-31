@@ -23,4 +23,7 @@
         <env name="APP_ENV" value="testing"/>
         <env name="IS_CLI" value="yes"/>
     </php>
+    <logging>
+        <log type="coverage-clover" target="clover.xml">
+    </logging>
 </phpunit>

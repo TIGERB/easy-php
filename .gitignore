@@ -3,3 +3,5 @@ vendor
 .env
 
 node_modules
+
+.tmp_staging
