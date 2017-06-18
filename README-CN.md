@@ -688,11 +688,10 @@ cp ./.git-hooks/* ./git/hooks
 
 - 提供更友善的开发api帮助
 - 模块支持数据库nosql自定义配置
-- 支持mysql主从配置
 - ORM提供更多链式操作api
 - 框架log行为进行级别分类
 - 想办法解决上线部署是配置文件问题
-- 基于phar文件和git webhook自动化打包部署
+- 基于phar文件打包部署
 - ...
 
 # DONE
@@ -707,3 +706,7 @@ cp ./.git-hooks/* ./git/hooks
     - 提供更友善的开发api帮助
         + 请求参数校验：require/length/number
     - 支持mysql主从配置
+
+- v0.7.0(2017/06/18)
+    - 集成travis-ci实现持续集成部署
+    - 增加脚本目录

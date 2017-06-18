@@ -681,11 +681,10 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 - Provide much friendly help for user
 - Module's config support module-defined mysql and nosql configuration
-- Support master-salve mysql configuration
 - ORM provide more apis
 - Make different rank for log
 - Resolve config problem when publish our project
-- implement auto deploy by used phar and git webhook
+- implement auto deploy by used phar
 - ...
 
 
@@ -696,7 +695,12 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
     - The performance test and optimize
     - Use the lazy load thought to optimize the framework
     - Change Helper's method to the framework's function
+
 - v0.6.9(2017/05/22)
     - more friendly for api develop process
         + request param check：require/length/number
     - support master-salve config for db
+
+- v0.7.0(2017/06/18)
+    - implement ci by travis-ci
+    - add jobs script folder

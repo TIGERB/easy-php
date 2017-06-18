@@ -15,6 +15,7 @@ use Framework\App;
 use Framework\Exceptions\CoreHttpException;
 use ReflectionClass;
 use Closure;
+use Framework\Handles\Router\Job;
 
 /**
  * 路由处理机制.
@@ -208,7 +209,8 @@ class RouterHandle implements Handle
         // 注入当前对象到容器中
         $app::$container->setSingle('router', $this);
         // request uri
-        $this->requestUri     = $app::$container->getSingle('request')->server('REQUEST_URI');
+        $request              = $app::$container->getSingle('request');
+        $this->requestUri     = $request->server('REQUEST_URI');
         // App
         $this->app            = $app;
         // 获取配置
@@ -221,6 +223,11 @@ class RouterHandle implements Handle
         $this->actionName     = $this->config->config['route']['default_action'];
 
         /* 路由策略　*/
+        if ($app->isCli === 'yes' && $request->get('router_mode') === 'job') {
+            $job = new Job();
+            $job->register($app);
+            return;
+        }
         $this->routeStrategy  = 'pathinfo';
         if (strpos($this->requestUri, 'index.php') || $app->isCli === 'yes') {
             $this->routeStrategy = 'general';
