@@ -3,7 +3,7 @@
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.6.9-green.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.7.0-green.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-152KB-orange.svg" alt="Framework Size"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework--phar-76KB-red.svg" alt="Framework Phar Size"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
@@ -667,6 +667,62 @@ php cli --method=<module.controller.action> --<arguments>=<value> ...
 获取帮助:
 
 使用命令 php cli 或者 php cli --help
+
+# 性能
+
+> ab -c 100 -n 10000 "http://easy-php.local/Demo/Index/hello"
+
+```
+Benchmarking easy-php.local (be patient)
+Completed 1000  requests
+Completed 2000  requests
+Completed 3000  requests
+Completed 4000  requests
+Completed 5000  requests
+Completed 6000  requests
+Completed 7000  requests
+Completed 8000  requests
+Completed 9000  requests
+Completed 10000 requests
+Finished  10000 requests
+
+
+Server Software:        nginx/1.10.2
+Server Hostname:        easy-php.local
+Server Port:            80
+
+Document Path:          /Demo/Index/hello
+Document Length:        53 bytes
+
+Concurrency Level:      100
+Time taken for tests:   6.571 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      1970000 bytes
+HTML transferred:       530000 bytes
+Requests per second:    1521.87 [#/sec] (mean)
+Time per request:       65.708 [ms] (mean)
+Time per request:       0.657 [ms] (mean, across all concurrent requests)
+Transfer rate:          292.78 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.2      0       3
+Processing:     9   65   4.4     65      86
+Waiting:        9   65   4.4     65      86
+Total:         12   65   4.3     65      86
+
+Percentage of the requests served within a certain time (ms)
+  50%     65
+  66%     67
+  75%     67
+  80%     68
+  90%     70
+  95%     72
+  98%     74
+  99%     75
+ 100%     86 (longest request)
+```
 
 # 问题和贡献
 
