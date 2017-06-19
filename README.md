@@ -2,6 +2,7 @@
 
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.7.0-green.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-152KB-orange.svg" alt="Framework Size"></a>
@@ -97,6 +98,10 @@ frontend                        [application frontend source code directory]
 ├── app.vue                     [vue root component]
 ├── index.template.html         [frontend entrance template file]
 ├── store.js                    [vuex store file]
+jobs                            [Jobs folder, where write you business script]
+├── demo                        [Module folder]
+│    ├── Demo.php               [Job script example file]
+│    ├── ...
 public                          [this is a resource directory to expose service resource]
 ├── dist                        [frontend source file after build]
 │    └── ...
@@ -116,6 +121,7 @@ vendor                          [composer vendor directory]
 .babelrc                        [babel　config file]
 .env.example                    [the environment variables example file]
 .gitignore                      [git ignore config file]
+.travis.yml                     [travis-ci config file]
 build                           [build php code to phar file script]
 cli                             [run this framework with the php cli mode]
 LICENSE                         [lincese　file]

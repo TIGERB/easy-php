@@ -2,6 +2,7 @@
 
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.7.0-green.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-152KB-orange.svg" alt="Framework Size"></a>
@@ -98,6 +99,10 @@ frontend                        [前端源码和资源目录]
 ├── app.vue                     [根组件]
 ├── index.template.html         [前端入口文件模板]
 ├── store.js                    [vuex store文件]
+jobs                            [脚本目录，写业务脚本的地方]
+├── demo                        [模块目录]
+│    ├── Demo.php               [脚本演示文件]
+│    ├── ...
 public                          [公共资源目录，暴露到万维网]
 ├── dist                        [前端build之后的资源目录，build生成的目录，不是发布分支忽略该目录]
 │    └── ...
@@ -117,6 +122,7 @@ vendor                          [composer目录]
 .babelrc                        [babel配置文件]
 .env.example                    [环境变量示例文件]
 .gitignore                      [git忽略文件配置]
+.travis.yml                     [持续集成工具travis-ci配置文件]
 build                           [php打包脚本]
 cli                             [框架cli模式运行脚本]
 LICENSE                         [lincese文件]
