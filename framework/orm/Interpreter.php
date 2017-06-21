@@ -97,8 +97,8 @@ trait Interpreter
                 ++$i;
                 continue;
             }
-            $fieldString .= "`{$k}`".',';
-            $valueString .= ":{$k}";
+            $fieldString .= " , `{$k}`";
+            $valueString .= " , :{$k}";
             $this->params[$k] = $v;
             ++$i;
         }
