@@ -152,7 +152,7 @@ class Container
         if (array_key_exists($alias, $this->instanceMap)) {
             $instance = $this->instanceMap[$alias];
             if (is_callable($instance)) {
-                return $instance();
+                return $this->instanceMap[$alias] = $instance();
             }
             return $instance;
         }
