@@ -272,8 +272,13 @@ class RouterHandle implements Handle
         if (!$reflaction->hasMethod($this->actionName)) {
             throw new CoreHttpException(404, 'Action:'.$this->actionName);
         }
+
         // 实例化当前控制器
         $controller = new $controllerPath();
+        // if (! method_exists($controller, $this->actionName)) {
+        //     throw new CoreHttpException(404, 'Action:'.$this->actionName);
+        // }
+
         // 调用操作
         $actionName = $this->actionName;
         // 获取返回值

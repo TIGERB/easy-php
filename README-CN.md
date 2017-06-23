@@ -679,55 +679,37 @@ php cli --method=<module.controller.action> --<arguments>=<value> ...
 > ab -c 100 -n 10000 "http://easy-php.local/Demo/Index/hello"
 
 ```
-Benchmarking easy-php.local (be patient)
-Completed 1000  requests
-Completed 2000  requests
-Completed 3000  requests
-Completed 4000  requests
-Completed 5000  requests
-Completed 6000  requests
-Completed 7000  requests
-Completed 8000  requests
-Completed 9000  requests
-Completed 10000 requests
-Finished  10000 requests
-
-
-Server Software:        nginx/1.10.2
-Server Hostname:        easy-php.local
-Server Port:            80
-
-Document Path:          /Demo/Index/hello
+Document Path:          /
 Document Length:        53 bytes
 
 Concurrency Level:      100
-Time taken for tests:   6.571 seconds
+Time taken for tests:   3.259 seconds
 Complete requests:      10000
 Failed requests:        0
 Total transferred:      1970000 bytes
 HTML transferred:       530000 bytes
-Requests per second:    1521.87 [#/sec] (mean)
-Time per request:       65.708 [ms] (mean)
-Time per request:       0.657 [ms] (mean, across all concurrent requests)
-Transfer rate:          292.78 [Kbytes/sec] received
+Requests per second:    3068.87 [#/sec] (mean)
+Time per request:       32.585 [ms] (mean)
+Time per request:       0.326 [ms] (mean, across all concurrent requests)
+Transfer rate:          590.40 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.2      0       3
-Processing:     9   65   4.4     65      86
-Waiting:        9   65   4.4     65      86
-Total:         12   65   4.3     65      86
+Connect:        0    0   0.3      0       4
+Processing:     6   32   4.0     31      68
+Waiting:        6   32   4.0     31      68
+Total:          8   32   4.0     31      68
 
 Percentage of the requests served within a certain time (ms)
-  50%     65
-  66%     67
-  75%     67
-  80%     68
-  90%     70
-  95%     72
-  98%     74
-  99%     75
- 100%     86 (longest request)
+  50%     31
+  66%     32
+  75%     33
+  80%     34
+  90%     39
+  95%     41
+  98%     43
+  99%     46
+ 100%     68 (longest request)
 ```
 
 # 问题和贡献
