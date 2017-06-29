@@ -723,6 +723,9 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 # TODO
 
+- Refactor router handle and make the jobs route more simple
+- Add database sql helper
+- Integrate swagger
 - Provide much friendly help for user
 - Module's config support module-defined mysql and nosql configuration
 - ORM provide more apis
@@ -734,17 +737,17 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 # DONE
 
-- v0.6.7(2017/05/14)
-    - fix not set default time zone
-    - The performance test and optimize
-    - Use the lazy load thought to optimize the framework
-    - Change Helper's method to the framework's function
+- v0.7.0(2017/06/18)
+    - implement ci by travis-ci
+    - add jobs script folder
 
 - v0.6.9(2017/05/22)
     - more friendly for api develop process
         + request param check：require/length/number
     - support master-salve config for db
 
-- v0.7.0(2017/06/18)
-    - implement ci by travis-ci
-    - add jobs script folder
+- v0.6.7(2017/05/14)
+    - fix not set default time zone
+    - The performance test and optimize
+    - Use the lazy load thought to optimize the framework
+    - Change Helper's method to the framework's function
