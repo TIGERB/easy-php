@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "demo": "webpack --progress -d --colors",
-    "dev": "webpack-dev-server --content-base ./",
+    "dev": "webpack-dev-server --content-base ./public",
     "build": "NODE_ENV=production webpack --progress --colors"
   },
   "author": "TIGERB<https://github.com/TIGERB>",
