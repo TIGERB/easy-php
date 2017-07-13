@@ -757,3 +757,7 @@ cp ./.git-hooks/* ./git/hooks
     - 懒加载优化框架加载流程
     - 变更Helper助手类的成员方法为框架函数，简化使用提高生产效率
     - 性能测试和优化
+
+# CONTACT
+
+<img src="qrcode.jpg" width="200px">
