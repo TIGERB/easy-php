@@ -208,7 +208,7 @@ password = easyphp
 
 All output is json in the framework, neithor framework's core error or business logic's output, beacuse I think is friendly.
 
-# Request param check, Support require/length/number check at present. Use as follows:
+##### Request param check, Support require/length/number check at present. Use as follows:
 ```
 $request = App::$container->getSingle('request');
 $request->check('username', 'require');
@@ -646,16 +646,12 @@ Run：
 
 **Web Server Mode:**
 
+Quick Start:
 ```
-step 1: yarn install
-step 2: DOMAIN=http://localhost:666 npm run demo
-step 3: cd public && sudo php -S localhost:666
-
-visit web：http://localhost:666/index.html
-visit api：http://localhost:666/Demo/Index/hello
-
+php cli --run
+```
 demo as follows：
-```
+
 <p align="center"><img width="30%" src="demo.gif"><p>
 
 **Cli Mode:**

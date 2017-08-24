@@ -1,0 +1,18 @@
+#! /bin/bash
+# Run this framework demo
+
+# step 1
+yarn install
+
+# step 2
+DOMAIN=http://localhost:60000 npm run demo
+
+# step 3
+# mac os
+open "http://localhost:60000/index.html"
+# linux os
+xdg-open "http://localhost:60000/index.html"
+
+# step 4
+cd public && php -S localhost:60000
+

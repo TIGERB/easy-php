@@ -5,3 +5,5 @@ vendor
 node_modules
 
 .tmp_staging
+
+yarn-error.log

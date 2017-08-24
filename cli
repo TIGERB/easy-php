@@ -14,6 +14,8 @@
  * cli模式
  *
  * 在php cli模式下运行框架运行框架
+ * 
+ * 快速开始demo: php cli --run
  */
 // php cli --env=<environment> --<method|job>=<value> --<arguments>=<value> ...
 // \033[33m env \033[0m:          Script run environment
@@ -36,11 +38,8 @@ $help = function () {
         \033[33m arguments \033[0m:    Input arguments
         \033[33m help      \033[0m:    Display command list
 
-    \033[36m Web Server Usage \033[0m:
-        step 1: cd public
-        step 2: php -S <addr>:<port>
-
-        For example, php -S 'localhost:666', after that open website 'http://localhost:666/'
+    \033[36m Quick start demo \033[0m:
+        php cli --run
 
     \033[32mEasy PHP: A Faster Lightweight Full-Stack PHP Framework. Version 0.7.0\033[0m
 
@@ -49,6 +48,13 @@ $help = function () {
 HELP;
 
     die($string);
+};
+
+/**
+ * 快速开始demo
+ */
+$demo = function () {
+    shell_exec('./run');
 };
 
 /**
@@ -64,6 +70,9 @@ foreach ($argv as $v) {
         $match = explode('=', $match[1][0]);
         if ($match[0] === 'help') {
             $help();
+        }
+        if ($match[0] === 'run') {
+            $demo();
         }
         if (isset($match[1])) {
             $input[$match[0]] = $match[1];
