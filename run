@@ -1,6 +1,9 @@
 #! /bin/bash
 # Run this framework demo
 
+# get os version
+os=$(uname -a | awk 'BEGIN{FS=" "} {print $1}')
+
 # step 1
 yarn install
 
@@ -8,11 +11,19 @@ yarn install
 DOMAIN=http://localhost:60000 npm run demo
 
 # step 3
-# mac os
-open "http://localhost:60000/index.html"
-# linux os
-xdg-open "http://localhost:60000/index.html"
+if [[ "$os" == "Darwin" ]] 
+then
+  # mac os
+  open "http://localhost:60000/index.html"
+else
+  if [[! -f "/usr/bin/xdg-open"]]
+  then
+    echo "Install xdg-open, input your password:"
+    sudo apt-get install snapd-xdg-open
+  fi
+  # debian os
+  xdg-open "http://localhost:60000/index.html"
+fi
 
 # step 4
-cd public && php -S localhost:60000
-
+cd public && php -S "localhost:60000"
