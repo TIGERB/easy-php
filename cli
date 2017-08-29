@@ -32,13 +32,18 @@ $help = function () {
         php cli --job=demo.demo.test --username=test
 
     \033[36m Params mean \033[0m:
+        \033[33m run \033[0m:          Quick start this framework
         \033[33m method \033[0m:       The function will running, value format <module.controller.action>
         \033[33m job \033[0m:          The function will running, value format <module.job.action>
         \033[33m arguments \033[0m:    Input arguments
+        \033[33m build \033[0m:        Build this app file to the phar file
         \033[33m help      \033[0m:    Display command list
 
     \033[36m Quick start demo \033[0m:
         php cli --run
+
+    \033[36m Build framework to phar file \033[0m:
+        php cli --build
 
     \033[32mEasy PHP: A Faster Lightweight Full-Stack PHP Framework. Version 0.7.1\033[0m
 
@@ -54,6 +59,16 @@ HELP;
  */
 $demo = function () {
     shell_exec('./run');
+    die;
+};
+
+/**
+ * 打包
+ */
+$build = function () {
+    shell_exec('php build');
+    echo "SUCCESS";
+    die;
 };
 
 /**
@@ -72,6 +87,9 @@ foreach ($argv as $v) {
         }
         if ($match[0] === 'run') {
             $demo();
+        }
+        if ($match[0] === 'build') {
+            $build();
         }
         if (isset($match[1])) {
             $input[$match[0]] = $match[1];

@@ -223,7 +223,7 @@ class App
         $router->controllerName = $requestUri[1];
         $router->actionName     = $requestUri[2];
         $router->routeStrategy  = 'micromonomer';
-        $router->route();
+        $router->init($this);
         return $this->responseData;
     }
 

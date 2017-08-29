@@ -4,7 +4,7 @@
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.7.0-green.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.7.1-green.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-152KB-orange.svg" alt="Framework Size"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework--phar-76KB-red.svg" alt="Framework Phar Size"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
@@ -141,6 +141,7 @@ package.json                    [前端依赖配置文件]
 phpunit.xml                     [phpunit配置文件]
 README-CN.md                    [中文版readme文件]
 README.md                       [readme文件]
+run                             [快速开始脚本]
 webpack.config.js               [webpack配置文件]
 yarn.lock                       [yarn　lock文件]
 
@@ -571,6 +572,49 @@ App::$container->getSingle('mongodb');
 
 [[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
 
+##  Job Support
+
+我们可以在jobs目录下直接编写我们的任务脚本，如下
+
+```
+jobs                            [脚本目录，写业务脚本的地方]
+├── demo                        [模块目录]
+│    ├── Demo.php               [脚本演示文件]
+│    ├── ...
+```
+
+任务脚本示例:
+```
+<?php
+namespace Jobs\Demo;
+
+/**
+ * Demo Jobs
+ *
+ * @author TIERGB <https://github.com/TIGERB>
+ */
+class Demo
+{
+    /**
+     * job
+     *
+     * @example php cli --jobs=demo.demo.test
+     */
+    public function test()
+    {
+        echo 'Hello Easy PHP Jobs';
+    }
+}
+
+```
+
+最后直接运行下面的命令即可：
+```
+php cli --job=demo.demo.test
+```
+
+[[file: jobs/*](https://github.com/TIGERB/easy-php/tree/feature/router/jobs)]
+
 ##  接口文档生成和接口模拟模块
 
 通常我们写完一个接口后，接口文档是一个问题，我们这里使用Api Blueprint协议完成对接口文档的书写和mock(可用)，同时我们配合使用Swagger通过接口文档实现对接口的实时访问(目前未实现)。
@@ -657,6 +701,9 @@ runtime/build/App.20170505085503.phar
 // 入口文件引入包文件即可
 require('runtime/build/App.20170505085503.phar');
 ```
+
+Command:
+> php cli --build
 
 [[file: ./build](https://github.com/TIGERB/easy-php/tree/master/build)]
 
