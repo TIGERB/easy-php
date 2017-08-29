@@ -9,31 +9,27 @@
  *                                               *
  *************************************************/
 
-namespace Framework\Handles;
+namespace Framework\Router;
 
-use Framework\App;
-use Framework\Exceptions\CoreHttpException;
-use ReflectionClass;
-use Closure;
-use Framework\Router\Job;
+use Framework\Router\RouterInterface;
 use Framework\Router\EasyRouter;
 
 /**
- * 路由处理机制.
+ * 微单体路由策略.
+ * 
+ * APP内部调用　可构建微单体架构
  *
  * @author TIERGB <https://github.com/TIGERB>
  */
-class RouterHandle implements Handle
+class Micromonomer implements RouterInterface
 {
     /**
-     * 注册路由处理机制.
+     * 路由方法
      *
-     * @param App $app 框架实例
      * @param void
      */
-    public function register(App $app)
+    public function route(EasyRouter $entrance)
     {
-        // 初始化路由模块入口类
-        (new EasyRouter())->init($app);
+		# do nothing...
     }
 }

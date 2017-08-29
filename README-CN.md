@@ -4,7 +4,7 @@
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.7.0-green.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.7.1-green.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-152KB-orange.svg" alt="Framework Size"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework--phar-76KB-red.svg" alt="Framework Phar Size"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
@@ -78,6 +78,14 @@ framework                       [Easy PHP核心框架目录]
 │      ├── Model.php            [数据模型基类]
 │      └── db                   [数据库类目录]
 │          └── Mysql.php        [mysql实体类]
+├── router                      [路由策略]
+│      ├── RouterInterface.php  [路由策略接口]
+│      ├── General.php          [普通路由]
+│      ├── Pathinfo.php         [pathinfo路由]
+│      ├── Userdefined.php      [自定义路由]
+│      ├── Micromonomer.php     [微单体路由]
+│      ├── Job.php              [脚本任务路由]
+│      └── EasyRouter.php       [路由策略入口类]
 ├── nosql                       [nosql类目录]
 │    ├── Memcahed.php           [Memcahed类文件]
 │    ├── MongoDB.php            [MongoDB类文件]
@@ -133,6 +141,7 @@ package.json                    [前端依赖配置文件]
 phpunit.xml                     [phpunit配置文件]
 README-CN.md                    [中文版readme文件]
 README.md                       [readme文件]
+run                             [快速开始脚本]
 webpack.config.js               [webpack配置文件]
 yarn.lock                       [yarn　lock文件]
 
@@ -224,6 +233,17 @@ $request->check('code', 'number');
 [[file: framework/Response.php](https://github.com/TIGERB/easy-php/blob/master/framework/Response.php)]
 
 ##  路由模块
+
+```
+├── router                      [路由策略]
+│      ├── RouterInterface.php  [路由策略接口]
+│      ├── General.php          [普通路由]
+│      ├── Pathinfo.php         [pathinfo路由]
+│      ├── Userdefined.php      [自定义路由]
+│      ├── Micromonomer.php     [微单体路由]
+│      ├── Job.php              [脚本任务路由]
+│      └── EasyRouter.php       [路由策略入口类]
+```
 
 通过用户访问的url信息，通过路由规则执行目标控制器类的的成员方法。我在这里把路由大致分成了四类：
 
@@ -552,6 +572,49 @@ App::$container->getSingle('mongodb');
 
 [[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
 
+##  Job Support
+
+我们可以在jobs目录下直接编写我们的任务脚本，如下
+
+```
+jobs                            [脚本目录，写业务脚本的地方]
+├── demo                        [模块目录]
+│    ├── Demo.php               [脚本演示文件]
+│    ├── ...
+```
+
+任务脚本示例:
+```
+<?php
+namespace Jobs\Demo;
+
+/**
+ * Demo Jobs
+ *
+ * @author TIERGB <https://github.com/TIGERB>
+ */
+class Demo
+{
+    /**
+     * job
+     *
+     * @example php cli --jobs=demo.demo.test
+     */
+    public function test()
+    {
+        echo 'Hello Easy PHP Jobs';
+    }
+}
+
+```
+
+最后直接运行下面的命令即可：
+```
+php cli --job=demo.demo.test
+```
+
+[[file: jobs/*](https://github.com/TIGERB/easy-php/tree/feature/router/jobs)]
+
 ##  接口文档生成和接口模拟模块
 
 通常我们写完一个接口后，接口文档是一个问题，我们这里使用Api Blueprint协议完成对接口文档的书写和mock(可用)，同时我们配合使用Swagger通过接口文档实现对接口的实时访问(目前未实现)。
@@ -639,6 +702,9 @@ runtime/build/App.20170505085503.phar
 require('runtime/build/App.20170505085503.phar');
 ```
 
+Command:
+> php cli --build
+
 [[file: ./build](https://github.com/TIGERB/easy-php/tree/master/build)]
 
 # 如何使用?
@@ -725,7 +791,7 @@ cp ./.git-hooks/* ./git/hooks
 
 # TODO
 
-- 重构路由，简化jobs路由流程
+- 集成swoole
 - 增加数据库变更辅助
 - 集成swagger
 - 提供更友善的开发api帮助
@@ -737,6 +803,9 @@ cp ./.git-hooks/* ./git/hooks
 - ...
 
 # DONE
+
+- v0.7.1(2017/08/29)
+    - 重构路由模块
 
 - v0.7.0(2017/06/18)
     - 集成travis-ci实现持续集成部署

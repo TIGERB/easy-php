@@ -7,3 +7,5 @@ node_modules
 .tmp_staging
 
 yarn-error.log
+
+clover.cxml

@@ -1,13 +1,13 @@
 <?php
-/********************************************
- *                Easy PHP                  *
- *                                          *
- * A lightweight PHP framework for studying *
- *                                          *
- *                 TIERGB                   *
- *      <https://github.com/TIGERB>         *
- *                                          *
- ********************************************/
+/*************************************************
+ *                  Easy PHP                     *
+ *                                               *
+ * A Faster Lightweight Full-Stack PHP Framework *
+ *                                               *
+ *                  TIERGB                       *
+ *        <https://github.com/TIGERB>            *
+ *                                               *
+ *************************************************/
 
 namespace Framework;
 
@@ -222,8 +222,8 @@ class App
         $router->moduleName     = $requestUri[0];
         $router->controllerName = $requestUri[1];
         $router->actionName     = $requestUri[2];
-        $router->routeStrategy  = 'microMonomer';
-        $router->route();
+        $router->routeStrategy  = 'micromonomer';
+        $router->init($this);
         return $this->responseData;
     }
 

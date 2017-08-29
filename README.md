@@ -4,7 +4,7 @@
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.7.0-green.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.7.1-green.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-152KB-orange.svg" alt="Framework Size"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework--phar-76KB-red.svg" alt="Framework Phar Size"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
@@ -77,6 +77,14 @@ framework                       [easy-php framework directory]
 │      ├── Model.php            [data model]
 │      └── db                   [db type directory]
 │          └── Mysql.php        [mysql class file]
+├── router                      [router strategy]
+│      ├── RouterInterface.php  [router strategy interface]
+│      ├── General.php          [general strategy class]
+│      ├── Pathinfo.php         [pathinfo strategy class]
+│      ├── Userdefined.php      [userdefined strategy class]
+│      ├── Micromonomer.php     [micromonomer strategy class]
+│      ├── Job.php              [job strategy class]
+│      └── EasyRouter.php       [router strategy entrance class]
 ├── nosql                       [nosql directory]
 │    ├── Memcahed.php           [memcahed class file]
 │    ├── MongoDB.php            [mongoDB class file]
@@ -132,6 +140,7 @@ package.json                    [dependence file for frontend]
 phpunit.xml                     [phpunit config file]
 README-CN.md                    [readme file chinese]
 README.md                       [readme file]
+run                             [quick start shell script]
 webpack.config.js               [webpack config file]
 yarn.lock                       [yarn　lock file]
 
@@ -221,6 +230,17 @@ $request->check('code', 'number');
 [[file: framework/Response.php](https://github.com/TIGERB/easy-php/blob/master/framework/Response.php)]
 
 ##  Route Handle Module
+
+```
+├── router                      [datebase object relation map class directory]
+      ├── RouterInterface.php   [router strategy interface]
+      ├── General.php           [general strategy class]
+      ├── Pathinfo.php          [pathinfo strategy class]
+      ├── Userdefined.php       [userdefined strategy class]
+      ├── Micromonomer.php      [micromonomer strategy class]
+      ├── Job.php               [job strategy class]
+      └── EasyRouter.php        [router strategy entrance class]
+```
 
 Execute the target controller's function by the router parse the url information.Is composed of four types of:
 
@@ -551,6 +571,49 @@ App::$container->getSingle('mongodb');
 
 [[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
 
+##  Job Support
+
+You can do some job in the jobs folder directly as follows:
+
+```
+jobs                            [Jobs folder, where write you business script]
+├── demo                        [Module folder]
+│    ├── Demo.php               [Job script example file]
+│    ├── ...
+```
+
+Job demo file:
+```
+<?php
+namespace Jobs\Demo;
+
+/**
+ * Demo Jobs
+ *
+ * @author TIERGB <https://github.com/TIGERB>
+ */
+class Demo
+{
+    /**
+     * job
+     *
+     * @example php cli --jobs=demo.demo.test
+     */
+    public function test()
+    {
+        echo 'Hello Easy PHP Jobs';
+    }
+}
+
+```
+
+So, just run the command:
+```
+php cli --job=demo.demo.test
+```
+
+[[file: jobs/*](https://github.com/TIGERB/easy-php/tree/feature/router/jobs)]
+
 ##  Api Docs
 
 Usually after we write an api, the api documentation is a problem, we use the Api Blueprint protocol to write the api document and mock. At the same time, we can request the api real-timely by used Swagger　(unavailable).
@@ -634,7 +697,12 @@ runtime/build/App.20170505085503.phar
 <?php
 // require the phar file in index.php file
 require('runtime/build/App.20170505085503.phar');
+
 ```
+
+Command:
+> php cli --build
+
 
 [[file: ./build](https://github.com/TIGERB/easy-php/tree/master/build)]
 
@@ -719,7 +787,7 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 # TODO
 
-- Refactor router handle and make the jobs route more simple
+- Use swoole
 - Add database sql helper
 - Integrate swagger
 - Provide much friendly help for user
@@ -732,6 +800,9 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 
 # DONE
+
+- v0.7.1(2017/08/29)
+    - refactor router by the strategy design pattern 
 
 - v0.7.0(2017/06/18)
     - implement ci by travis-ci

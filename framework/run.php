@@ -1,13 +1,13 @@
 <?php
-/********************************************
- *                Easy PHP                  *
- *                                          *
- * A lightweight PHP framework for studying *
- *                                          *
- *                 TIERGB                   *
- *      <https://github.com/TIGERB>         *
- *                                          *
- ********************************************/
+/*************************************************
+ *                  Easy PHP                     *
+ *                                               *
+ * A Faster Lightweight Full-Stack PHP Framework *
+ *                                               *
+ *                  TIERGB                       *
+ *        <https://github.com/TIGERB>            *
+ *                                               *
+ *************************************************/
 
 use Framework\Handles\ErrorHandle;
 use Framework\Handles\ExceptionHandle;
