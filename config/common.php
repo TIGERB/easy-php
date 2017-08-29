@@ -12,6 +12,12 @@
 use Framework\Helper;
 
 return [
+    /* 应用目录名称 */
+    'application_folder_name' => 'app',
+
+    /* 脚本目录名称 */
+    'jobs_folder_name' => 'jobs',
+
     /* 默认模块 */
     'module' => [
         'demo'

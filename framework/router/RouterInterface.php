@@ -9,31 +9,21 @@
  *                                               *
  *************************************************/
 
-namespace Framework\Handles;
+namespace Framework\Router;
 
-use Framework\App;
-use Framework\Exceptions\CoreHttpException;
-use ReflectionClass;
-use Closure;
-use Framework\Router\Job;
 use Framework\Router\EasyRouter;
 
 /**
- * 路由处理机制.
+ * 路由策略接口.
  *
  * @author TIERGB <https://github.com/TIGERB>
  */
-class RouterHandle implements Handle
+Interface RouterInterface
 {
     /**
-     * 注册路由处理机制.
+     * 路由方法
      *
-     * @param App $app 框架实例
      * @param void
      */
-    public function register(App $app)
-    {
-        // 初始化路由模块入口类
-        (new EasyRouter())->init($app);
-    }
+    public function route(EasyRouter $entrance);
 }

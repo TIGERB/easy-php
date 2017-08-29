@@ -77,6 +77,14 @@ framework                       [easy-php framework directory]
 │      ├── Model.php            [data model]
 │      └── db                   [db type directory]
 │          └── Mysql.php        [mysql class file]
+├── router                      [router strategy]
+│      ├── RouterInterface.php  [router strategy interface]
+│      ├── General.php          [general strategy class]
+│      ├── Pathinfo.php         [pathinfo strategy class]
+│      ├── Userdefined.php      [userdefined strategy class]
+│      ├── Micromonomer.php     [micromonomer strategy class]
+│      ├── Job.php              [job strategy class]
+│      └── EasyRouter.php       [router strategy entrance class]
 ├── nosql                       [nosql directory]
 │    ├── Memcahed.php           [memcahed class file]
 │    ├── MongoDB.php            [mongoDB class file]
@@ -221,6 +229,17 @@ $request->check('code', 'number');
 [[file: framework/Response.php](https://github.com/TIGERB/easy-php/blob/master/framework/Response.php)]
 
 ##  Route Handle Module
+
+```
+├── router                      [datebase object relation map class directory]
+│      ├── RouterInterface.php  [router strategy interface]
+│      ├── General.php          [general strategy class]
+│      ├── Pathinfo.php         [pathinfo strategy class]
+│      ├── Userdefined.php      [userdefined strategy class]
+│      ├── Micromonomer.php     [micromonomer strategy class]
+│      ├── Job.php              [job strategy class]
+│      └── EasyRouter.php       [router strategy entrance class]
+```
 
 Execute the target controller's function by the router parse the url information.Is composed of four types of:
 
@@ -719,7 +738,7 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 # TODO
 
-- Refactor router handle and make the jobs route more simple
+- Use swoole
 - Add database sql helper
 - Integrate swagger
 - Provide much friendly help for user
@@ -732,6 +751,9 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 
 # DONE
+
+- v0.7.1(2017/08/29)
+    - refactor router by the strategy design pattern 
 
 - v0.7.0(2017/06/18)
     - implement ci by travis-ci

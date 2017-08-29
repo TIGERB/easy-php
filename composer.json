@@ -1,7 +1,7 @@
 {
     "name": "tigerb/easy-php",
     "description": "A Faster Lightweight Full-Stack PHP Framework",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "type": "framework",
     "homepage": "http://php.tiegrb.cn/",
     "license": "MIT",

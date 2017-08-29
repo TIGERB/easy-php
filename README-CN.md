@@ -78,6 +78,14 @@ framework                       [Easy PHP核心框架目录]
 │      ├── Model.php            [数据模型基类]
 │      └── db                   [数据库类目录]
 │          └── Mysql.php        [mysql实体类]
+├── router                      [路由策略]
+│      ├── RouterInterface.php  [路由策略接口]
+│      ├── General.php          [普通路由]
+│      ├── Pathinfo.php         [pathinfo路由]
+│      ├── Userdefined.php      [自定义路由]
+│      ├── Micromonomer.php     [微单体路由]
+│      ├── Job.php              [脚本任务路由]
+│      └── EasyRouter.php       [路由策略入口类]
 ├── nosql                       [nosql类目录]
 │    ├── Memcahed.php           [Memcahed类文件]
 │    ├── MongoDB.php            [MongoDB类文件]
@@ -224,6 +232,17 @@ $request->check('code', 'number');
 [[file: framework/Response.php](https://github.com/TIGERB/easy-php/blob/master/framework/Response.php)]
 
 ##  路由模块
+
+```
+├── router                      [路由策略]
+│      ├── RouterInterface.php  [路由策略接口]
+│      ├── General.php          [普通路由]
+│      ├── Pathinfo.php         [pathinfo路由]
+│      ├── Userdefined.php      [自定义路由]
+│      ├── Micromonomer.php     [微单体路由]
+│      ├── Job.php              [脚本任务路由]
+│      └── EasyRouter.php       [路由策略入口类]
+```
 
 通过用户访问的url信息，通过路由规则执行目标控制器类的的成员方法。我在这里把路由大致分成了四类：
 
@@ -725,7 +744,7 @@ cp ./.git-hooks/* ./git/hooks
 
 # TODO
 
-- 重构路由，简化jobs路由流程
+- 集成swoole
 - 增加数据库变更辅助
 - 集成swagger
 - 提供更友善的开发api帮助
@@ -737,6 +756,9 @@ cp ./.git-hooks/* ./git/hooks
 - ...
 
 # DONE
+
+- v0.7.1(2017/08/29)
+    - 重构路由模块
 
 - v0.7.0(2017/06/18)
     - 集成travis-ci实现持续集成部署
