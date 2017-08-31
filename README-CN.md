@@ -147,6 +147,10 @@ yarn.lock                       [yarn　lock文件]
 
 ```
 
+# 生名周期
+
+<p align="center"><img width="90%" src="http://easy-php.tigerb.cn/_media/life_cycle_en.png"><p>
+
 # 框架模块说明：
 
 ##  入口文件
@@ -822,6 +826,11 @@ cp ./.git-hooks/* ./git/hooks
     - 变更Helper助手类的成员方法为框架函数，简化使用提高生产效率
     - 性能测试和优化
 
-# CONTACT
+## 赞赏
+
+<img src="https://raw.githubusercontent.com/TIGERB/easy-tips/master/money-qrcode.jpg" width="300px">
+
+## 交流群
 
 <img src="qrcode.jpg" width="200px">
+

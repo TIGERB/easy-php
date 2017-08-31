@@ -146,6 +146,10 @@ yarn.lock                       [yarn　lock file]
 
 ```
 
+# Life Cycle
+
+<p align="center"><img width="90%" src="http://easy-php.tigerb.cn/_media/life_cycle_en.png"><p>
+
 # Framework Module Description:
 
 ##  Entrance file
@@ -818,3 +822,11 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
     - The performance test and optimize
     - Use the lazy load thought to optimize the framework
     - Change Helper's method to the framework's function
+
+## APPRECIATION
+
+<img src="https://raw.githubusercontent.com/TIGERB/easy-tips/master/money-qrcode.jpg" width="300px">
+
+# CONTACT
+
+<img src="qrcode.jpg" width="200px">
