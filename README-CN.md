@@ -147,6 +147,10 @@ yarn.lock                       [yarn　lock文件]
 
 ```
 
+# 生名周期
+
+<p align="center"><img width="90%" src="http://easy-php.tigerb.cn/_media/life_cycle_en.png"><p>
+
 # 框架模块说明：
 
 ##  入口文件
