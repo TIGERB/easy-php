@@ -297,6 +297,35 @@ App::$app->get('demo/index/hello', [
 
 通过上面的方式我们就可以松耦合的方式进行单体下各个模块的通信和依赖了。与此同时，业务的发展是难以预估的，未来当我们向SOA的架构迁移时，很简单，我们只需要把以往的模块独立成各个项目，然后把App实例get方法的实现转变为RPC或者REST的策略即可，我们可以通过配置文件去调整对应的策略或者把自己的，第三方的实现注册进去即可。
 
+**Nginx&Apache pathinfo路由 rewrite配置**
+
+Nginx:
+
+```
+if (!-e $request_filename)
+{
+    rewrite ^/(.*)$ /index.php/$1 last;
+    break;
+}
+
+或者：
+try_files $uri $uri/ /index.php$is_args$args;
+
+```
+
+Apache:
+
+```
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks -Multiviews
+  RewriteEngine On
+
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+</IfModule>
+```
+
 [[file: framework/hanles/RouterHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/RouterHandle.php)]
 
 ##  传统的MVC模式提倡为MCL模式

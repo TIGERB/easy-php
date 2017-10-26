@@ -294,6 +294,35 @@ App::$app->get('demo/index/hello', [
 
 So we can resolve this problem loose coupling. In the meantime, we can exchange our application to the SOA structure easily, beacuse we only need to change the method get implementing way in the App class, the way contain RPC, REST. etc.
 
+**Nginx&Apache rewrite config for the pathinfo router**
+
+Nginx:
+
+```
+if (!-e $request_filename)
+{
+    rewrite ^/(.*)$ /index.php/$1 last;
+    break;
+}
+
+or：
+try_files $uri $uri/ /index.php$is_args$args;
+
+```
+
+Apache:
+
+```
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks -Multiviews
+  RewriteEngine On
+
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+</IfModule>
+```
+
 [[file: framework/hanles/RouterHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/RouterHandle.php)]
 
 ##  MVC To MCL
