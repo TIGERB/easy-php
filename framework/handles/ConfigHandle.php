@@ -106,9 +106,9 @@ class ConfigHandle implements Handle
         $this->config = array_merge($defaultCommon, $defaultNosql, $defaultDatabase);
 
         /* 加载模块自定义配置 */
-        $module = $app::$container->getSingle('config')->config['module'];
-        foreach ($module as $v) {
-            $file = "{$app->rootPath}/config/{$v}/config.php";
+        $modules = $app::$container->getSingle('config')->config['module'];
+        foreach ($modules as $module) {
+            $file = "{$app->rootPath}/config/{$module}/config.php";
             if (file_exists($file)) {
                 $this->config = array_merge($this->config, require($file));
             }
