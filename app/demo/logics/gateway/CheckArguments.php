@@ -58,8 +58,8 @@ class CheckArguments extends Check
         foreach ($this->commonArgus as $v) {
             if (! isset($params[$v]) || empty($params[$v])) {
                 throw new CoreHttpException(
-                    "Gateway's common argument [{$v}] is empty",
-                    400
+                    400,
+                    "Gateway's common argument [{$v}] is empty"
                 );
             }
         }

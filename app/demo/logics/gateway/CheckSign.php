@@ -58,7 +58,7 @@ class CheckSign extends Check
             if ($request->env('env')['env'] === 'develop') {
                 $info = "invaild sign. info: string->{$string}, sign->{$md5}";
             }
-            throw new CoreHttpException($info, 401);
+            throw new CoreHttpException(401, $info);
         }
     }
 }
