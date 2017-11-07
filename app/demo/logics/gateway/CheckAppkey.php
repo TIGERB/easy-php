@@ -35,6 +35,6 @@ class CheckAppkey extends Check
         if (isset($appKeyMap[$appKey])) {
             return;
         }
-        throw new CoreHttpException('app_key is not found', 404);
+        throw new CoreHttpException(404, 'app_key is not found');
     }
 }

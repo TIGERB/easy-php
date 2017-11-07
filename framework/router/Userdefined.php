@@ -13,7 +13,7 @@ namespace Framework\Router;
 
 use Framework\Router\RouterInterface;
 use Framework\Router\EasyRouter;
-
+use Framework\Exceptions\CoreHttpException;
 /**
  * 自定义路由策略.
  *

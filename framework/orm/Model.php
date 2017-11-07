@@ -56,7 +56,7 @@ class Model extends DB
         }
         preg_match_all('/([A-Z][a-z]*)/', $callClassName, $match);
         if (! isset($match[1][0]) || empty($match[1][0])) {
-            throw new CoreHttpException('model name invalid', 401);
+            throw new CoreHttpException(401, 'model name invalid');
         }
         $match = $match[1];
         $count = count($match);

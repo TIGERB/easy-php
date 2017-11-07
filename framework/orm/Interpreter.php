@@ -83,7 +83,7 @@ trait Interpreter
     public function insert($data=[])
     {
         if (empty($data)) {
-            throw new CoreHttpException("argument data is null", 400);
+            throw new CoreHttpException(400, "argument data is null");
         }
 
         $fieldString = '';
@@ -127,7 +127,7 @@ trait Interpreter
     public function updateData($data = [])
     {
         if (empty($data)) {
-            throw new CoreHttpException("argument data is null", 400);
+            throw new CoreHttpException(400, "argument data is null");
         }
         $set = '';
         $dataCopy = $data;
@@ -162,8 +162,8 @@ trait Interpreter
             case 1:
                 if(! isset($data[0])) {
                     throw new CoreHttpException(
-                        "data format invalid",
-                        400
+                        400,
+                        "data format invalid"
                     );
                 }
                 $field = "`{$data[0]}`";
@@ -244,8 +244,8 @@ trait Interpreter
     {
         if (! is_string($sort)) {
             throw new CoreHttpException(
-                'argu is not string',
-                400
+                400,
+                'argu is not string'
             );
         }
         $this->orderBy = " order by {$sort}";
@@ -333,7 +333,7 @@ trait Interpreter
     public function querySql($sql = '')
     {
         if (empty($sql)) {
-            throw new CoreHttpException("sql is empty", 400);
+            throw new CoreHttpException(400, "sql is empty");
         }
         $this->sql = $sql;
     }
