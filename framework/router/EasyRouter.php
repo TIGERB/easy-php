@@ -38,6 +38,13 @@ class EasyRouter
     private $config;
 
     /**
+     * 请求对象
+     *
+     * @var
+     */
+    private $request;
+
+    /**
      * 默认模块.
      *
      * @var string
