@@ -85,7 +85,6 @@ class App
      * @var object
      */
     public static $container;
-
     /**
      * 构造函数
      *
@@ -105,6 +104,20 @@ class App
 
         self::$app = $this;
         self::$container = new Container();
+
+        /**
+         * 当前时间戳 now timestamp
+         * 
+         * 单位秒 s
+         */
+        define('CURRENT_TIME', time());
+
+        /**
+         * 当前毫秒级时间戳 now micro timestamp
+         * 
+         * 单位秒 ms
+         */
+        define('CURRENT_MICROTIME', microtime(true));
     }
 
     /**

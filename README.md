@@ -16,9 +16,9 @@
 
 # How to build a PHP framework by ourself ?
 
-Why do we need to build a PHP framework by ourself? Maybe the most of people will say "There have so many PHP frameworks be provided, but we still made a wheel?". My point is "Made a wheel is not our purpose, we will get a few of knowledge when making a wheel which is our really purpose".
+Why do we need to build a PHP framework by ourself? Maybe most people will say "There are so many PHP frameworks provided, why should we still make a wheel?". As my opinion, "The main reason is we can learn lots of knowledge during making a whell, not itself".
 
-Then, how to build a PHP framework by ourself? General process as follows:
+Then, how to build a PHP framework by ourself? General process is as follows:
 
 ```
 Entry file ----> Register autoload function
@@ -293,6 +293,35 @@ App::$app->get('demo/index/hello', [
 ```
 
 So we can resolve this problem loose coupling. In the meantime, we can exchange our application to the SOA structure easily, beacuse we only need to change the method get implementing way in the App class, the way contain RPC, REST. etc.
+
+**Nginx&Apache rewrite config for the pathinfo router**
+
+Nginx:
+
+```
+if (!-e $request_filename)
+{
+    rewrite ^/(.*)$ /index.php/$1 last;
+    break;
+}
+
+or：
+try_files $uri $uri/ /index.php$is_args$args;
+
+```
+
+Apache:
+
+```
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks -Multiviews
+  RewriteEngine On
+
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+</IfModule>
+```
 
 [[file: framework/hanles/RouterHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/RouterHandle.php)]
 

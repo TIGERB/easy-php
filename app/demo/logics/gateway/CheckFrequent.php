@@ -52,8 +52,8 @@ class CheckFrequent extends Check
         }
         if ($value >= $this->times) {
             throw new CoreHttpException(
-                "too many request per {$this->timeScope} seconds",
-                1
+                400,
+                "too many request per {$this->timeScope} seconds"
             );
         }
         $redis->incr($key);
