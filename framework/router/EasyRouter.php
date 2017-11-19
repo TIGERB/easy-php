@@ -38,7 +38,7 @@ class EasyRouter
     private $config;
 
     /**
-     * 请求对象
+     * 请求对象实例
      *
      * @var
      */
