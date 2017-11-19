@@ -855,6 +855,11 @@ cp ./.git-hooks/* ./git/hooks
     - 变更Helper助手类的成员方法为框架函数，简化使用提高生产效率
     - 性能测试和优化
 
-# CONTACT
+## 赞赏
+
+<img src="https://raw.githubusercontent.com/TIGERB/easy-tips/master/money-qrcode.jpg" width="300px">
+
+## 交流群
 
 <img src="qrcode.jpg" width="200px">
+

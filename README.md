@@ -852,6 +852,10 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
     - Use the lazy load thought to optimize the framework
     - Change Helper's method to the framework's function
 
+## APPRECIATION
+
+<img src="https://raw.githubusercontent.com/TIGERB/easy-tips/master/money-qrcode.jpg" width="300px">
+
 # CONTACT
 
 <img src="qrcode.jpg" width="200px">
