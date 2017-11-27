@@ -37,7 +37,7 @@ try {
      *
      * Init framework
      */
-    $app = new Framework\App(__DIR__ . '/..', function () {
+    $app = new Framework\App(realpath(__DIR__ . '/..'), function () {
         return require(__DIR__ . '/Load.php');
     });
 
