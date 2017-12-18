@@ -25,11 +25,17 @@ use Framework\Exceptions\CoreHttpException;
 class UserDefinedHandle implements Handle
 {
     /**
+     * GlobalConstant trait
+     */
+    use \Framework\Traits\GlobalConstant;
+    
+    /**
      * 构造函数
      */
     public function __construct()
     {
-        # code...
+        // register global const
+        $this->registerGlobalConst();
     }
 
     /**

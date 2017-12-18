@@ -16,7 +16,7 @@ then
   # mac os
   open "http://localhost:60000/index.html"
 else
-  if [[! -f "/usr/bin/xdg-open"]]
+  if [[ ! -f "/usr/bin/xdg-open" ]]
   then
     echo "Install xdg-open, input your password:"
     sudo apt-get install snapd-xdg-open
