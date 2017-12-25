@@ -49,13 +49,6 @@ class Request
     private $serverParams = [];
 
     /**
-     * 请求参数
-     *
-     * @var array
-     */
-    private $envParams = [];
-
-    /**
      * 请求所有参数
      *
      * @var array
@@ -151,9 +144,6 @@ class Request
             $this->getParams     = $_GET;
             $this->postParams    = $_POST;
         }
-
-        // 加载环境参数
-        $this->loadEnv($app);
     }
 
     /**
@@ -267,35 +257,6 @@ class Request
     }
 
     /**
-     * 获取env参数
-     *
-     * @param  string $value 参数名
-     * @return mixed
-     */
-    public function env($value = '')
-    {
-        if (isset($this->envParams[$value])) {
-            return $this->envParams[$value];
-        }
-        return '';
-    }
-
-    /**
-     * 加载环境参数
-     *
-     * @param  App    $app 框架实例
-     * @return void
-     */
-    public function loadEnv(App $app)
-    {
-        $env = parse_ini_file($app->rootPath . '/.env', true);
-        if ($env === false) {
-            throw CoreHttpException('load env fail', 500);
-        }
-        $this->envParams = array_merge($_ENV, $env);
-    }
-
-    /**
      * 参数验证
      *
      * 支持必传参数验证，参数长度验证，参数类型验证
@@ -309,7 +270,7 @@ class Request
         if (! is_int($length)) {
             throw new CoreHttpException(
                 400,
-                "length type is not int"
+                'length type is not int'
             );
         }
 

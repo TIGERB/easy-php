@@ -31,7 +31,7 @@ function env($paramName = '')
     // if (array_key_exists($paramName, self::$envCache)) {
     //     return self::$envCache[$paramName];
     // }
-    return App::$container->getSingle('request')->env($paramName);
+    return App::$container->getSingle('env')->env($paramName);
 }
 
 /**

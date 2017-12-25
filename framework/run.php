@@ -11,6 +11,7 @@
 
 use Framework\Handles\ErrorHandle;
 use Framework\Handles\ExceptionHandle;
+use Framework\Handles\EnvHandle;
 use Framework\Handles\RouterHandle;
 use Framework\Handles\ConfigHandle;
 use Framework\Handles\LogHandle;
@@ -50,6 +51,11 @@ try {
      *
      * Load all kinds of handles
      */
+    $app->load(function () {
+        // 加载预环境参数机制 Loading env handle
+        return new EnvHandle();
+    });
+
     $app->load(function () {
         // 加载预定义配置机制 Loading config handle
         return new ConfigHandle();

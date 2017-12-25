@@ -34,7 +34,7 @@ class Index
      */
     public function hello()
     {
-        return 'Hello Easy PHP ' . NOW_TIME;
+        return 'Hello Easy PHP';
     }
 
     /**
