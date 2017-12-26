@@ -120,7 +120,7 @@ try {
     $app->response(function () {
         return new Response();
     });
-} catch (CoreHttException $e) {
+} catch (CoreHttpException $e) {
     /**
      * 捕获异常
      *
