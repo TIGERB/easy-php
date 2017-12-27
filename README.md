@@ -223,7 +223,7 @@ All output is json in the framework, neithor framework's core error or business 
 
 ##### Request param check, Support require/length/number check at present. Use as follows:
 ```
-$request = App::$container->getSingle('request');
+$request = App::$container->get('request');
 $request->check('username', 'require');
 $request->check('password', 'length', 12);
 $request->check('code', 'number');
@@ -349,7 +349,7 @@ $checkArguments->setNext($checkAppkey)
 
 // start gateway
 $checkArguments->start(
-    APP::$container->getSingle('request')
+    APP::$container->get('request')
 );
 ```
 
@@ -553,7 +553,7 @@ App::$container->setSingle('request', function () {
     return new Request();
 });
 // get Request instance
-App::$container->getSingle('request');
+App::$container->get('request');
 ```
 
 [[file: framework/Container](https://github.com/TIGERB/easy-php/blob/master/framework/Container.php)]
@@ -573,7 +573,9 @@ App::$container->getSingle('memcahed');
 App::$container->getSingle('mongodb');
 ```
 
-[[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
+##  Swoole Support
+
+[[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/swoole.php)]
 
 ##  Job Support
 
@@ -734,18 +736,20 @@ php cli --method=<module.controller.action> --<arguments>=<value> ...
 For example, php cli --method=demo.index.get --username=easy-php
 ```
 
+**Swoole Mode:**
+
+```
+```
+
 Get Help:
 
 Use php cli OR php cli --help
 
-# Performance
+# Performance with php-fmp
 
 > ab -c 100 -n 10000 "http://easy-php.local/Demo/Index/hello"
 
 ```
-Document Path:          /
-Document Length:        53 bytes
-
 Concurrency Level:      100
 Time taken for tests:   3.259 seconds
 Complete requests:      10000
@@ -776,6 +780,41 @@ Percentage of the requests served within a certain time (ms)
  100%     68 (longest request)
 ```
 
+# Performance with Swoole
+
+> ab -c 100 -n 10000 "http://easy-php.local/Demo/Index/hello"
+
+```
+Concurrency Level:      100
+Time taken for tests:   1.319 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      1870000 bytes
+HTML transferred:       160000 bytes
+Requests per second:    7580.84 [#/sec] (mean)
+Time per request:       13.191 [ms] (mean)
+Time per request:       0.132 [ms] (mean, across all concurrent requests)
+Transfer rate:          1384.39 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    5  10.6      3     172
+Processing:     1    9  13.4      7     177
+Waiting:        0    7  11.7      6     173
+Total:          3   13  16.9     11     179
+
+Percentage of the requests served within a certain time (ms)
+  50%     11
+  66%     12
+  75%     13
+  80%     14
+  90%     15
+  95%     17
+  98%     28
+  99%     39
+ 100%    179 (longest request)
+```
+
 # Question&Contribution
 
 If you find some question，please launch a [issue](https://github.com/TIGERB/easy-php/issues) or PR。
@@ -791,7 +830,6 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 # TODO
 
-- Use swoole
 - Add database sql helper
 - Integrate swagger
 - Provide much friendly help for user
@@ -804,6 +842,9 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 
 # DONE
+
+- v0.8.0(2017/12/31)
+    - use swoole
 
 - v0.7.1(2017/08/29)
     - refactor router by the strategy design pattern 

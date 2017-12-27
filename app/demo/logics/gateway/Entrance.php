@@ -59,7 +59,7 @@ class Entrance
 
         // 启动网关
         $checkArguments->start(
-            APP::$container->getSingle('request')
+            APP::$container->get('request')
         );
     }
 }

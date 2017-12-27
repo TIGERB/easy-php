@@ -226,7 +226,7 @@ password = easyphp
 
 ##### 请求参数校验，目前提供必传，长度，数字类型校验，使用如下
 ```
-$request = App::$container->getSingle('request');
+$request = App::$container->get('request');
 $request->check('username', 'require');
 $request->check('password', 'length', 12);
 $request->check('code', 'number');
@@ -350,7 +350,7 @@ $checkArguments->setNext($checkAppkey)
 
 // 启动网关
 $checkArguments->start(
-    APP::$container->getSingle('request')
+    APP::$container->get('request')
 );
 ```
 
@@ -554,7 +554,7 @@ App::$container->setSingle('request', function () {
     return new Request();
 });
 // 获取Request对象
-App::$container->getSingle('request');
+App::$container->get('request');
 ```
 
 [[file: framework/Container](https://github.com/TIGERB/easy-php/blob/master/framework/Container.php)]

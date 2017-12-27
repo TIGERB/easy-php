@@ -22,7 +22,7 @@ use Closure;
  *
  * @author TIERGB <https://github.com/TIGERB>
  */
-class EasyRouter implements Router
+class EasySwooleRouter implements Router
 {
     /**
      * 框架实例.
@@ -44,6 +44,13 @@ class EasyRouter implements Router
      * @var
      */
     private $request;
+
+    /**
+     * 响应对象实例
+     *
+     * @var
+     */
+    // private $response;
 
     /**
      * 默认模块.
@@ -103,8 +110,7 @@ class EasyRouter implements Router
         'general'      => 'Framework\Router\General',
         'pathinfo'     => 'Framework\Router\Pathinfo',
         'user-defined' => 'Framework\Router\Userdefined',
-        'micromonemer' => 'Framework\Router\Micromonomer',
-        'job'          => 'Framework\Router\Job'
+        // 'micromonemer' => 'Framework\Router\Micromonomer',
     ];
 
     /**
@@ -141,12 +147,14 @@ class EasyRouter implements Router
     public function init(App $app)
     {
         // 注入当前对象到容器中
-        $app::$container->setSingle('router', $this);
-        // request uri
-        $this->request        = $app::$container->get('request');
-        $this->requestUri     = $this->request->server('REQUEST_URI');
+        $app::$container->set('router', $this);
+
         // App
         $this->app            = $app;
+
+        $this->request        = $app::$container->get('request');
+        $this->requestUri     = $this->request->server('request_uri');
+
         // 获取配置
         $this->config         = $app::$container->getSingle('config');
         // 设置默认模块
@@ -162,8 +170,11 @@ class EasyRouter implements Router
         // 路由策略
         (new $this->routeStrategyMap[$this->routeStrategy])->route($this);
 
-        // 判断是app还是job
-        $this->isAppOrJob($this);
+        // 获取控制器类
+        $controllerName    = ucfirst($this->controllerName);
+        $folderName        = ucfirst($this->config->config['application_folder_name']);
+        $this->classPath   = "{$folderName}\\{$this->moduleName}\\Controllers\\{$controllerName}";
+        $this->executeType = 'controller';
 
         // 自定义路由判断
         if ((new $this->routeStrategyMap['user-defined'])->route($this)) {
@@ -175,55 +186,19 @@ class EasyRouter implements Router
     }
 
     /**
-     * 判断是app还是job
-     *
-     * @return void
-     */
-    public function isAppOrJob()
-    {
-        // 任务类
-        if ($this->routeStrategy === 'job') {
-            $className         = $this->request->request('job');
-            $actionName        = $this->request->request('action');
-            $folderName        = ucfirst($this->config->config['jobs_folder_name']);
-            $this->classPath   = "{$folderName}\\{$this->moduleName}\\{$className}";
-            $this->executeType = 'job';
-            return;
-        }
-
-        // 获取控制器类
-        $controllerName    = ucfirst($this->controllerName);
-        $folderName        = ucfirst($this->config->config['application_folder_name']);
-        $this->classPath   = "{$folderName}\\{$this->moduleName}\\Controllers\\{$controllerName}";
-        $this->executeType = 'controller';
-    }
-
-    /**
      * 路由策略决策
      *
      * @param void
      */
     public function strategyJudge()
     {
-        // 路由策略
-        if (! empty($this->routeSrategy)) {
-            return;
-        }
-
-        // 任务路由
-        if ($this->app->isCli === 'yes' && $this->request->get('router_mode') === 'job') {
-            $this->routeStrategy = 'job';
-            return;
-        }
-
         // 普通路由
         if (strpos($this->requestUri, 'index.php') || $this->app->isCli === 'yes') {
             $this->routeStrategy = 'general';
             return;
-        } else {
-            $this->routeStrategy = 'pathinfo';
-            return;
         }
+
+        $this->routeStrategy = 'pathinfo';
     }
 
     /**
@@ -235,7 +210,7 @@ class EasyRouter implements Router
     {
         // 判断模块存不存在
         if (! in_array(strtolower($this->moduleName), $this->config->config['module'])) {
-            throw new CoreHttpException(404, 'Module:'.$this->moduleName);
+            throw new CoreHttpException(404,'Module:'.$this->moduleName);
         }
 
         // 判断控制器存不存在
@@ -246,7 +221,7 @@ class EasyRouter implements Router
         // 反射解析当前控制器类　
         // 判断是否有当前操作方法
         // 不使用反射
-        // $reflaction     = new ReflectionClass($controllerPath);
+        // $reflaction = new ReflectionClass($controllerPath);
         // if (!$reflaction->hasMethod($this->actionName)) {
         //     throw new CoreHttpException(404, 'Action:'.$this->actionName);
         // }

@@ -48,7 +48,7 @@ class Index
      */
     public function test()
     {
-        $request = App::$container->getSingle('request');
+        $request = App::$container->get('request');
         $request->check('username', 'require');
         $request->check('password', 'length', 12);
         $request->check('code', 'number');
@@ -82,7 +82,7 @@ class Index
     public function getInstanceFromContainerDemo()
     {
         // 请求对象
-        App::$container->getSingle('request');
+        App::$container->get('request');
         // 配置对象
         App::$container->getSingle('config');
         // 日志对象

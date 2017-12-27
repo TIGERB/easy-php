@@ -23,6 +23,22 @@ use Framework\Exceptions\CoreHttpException;
 class ErrorHandle implements Handle
 {
     /**
+     * 运行模式
+     *
+     * fpm/swoole
+     * 
+     * @var string
+     */
+    private $mode = 'fmp';
+
+    /**
+     * 错误信息
+     *
+     * @var array
+     */
+    private $info = [];
+
+    /**
      * 构造函数
      */
     public function __construct()
@@ -39,6 +55,8 @@ class ErrorHandle implements Handle
      */
     public function register(App $app)
     {
+        $this->mode = $app->isSwoole? 'swoole': 'fpm';
+
         set_error_handler([$this, 'errorHandler']);
 
         register_shutdown_function([$this, 'shutdown']);
@@ -55,14 +73,14 @@ class ErrorHandle implements Handle
         if (empty($error)) {
             return;
         }
-        $errorInfo = [
+        $this->info = [
             'type'    => $error['type'],
             'message' => $error['message'],
             'file'    => $error['file'],
             'line'    => $error['line'],
         ];
 
-        CoreHttpException::reponseErr($errorInfo);
+        $this->end();
     }
 
     /**
@@ -82,7 +100,7 @@ class ErrorHandle implements Handle
         $errorLine,
         $errorContext)
     {
-        $errorInfo = [
+        $this->info = [
             'type'    => $errorNumber,
             'message' => $errorMessage,
             'file'    => $errorFile,
@@ -90,7 +108,24 @@ class ErrorHandle implements Handle
             'context' => $errorContext,
         ];
 
-        CoreHttpException::reponseErr($errorInfo);
+        $this->end();
     }
 
+    /**
+     * 脚本结束
+     *
+     * @return　mixed
+     */
+    private function end()
+    {
+        switch ($this->mode) {
+            case 'swoole':
+                CoreHttpException::reponseErrSwoole($this->info);
+            break;
+
+            default:
+                CoreHttpException::reponseErr($this->info);
+            break;
+        }
+    }
 }

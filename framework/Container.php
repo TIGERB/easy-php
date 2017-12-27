@@ -73,6 +73,9 @@ class Container
             if (is_callable($this->classMap[$alias])) {
                 return $this->classMap[$alias]();
             }
+            if (is_object($this->classMap[$alias])) {
+                return $this->classMap[$alias];
+            }
             return new $this->classMap[$alias];
         }
         throw new CoreHttpException(

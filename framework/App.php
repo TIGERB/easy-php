@@ -62,6 +62,13 @@ class App
     private $isCli　= 'false';
 
     /**
+     * swoole模式
+     *
+     * @var string
+     */
+    private $isSwoole = false;
+
+    /**
      * 框架实例
      *
      * @var object
@@ -213,7 +220,7 @@ class App
         if (count($requestUri) !== 3) {
             throw new CoreHttpException(400);
         }
-        $request = self::$container->getSingle('request');
+        $request = self::$container->get('request');
         $request->method        = $method;
         $request->requestParams = $argus;
         $request->getParams     = $argus;
@@ -229,17 +236,17 @@ class App
 
     /**
      * 运行应用
+     * 
+     * fpm mode
      *
      * @param  Request $request 请求对象
      * @return void
      */
     public function run(Closure $request)
     {
-        self::$container->setSingle('request', $request);
+        self::$container->set('request', $request);
         foreach ($this->handlesList as $handle) {
-            $instance = $handle();
-            // self::$container->setSingle(get_class($instance), $instance);
-            $instance->register($this);
+            $handle()->register($this);
         }
     }
 
@@ -267,5 +274,19 @@ class App
             $closure()->restSuccess($this->responseData);
         }
         $closure()->response($this->responseData);
+    }
+
+    /**
+     * 生命周期结束
+     *
+     * 响应请求
+     * @param  Closure $closure 响应类
+     * @return json
+     */
+    public function responseSwoole(Closure $closure)
+    {    
+        $closure()->header('Content-Type', 'Application/json');
+        $closure()->header('Charset', 'utf-8');
+        $closure()->end(json_encode($this->responseData));
     }
 }

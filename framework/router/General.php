@@ -12,7 +12,7 @@
 namespace Framework\Router;
 
 use Framework\Router\RouterInterface;
-use Framework\Router\EasyRouter;
+use Framework\Router\Router;
 
 /**
  * 普通路由策略.
@@ -26,10 +26,10 @@ class General implements RouterInterface
      *
      * @param void
      */
-    public function route(EasyRouter $entrance)
+    public function route(Router $entrance)
     {
-		$app = $entrance->app;
-        $request = $app::$container->getSingle('request');
+        $app = $entrance->app;
+        $request = $app::$container->get('request');
         $moduleName = $request->request('module');
         $controllerName = $request->request('controller');
         $actionName = $request->request('action');
