@@ -34,7 +34,7 @@ class ConfigHandle implements Handle
      *
      * @var array
      */
-    private $config;
+    private $config = [];
 
     /**
      * 构造函数
@@ -102,8 +102,9 @@ class ConfigHandle implements Handle
         $defaultCommon   = require($app->rootPath . '/config/common.php');
         $defaultNosql    = require($app->rootPath . '/config/nosql.php');
         $defaultDatabase = require($app->rootPath . '/config/database.php');
+        $defaultSwoole = require($app->rootPath . '/config/swoole.php');
 
-        $this->config = array_merge($defaultCommon, $defaultNosql, $defaultDatabase);
+        $this->config = array_merge($defaultCommon, $defaultNosql, $defaultDatabase, $defaultSwoole);
 
         /* 加载模块自定义配置 */
         $module = $app::$container->getSingle('config')->config['module'];

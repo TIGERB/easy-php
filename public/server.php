@@ -26,6 +26,9 @@ use Framework\Response;
  * Require framework
  */
 $easy = require('../framework/swoole.php');
+$config            = $easy::$container->getSingle('config');
+$swooleConfig      = $config->config['swoole'];
+$easy->runningMode = 'swoole'; // set the app running mode
 
 /**
  * 启动swoole http服务
@@ -33,8 +36,7 @@ $easy = require('../framework/swoole.php');
  * Start the http server
  */
 $http = new swoole_http_server('127.0.0.1', 8888);
-// set the app running mode
-$easy->runningMode = 'swoole';
+$http->set($swooleConfig);
 
 /**
  * 监听请求
