@@ -42,12 +42,11 @@ $easy->runningMode = 'swoole';
  * monitor
  */
 $http->on('request', function ($request, $response) use ($easy) {	
-    $easy::$container->set('request-swoole', $request);
-    $easy::$container->set('response-swoole', $response);
-
     try {
+        $easy::$container->set('request-swoole', $request);
+        $easy::$container->set('response-swoole', $response);
         // init router
-        $easy::$container->getSingle('router')->init($easy);
+        $easy::$container->get('router')->init($easy);
         // response
         $easy->responseSwoole(function () use ($response) {
             return $response;

@@ -31,7 +31,7 @@ class RouterSwooleHandle implements Handle
      */
     public function register(App $app)
     {
-        App::$container->setSingle('router', function () {
+        App::$container->set('router', function () {
             return new EasySwooleRouter();
         });
     }

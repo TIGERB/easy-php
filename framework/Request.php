@@ -140,11 +140,11 @@ class Request
             $this->serverIp      = $this->serverParams['remote_addr'];
             $this->clientIp      = $this->serverParams['remote_addr'];
             $this->beginTime     = $this->serverParams['request_time_float'];
-            $this->requestParams = [];
-            // $this->getParams     = $swooleRequest->get;
-            // $this->postParams    = $swooleRequest->post;
-            // $this->cookie        = $swooleRequest->cookie;
-            // $this->file          = $swooleRequest->file;
+            $this->getParams     = isset($swooleRequest->get)? $swooleRequest->get: [];
+            $this->postParams    = isset($swooleRequest->post)? $swooleRequest->post: [];
+            $this->cookie        = isset($swooleRequest->cookie)? $swooleRequest->cookie: [];
+            $this->file          = isset($swooleRequest->files)? $swooleRequest->files: [];
+            $this->requestParams = array_merge($this->getParams, $this->postParams);
             return;
         }
 
