@@ -3,10 +3,8 @@
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.0-lightgrey.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.7.1-green.svg" alt="Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-152KB-orange.svg" alt="Framework Size"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework--phar-76KB-red.svg" alt="Framework Phar Size"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
 
@@ -55,6 +53,7 @@ app                             [PHP应用目录]
 │    │   └── route.php          [模块自定义路由]
 │    ├── common.php             [公共配置]
 │    ├── database.php           [数据库配置]
+│    ├── swoole.php             [swoole配置]
 │    └── nosql.php              [nosql配置]
 docs                            [接口文档目录]
 ├── apib                        [Api Blueprint]
@@ -65,12 +64,14 @@ framework                       [Easy PHP核心框架目录]
 │      ├── CoreHttpException.php[核心http异常]
 ├── handles                     [框架运行时挂载处理机制类目录]
 │      ├── Handle.php           [处理机制接口]
+│      ├── EnvHandle.php        [环境变量处理机制类]
 │      ├── ErrorHandle.php      [错误处理机制类]
 │      ├── ExceptionHandle.php  [未捕获异常处理机制类]
 │      ├── ConfigHandle.php     [配置文件处理机制类]
 │      ├── NosqlHandle.php      [nosql处理机制类]
 │      ├── LogHandle.php        [log机制类]
 │      ├── UserDefinedHandle.php[用户自定义处理机制类]
+│      ├── RouterSwooleHan...   [swoole模式路由处理机制类]
 │      └── RouterHandle.php     [路由处理机制类]
 ├── orm                         [对象关系模型]
 │      ├── Interpreter.php      [sql解析器]
@@ -85,6 +86,7 @@ framework                       [Easy PHP核心框架目录]
 │      ├── Userdefined.php      [自定义路由]
 │      ├── Micromonomer.php     [微单体路由]
 │      ├── Job.php              [脚本任务路由]
+│      ├── EasySwooleRouter.php [swoole模式路由策略入口类]
 │      └── EasyRouter.php       [路由策略入口类]
 ├── nosql                       [nosql类目录]
 │    ├── Memcahed.php           [Memcahed类文件]
@@ -97,6 +99,7 @@ framework                       [Easy PHP核心框架目录]
 ├── Request.php                 [请求类]
 ├── Response.php                [响应类]
 ├── run.php                     [框架应用启用脚本]
+├── swoole.php                  [swoole模式框架应用启用脚本]
 frontend                        [前端源码和资源目录]
 ├── src                         [资源目录]
 │    ├── components             [vue组件目录]
@@ -116,6 +119,7 @@ public                          [公共资源目录，暴露到万维网]
 │    └── ...
 ├── index.html                  [前端入口文件,build生成的文件，不是发布分支忽略该文件]
 ├── index.php                   [后端入口文件]
+├── server.php                  [swoole模式后端入口文件]
 runtime                         [临时目录]
 ├── logs                        [日志目录]
 ├── build                       [php打包生成phar文件目录]
@@ -226,7 +230,7 @@ password = easyphp
 
 ##### 请求参数校验，目前提供必传，长度，数字类型校验，使用如下
 ```
-$request = App::$container->getSingle('request');
+$request = App::$container->get('request');
 $request->check('username', 'require');
 $request->check('password', 'length', 12);
 $request->check('code', 'number');
@@ -350,7 +354,7 @@ $checkArguments->setNext($checkAppkey)
 
 // 启动网关
 $checkArguments->start(
-    APP::$container->getSingle('request')
+    APP::$container->get('request')
 );
 ```
 
@@ -554,7 +558,7 @@ App::$container->setSingle('request', function () {
     return new Request();
 });
 // 获取Request对象
-App::$container->getSingle('request');
+App::$container->get('request');
 ```
 
 [[file: framework/Container](https://github.com/TIGERB/easy-php/blob/master/framework/Container.php)]
@@ -576,7 +580,17 @@ App::$container->getSingle('mongodb');
 
 [[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
 
-##  Job Support
+##  Swoole模式
+
+支持swoole扩展下运行
+
+```
+cd public && php server.php
+```
+
+[[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/swoole.php)]
+
+##  Job模式
 
 我们可以在jobs目录下直接编写我们的任务脚本，如下
 
@@ -735,11 +749,17 @@ php cli --method=<module.controller.action> --<arguments>=<value> ...
 例如, php cli --method=demo.index.get --username=easy-php
 ```
 
+**Swoole模式:**
+
+```
+cd public && php server.php
+```
+
 获取帮助:
 
 使用命令 php cli 或者 php cli --help
 
-# 性能
+# 性能-fpm
 
 > ab -c 100 -n 10000 "http://easy-php.local/Demo/Index/hello"
 
@@ -777,6 +797,41 @@ Percentage of the requests served within a certain time (ms)
  100%     68 (longest request)
 ```
 
+# 性能-Swoole
+
+> ab -c 100 -n 10000 "http://easy-php.local/Demo/Index/hello"
+
+```
+Concurrency Level:      100
+Time taken for tests:   1.319 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      1870000 bytes
+HTML transferred:       160000 bytes
+Requests per second:    7580.84 [#/sec] (mean)
+Time per request:       13.191 [ms] (mean)
+Time per request:       0.132 [ms] (mean, across all concurrent requests)
+Transfer rate:          1384.39 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    5  10.6      3     172
+Processing:     1    9  13.4      7     177
+Waiting:        0    7  11.7      6     173
+Total:          3   13  16.9     11     179
+
+Percentage of the requests served within a certain time (ms)
+  50%     11
+  66%     12
+  75%     13
+  80%     14
+  90%     15
+  95%     17
+  98%     28
+  99%     39
+ 100%    179 (longest request)
+```
+
 # 问题和贡献
 
 不足的地方还有很多，如果大家发现了什么问题，可以给我提[issue](https://github.com/TIGERB/easy-php/issues)或者PR。
@@ -795,7 +850,6 @@ cp ./.git-hooks/* ./git/hooks
 
 # TODO
 
-- 集成swoole
 - 增加数据库变更辅助
 - 集成swagger
 - 提供更友善的开发api帮助
@@ -807,6 +861,10 @@ cp ./.git-hooks/* ./git/hooks
 - ...
 
 # DONE
+
+- v0.8.0(2017/12/31)
+    - 支持swoole扩展
+    - 修复微单体路由无限递归问题
 
 - v0.7.1(2017/08/29)
     - 重构路由模块

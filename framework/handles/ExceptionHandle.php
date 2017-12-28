@@ -23,6 +23,22 @@ use Framework\Exceptions\CoreHttpException;
 class ExceptionHandle implements Handle
 {
     /**
+     * 运行模式
+     *
+     * fpm/swoole
+     * 
+     * @var string
+     */
+    private $mode = 'fmp';
+
+    /**
+     * 错误信息
+     *
+     * @var array
+     */
+    private $info = [];
+
+    /**
      * 构造函数
      */
     public function __construct()
@@ -49,7 +65,7 @@ class ExceptionHandle implements Handle
      */
     public function exceptionHandler($exception)
     {
-        $exceptionInfo = [
+        $this->info = [
             'code'       => $exception->getCode(),
             'message'    => $exception->getMessage(),
             'file'       => $exception->getFile(),
@@ -58,6 +74,24 @@ class ExceptionHandle implements Handle
             'previous'   => $exception->getPrevious()
         ];
 
-        CoreHttpException::reponseErr($exceptionInfo);
+        $this->end();
+    }
+
+    /**
+     * 脚本结束
+     *
+     * @return　mixed
+     */
+    private function end()
+    {
+        switch ($this->mode) {
+            case 'swooole':
+                CoreHttpException::reponseErrSwoole($this->info);
+            break;
+
+            default:
+                CoreHttpException::reponseErr($this->info);
+            break;
+        }
     }
 }

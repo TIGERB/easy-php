@@ -56,7 +56,7 @@ class EnvHandle implements Handle
         // 加载环境参数
         $this->loadEnv($app);
 
-        $app::$container->setSingle('env', $this);
+        App::$container->setSingle('envt', $this);
     }
 
     /**

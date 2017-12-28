@@ -12,7 +12,7 @@
 namespace Framework\Router;
 
 use Framework\Router\RouterInterface;
-use Framework\Router\EasyRouter;
+use Framework\Router\Router;
 
 /**
  * 微单体路由策略.
@@ -28,7 +28,7 @@ class Micromonomer implements RouterInterface
      *
      * @param void
      */
-    public function route(EasyRouter $entrance)
+    public function route(Router $entrance)
     {
 		# do nothing...
     }

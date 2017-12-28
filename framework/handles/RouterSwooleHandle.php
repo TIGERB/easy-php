@@ -9,21 +9,30 @@
  *                                               *
  *************************************************/
 
-namespace Framework\Router;
+namespace Framework\Handles;
 
-use Framework\Router\Router;
+use Framework\App;
+use Framework\Exceptions\CoreHttpException;
+use Closure;
+use Framework\Router\EasySwooleRouter;
 
 /**
- * 路由策略接口.
+ * 路由处理机制.
  *
  * @author TIERGB <https://github.com/TIGERB>
  */
-Interface RouterInterface
+class RouterSwooleHandle implements Handle
 {
     /**
-     * 路由方法
+     * 注册路由处理机制.
      *
+     * @param App $app 框架实例
      * @param void
      */
-    public function route(Router $entrance);
+    public function register(App $app)
+    {
+        App::$container->set('router', function () {
+            return new EasySwooleRouter();
+        });
+    }
 }

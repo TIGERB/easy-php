@@ -13,7 +13,7 @@ namespace Framework\Router;
 
 use Framework\App;
 use Framework\Router\RouterInterface;
-use Framework\Router\EasyRouter;
+use Framework\Router\Router;
 use Framework\Exceptions\CoreHttpException;
 use ReflectionClass;
 use Closure;
@@ -45,12 +45,12 @@ class Job implements RouterInterface
      * @param App $app 框架实例
      * @param void
      */
-    public function route(EasyRouter $entrance)
+    public function route(Router $entrance)
     {
         $entrance->app->notOutput = true;
         
         $app            = $entrance->app;
-        $request        = $app::$container->getSingle('request');
+        $request        = $app::$container->get('request');
         $moduleName     = $request->request('module');
         $jobName        = $request->request('job');
         $actionName     = $request->request('action');

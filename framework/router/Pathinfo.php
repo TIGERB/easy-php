@@ -12,7 +12,7 @@
 namespace Framework\Router;
 
 use Framework\Router\RouterInterface;
-use Framework\Router\EasyRouter;
+use Framework\Router\Router;
 
 /**
  * pathinfo路由策略.
@@ -26,7 +26,7 @@ class Pathinfo implements RouterInterface
      *
      * @param void
      */
-    public function route(EasyRouter $entrance)
+    public function route(Router $entrance)
     {
 		/* 匹配出uri */
         if (strpos($entrance->requestUri, '?')) {
@@ -38,7 +38,7 @@ class Pathinfo implements RouterInterface
         // 使用默认模块/控制器/操作逻辑
         if (!isset($uri[1][0]) || empty($uri[1][0])) {
             // CLI 模式不输出
-            if ($entrance->app->isCli === 'yes') {
+            if ($entrance->app->runningMode === 'cli') {
                 $entrance->app->notOutput = true;
             }
             return;

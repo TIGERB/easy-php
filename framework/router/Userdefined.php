@@ -12,7 +12,8 @@
 namespace Framework\Router;
 
 use Framework\Router\RouterInterface;
-use Framework\Router\EasyRouter;
+use Framework\Router\Router;
+use Framework\Exceptions\CoreHttpException;
 
 /**
  * 自定义路由策略.
@@ -118,7 +119,7 @@ class Userdefined implements RouterInterface
      *
      * @param void
      */
-    public function route(EasyRouter $entrance)
+    public function route(Router $entrance)
     {
         if ($entrance->routeStrategy === 'job') {
             return;
@@ -134,8 +135,8 @@ class Userdefined implements RouterInterface
         }
         $uri     = "{$entrance->moduleName}/{$entrance->controllerName}/{$entrance->actionName}";
         $app     = $entrance->app;
-        $request = $app::$container->getSingle('request');
-        $method  = $request->method . 'Map';
+        $request = $app::$container->get('request');
+        $method  = strtolower($request->method) . 'Map';
         if (! isset($this->$method)) {
             throw new CoreHttpException(
                 404,
@@ -149,7 +150,7 @@ class Userdefined implements RouterInterface
         // 执行自定义路由匿名函数
         $map = $this->$method;
         $entrance->app->responseData = $map[$uri]($app);
-        if ($entrance->app->isCli === 'yes') {
+        if ($entrance->app->runningMode === 'cli') {
             $entrance->app->notOutput = false;
 		}
 		return true;

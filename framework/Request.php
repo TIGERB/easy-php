@@ -21,25 +21,11 @@ use Framework\Exceptions\CoreHttpException;
 class Request
 {
     /**
-     * 请求模块
+     * 请求header参数
      *
-     * @var string
+     * @var array
      */
-    private $module = '';
-
-    /**
-     * 请求控制器
-     *
-     * @var string
-     */
-    private $controller = '';
-
-    /**
-     * 请求操作
-     *
-     * @var string
-     */
-    private $action = '';
+    private $headerParams = [];
 
     /**
      * 请求server参数
@@ -57,15 +43,31 @@ class Request
 
     /**
      * 请求GET参数
+     * 
      * @var array
      */
     private $getParams = [];
 
     /**
      * 请求POST参数
+     * 
      * @var array
      */
     private $postParams = [];
+
+    /**
+     * cookie
+     * 
+     * @var array
+     */
+    private $cookie = [];
+
+    /**
+     * file
+     * 
+     * @var array
+     */
+    private $file = [];
 
     /**
      * http方法名称
@@ -129,21 +131,40 @@ class Request
      */
     public function __construct(App $app)
     {
+        // swoole mode
+        if ($app->runningMode === 'swoole') {
+            $swooleRequest = $app::$container->get('request-swoole');
+            $this->headerParams  = $swooleRequest->header;
+            $this->serverParams  = $swooleRequest->server;
+            $this->method        = $this->serverParams['request_method'];
+            $this->serverIp      = $this->serverParams['remote_addr'];
+            $this->clientIp      = $this->serverParams['remote_addr'];
+            $this->beginTime     = $this->serverParams['request_time_float'];
+            $this->getParams     = isset($swooleRequest->get)? $swooleRequest->get: [];
+            $this->postParams    = isset($swooleRequest->post)? $swooleRequest->post: [];
+            $this->cookie        = isset($swooleRequest->cookie)? $swooleRequest->cookie: [];
+            $this->file          = isset($swooleRequest->files)? $swooleRequest->files: [];
+            $this->requestParams = array_merge($this->getParams, $this->postParams);
+            return;
+        }
+
         $this->serverParams = $_SERVER;
         $this->method       = isset($_SERVER['REQUEST_METHOD'])? strtolower($_SERVER['REQUEST_METHOD']) : 'get';
         $this->serverIp     = isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '';
         $this->clientIp     = isset($_SERVER['SERVER_ADDR'])? $_SERVER['SERVER_ADDR'] : '';
-        $this->beginTime    = isset($_SERVER['REQUEST_TIME_FLOAT'])? $_SERVER['REQUEST_TIME_FLOAT'] : time(true);
-        if ($app->isCli === 'yes') {
+        $this->beginTime    = isset($_SERVER['REQUEST_TIME_FLOAT'])? $_SERVER['REQUEST_TIME_FLOAT'] : microtime(true);
+        if ($app->runningMode === 'cli') {
             // cli 模式
             $this->requestParams = isset($_REQUEST['argv'])? $_REQUEST['argv']: [];
             $this->getParams     = isset($_REQUEST['argv'])? $_REQUEST['argv']: [];
             $this->postParams    = isset($_REQUEST['argv'])? $_REQUEST['argv']: [];
-        } else {
-            $this->requestParams = $_REQUEST;
-            $this->getParams     = $_GET;
-            $this->postParams    = $_POST;
+            return;
         }
+
+        $this->requestParams = $_REQUEST;
+        $this->getParams     = $_GET;
+        $this->postParams    = $_POST;
+        
     }
 
     /**
@@ -302,3 +323,54 @@ class Request
         }
     }
 }
+
+/**
+object(Swoole\Http\Request)#26 (3) {
+    ["fd"]=>
+    int(1)
+    ["header"]=>
+    array(9) {
+    ["host"]=>
+    string(14) "127.0.0.1:8888"
+    ["connection"]=>
+    string(10) "keep-alive"
+    ["pragma"]=>
+    string(8) "no-cache"
+    ["cache-control"]=>
+    string(8) "no-cache"
+    ["user-agent"]=>
+    string(121) "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+    ["accept"]=>
+    string(39) "image/webp,image/apng,image;q=0.8"
+    ["referer"]=>
+    string(37) "http://127.0.0.1:8888/demo/index/test"
+    ["accept-encoding"]=>
+    string(17) "gzip, deflate, br"
+    ["accept-language"]=>
+    string(23) "zh-CN,zh;q=0.8,en;q=0.6"
+    }
+    ["server"]=>
+    array(10) {
+    ["request_method"]=>
+    string(3) "GET"
+    ["request_uri"]=>
+    string(12) "/favicon.ico"
+    ["path_info"]=>
+    string(12) "/favicon.ico"
+    ["request_time"]=>
+    int(1514357716)
+    ["request_time_float"]=>
+    float(1514357716.1488)
+    ["server_port"]=>
+    int(8888)
+    ["remote_port"]=>
+    int(64729)
+    ["remote_addr"]=>
+    string(9) "127.0.0.1"
+    ["server_protocol"]=>
+    string(8) "HTTP/1.1"
+    ["server_software"]=>
+    string(18) "swoole-http-server"
+    }
+}
+*/

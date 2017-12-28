@@ -55,11 +55,18 @@ class App
     private $responseData;
 
     /**
-     * cli模式
+     * 运行模式
+     * 目前支持fpm/cli/swoole模式
+     * 默认为fpm
+     * 
+     * app running mode 
+     * support fpm/cli/swoole
+     * default value is fpm
      *
      * @var string
      */
-    private $isCli　= 'false';
+    private $runningMode = 'fpm';
+
 
     /**
      * 框架实例
@@ -94,8 +101,8 @@ class App
      */
     public function __construct($rootPath, Closure $loader)
     {
-        // cli模式
-        $this->isCli    = getenv('IS_CLI');
+        // 运行模式
+        $this->runningMode = getenv('EASY_MODE');
         // 根目录
         $this->rootPath = $rootPath;
 
@@ -213,12 +220,12 @@ class App
         if (count($requestUri) !== 3) {
             throw new CoreHttpException(400);
         }
-        $request = self::$container->getSingle('request');
+        $request = self::$container->get('request');
         $request->method        = $method;
         $request->requestParams = $argus;
         $request->getParams     = $argus;
         $request->postParams    = $argus;
-        $router  = self::$container->getSingle('router');
+        $router  = self::$container->get('router');
         $router->moduleName     = $requestUri[0];
         $router->controllerName = $requestUri[1];
         $router->actionName     = $requestUri[2];
@@ -229,17 +236,17 @@ class App
 
     /**
      * 运行应用
+     * 
+     * fpm mode
      *
      * @param  Request $request 请求对象
      * @return void
      */
     public function run(Closure $request)
     {
-        self::$container->setSingle('request', $request);
+        self::$container->set('request', $request);
         foreach ($this->handlesList as $handle) {
-            $instance = $handle();
-            // self::$container->setSingle(get_class($instance), $instance);
-            $instance->register($this);
+            $handle()->register($this);
         }
     }
 
@@ -255,7 +262,7 @@ class App
         if ($this->notOutput === true) {
             return;
         }
-        if ($this->isCli === 'yes') {
+        if ($this->runningMode === 'cli') {
             $closure()->cliModeSuccess($this->responseData);
             return;
         }
@@ -267,5 +274,19 @@ class App
             $closure()->restSuccess($this->responseData);
         }
         $closure()->response($this->responseData);
+    }
+
+    /**
+     * 生命周期结束
+     *
+     * 响应请求
+     * @param  Closure $closure 响应类
+     * @return json
+     */
+    public function responseSwoole(Closure $closure)
+    {    
+        $closure()->header('Content-Type', 'Application/json');
+        $closure()->header('Charset', 'utf-8');
+        $closure()->end(json_encode($this->responseData));
     }
 }

@@ -83,6 +83,35 @@ class CoreHttpException extends Exception
     }
 
     /**
+     * rest 风格http响应
+     *
+     * @return json
+     */
+    public function reponseSwoole()
+    {
+        $data = [
+            '__coreError' => [
+                'code'    => $this->getCode(),
+                'message' => $this->getMessage(),
+                'infomations'  => [
+                    'file'  => $this->getFile(),
+                    'line'  => $this->getLine(),
+                    'trace' => $this->getTrace(),
+                ]
+            ]
+        ];
+
+        // log
+        App::$container->getSingle('logger')->write($data);
+
+        // response
+        $reponse = App::$container->get('response-swoole');
+        $reponse->header('Content-Type', 'Application/json');
+        $reponse->header('Charset', 'utf-8');
+        $reponse->end(json_encode($data));
+    }
+
+    /**
      * rest 风格http异常响应
      *
      * @param  array  $e 异常
@@ -106,5 +135,33 @@ class CoreHttpException extends Exception
 
         header('Content-Type:Application/json; Charset=utf-8');
         die(json_encode($data));
+    }
+
+    /**
+     * rest 风格http异常响应
+     *
+     * @param  array  $e 异常
+     * @return json
+     */
+    public static function reponseErrSwoole($e)
+    {
+        $data = [
+            '__coreError' => [
+                'code'    => 500,
+                'message' => $e,
+                'infomations'  => [
+                    'file'  => $e['file'],
+                    'line'  => $e['line'],
+                ]
+            ]
+        ];
+
+        // log
+        App::$container->getSingle('logger')->write($data);
+
+        $reponse = App::$container->get('response-swoole');
+        $reponse->header('Content-Type', 'Application/json');
+        $reponse->header('Charset', 'utf-8');
+        $reponse->end(json_encode($data));
     }
 }

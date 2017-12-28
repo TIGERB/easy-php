@@ -3,10 +3,8 @@
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.0-lightgrey.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.7.1-green.svg" alt="Version"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework-152KB-orange.svg" alt="Framework Size"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/framework--phar-76KB-red.svg" alt="Framework Phar Size"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
 
@@ -54,6 +52,7 @@ app                             [application backend directory]
 │    │   └── route.php          [module-defined router]
 │    ├── common.php             [common config]
 │    ├── database.php           [database config]
+│    ├── swoole.php             [swoole config]
 │    └── nosql.php              [nosql config]
 docs                            [api document directory]
 ├── apib                        [Api Blueprint]
@@ -70,6 +69,7 @@ framework                       [easy-php framework directory]
 │      ├── NosqlHandle.php      [nosql handle class]
 │      ├── LogHandle.php        [log handle class]
 │      ├── UserDefinedHandle.php[user defined handle class]
+│      ├── RouterSwooleHan...   [router handle class for swoole mode]
 │      └── RouterHandle.php     [router handle class]
 ├── orm                         [datebase object relation map class directory]
 │      ├── Interpreter.php      [sql Interpreter class]
@@ -84,6 +84,7 @@ framework                       [easy-php framework directory]
 │      ├── Userdefined.php      [userdefined strategy class]
 │      ├── Micromonomer.php     [micromonomer strategy class]
 │      ├── Job.php              [job strategy class]
+│      ├── EasySwooleRouter.php [router strategy entrance class for swoole mode]
 │      └── EasyRouter.php       [router strategy entrance class]
 ├── nosql                       [nosql directory]
 │    ├── Memcahed.php           [memcahed class file]
@@ -96,6 +97,7 @@ framework                       [easy-php framework directory]
 ├── Request.php                 [request object class file]
 ├── Response.php                [response object class file]
 ├── run.php                     [run this application script file]
+├── swoole.php                  [init the framework && swoole server]
 frontend                        [application frontend source code directory]
 ├── src                         [source folder]
 │    ├── components             [vue components]
@@ -115,6 +117,7 @@ public                          [this is a resource directory to expose service 
 │    └── ...
 ├── index.html                  [entrance html file]
 ├── index.php                   [entrance php script file]
+├── server.php                  [init the server with swoole]
 runtime                         [temporary file such as log]
 ├── logs                        [log directory]
 ├── build                       [phar directory build by build script]
@@ -223,7 +226,7 @@ All output is json in the framework, neithor framework's core error or business 
 
 ##### Request param check, Support require/length/number check at present. Use as follows:
 ```
-$request = App::$container->getSingle('request');
+$request = App::$container->get('request');
 $request->check('username', 'require');
 $request->check('password', 'length', 12);
 $request->check('code', 'number');
@@ -349,7 +352,7 @@ $checkArguments->setNext($checkAppkey)
 
 // start gateway
 $checkArguments->start(
-    APP::$container->getSingle('request')
+    APP::$container->get('request')
 );
 ```
 
@@ -553,7 +556,7 @@ App::$container->setSingle('request', function () {
     return new Request();
 });
 // get Request instance
-App::$container->getSingle('request');
+App::$container->get('request');
 ```
 
 [[file: framework/Container](https://github.com/TIGERB/easy-php/blob/master/framework/Container.php)]
@@ -573,7 +576,15 @@ App::$container->getSingle('memcahed');
 App::$container->getSingle('mongodb');
 ```
 
-[[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
+##  Swoole Support
+
+This framework support swoole mode with the php extension swoole, just:
+
+```
+cd public && php server.php
+```
+
+[[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/swoole.php)]
 
 ##  Job Support
 
@@ -734,18 +745,21 @@ php cli --method=<module.controller.action> --<arguments>=<value> ...
 For example, php cli --method=demo.index.get --username=easy-php
 ```
 
+**Swoole Mode:**
+
+```
+cd public && php server.php
+```
+
 Get Help:
 
 Use php cli OR php cli --help
 
-# Performance
+# Performance with php-fmp
 
 > ab -c 100 -n 10000 "http://easy-php.local/Demo/Index/hello"
 
 ```
-Document Path:          /
-Document Length:        53 bytes
-
 Concurrency Level:      100
 Time taken for tests:   3.259 seconds
 Complete requests:      10000
@@ -776,6 +790,41 @@ Percentage of the requests served within a certain time (ms)
  100%     68 (longest request)
 ```
 
+# Performance with Swoole
+
+> ab -c 100 -n 10000 "http://easy-php.local/Demo/Index/hello"
+
+```
+Concurrency Level:      100
+Time taken for tests:   1.319 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      1870000 bytes
+HTML transferred:       160000 bytes
+Requests per second:    7580.84 [#/sec] (mean)
+Time per request:       13.191 [ms] (mean)
+Time per request:       0.132 [ms] (mean, across all concurrent requests)
+Transfer rate:          1384.39 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    5  10.6      3     172
+Processing:     1    9  13.4      7     177
+Waiting:        0    7  11.7      6     173
+Total:          3   13  16.9     11     179
+
+Percentage of the requests served within a certain time (ms)
+  50%     11
+  66%     12
+  75%     13
+  80%     14
+  90%     15
+  95%     17
+  98%     28
+  99%     39
+ 100%    179 (longest request)
+```
+
 # Question&Contribution
 
 If you find some question，please launch a [issue](https://github.com/TIGERB/easy-php/issues) or PR。
@@ -791,7 +840,6 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 # TODO
 
-- Use swoole
 - Add database sql helper
 - Integrate swagger
 - Provide much friendly help for user
@@ -804,6 +852,10 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 
 # DONE
+
+- v0.8.0(2017/12/31)
+    - use swoole
+    - fix infinite recursion for micromonomer router
 
 - v0.7.1(2017/08/29)
     - refactor router by the strategy design pattern 
