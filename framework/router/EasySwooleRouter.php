@@ -198,7 +198,7 @@ class EasySwooleRouter implements Router
         }
 
         // 普通路由
-        if (strpos($this->requestUri, 'index.php') || $this->app->isCli === 'yes') {
+        if (strpos($this->requestUri, 'index.php') || $this->app->runningMode === 'cli') {
             $this->routeStrategy = 'general';
             return;
         }

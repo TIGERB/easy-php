@@ -33,7 +33,8 @@ $easy = require('../framework/swoole.php');
  * Start the http server
  */
 $http = new swoole_http_server('127.0.0.1', 8888);
-$easy->isSwoole = true;
+// set the app running mode
+$easy->runningMode = 'swoole';
 
 /**
  * 监听请求

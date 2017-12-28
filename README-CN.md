@@ -576,7 +576,11 @@ App::$container->getSingle('mongodb');
 
 [[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
 
-##  Job Support
+##  Swoole模式
+
+[[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/swoole.php)]
+
+##  Job模式
 
 我们可以在jobs目录下直接编写我们的任务脚本，如下
 
@@ -735,11 +739,17 @@ php cli --method=<module.controller.action> --<arguments>=<value> ...
 例如, php cli --method=demo.index.get --username=easy-php
 ```
 
+**Swoole模式:**
+
+```
+cd public && php server.php
+```
+
 获取帮助:
 
 使用命令 php cli 或者 php cli --help
 
-# 性能
+# 性能-fpm
 
 > ab -c 100 -n 10000 "http://easy-php.local/Demo/Index/hello"
 
@@ -777,6 +787,41 @@ Percentage of the requests served within a certain time (ms)
  100%     68 (longest request)
 ```
 
+# 性能-Swoole
+
+> ab -c 100 -n 10000 "http://easy-php.local/Demo/Index/hello"
+
+```
+Concurrency Level:      100
+Time taken for tests:   1.319 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      1870000 bytes
+HTML transferred:       160000 bytes
+Requests per second:    7580.84 [#/sec] (mean)
+Time per request:       13.191 [ms] (mean)
+Time per request:       0.132 [ms] (mean, across all concurrent requests)
+Transfer rate:          1384.39 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    5  10.6      3     172
+Processing:     1    9  13.4      7     177
+Waiting:        0    7  11.7      6     173
+Total:          3   13  16.9     11     179
+
+Percentage of the requests served within a certain time (ms)
+  50%     11
+  66%     12
+  75%     13
+  80%     14
+  90%     15
+  95%     17
+  98%     28
+  99%     39
+ 100%    179 (longest request)
+```
+
 # 问题和贡献
 
 不足的地方还有很多，如果大家发现了什么问题，可以给我提[issue](https://github.com/TIGERB/easy-php/issues)或者PR。
@@ -795,7 +840,6 @@ cp ./.git-hooks/* ./git/hooks
 
 # TODO
 
-- 集成swoole
 - 增加数据库变更辅助
 - 集成swagger
 - 提供更友善的开发api帮助
@@ -807,6 +851,10 @@ cp ./.git-hooks/* ./git/hooks
 - ...
 
 # DONE
+
+- v0.8.0(2017/12/31)
+    - 支持swoole扩展
+    - 修复微单体路由无限递归问题
 
 - v0.7.1(2017/08/29)
     - 重构路由模块

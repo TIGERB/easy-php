@@ -150,7 +150,7 @@ class Userdefined implements RouterInterface
         // 执行自定义路由匿名函数
         $map = $this->$method;
         $entrance->app->responseData = $map[$uri]($app);
-        if ($entrance->app->isCli === 'yes') {
+        if ($entrance->app->runningMode === 'cli') {
             $entrance->app->notOutput = false;
 		}
 		return true;

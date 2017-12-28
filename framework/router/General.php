@@ -44,7 +44,7 @@ class General implements RouterInterface
         }
 
         // CLI 模式不输出
-        if (empty($actionName) && $entrance->app->isCli === 'yes') {
+        if (empty($actionName) && $entrance->app->runningMode === 'cli') {
             $entrance->app->notOutput = true;
         }
     }

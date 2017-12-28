@@ -132,7 +132,7 @@ class Request
     public function __construct(App $app)
     {
         // swoole mode
-        if ($app->isSwoole) {
+        if ($app->runningMode === 'swoole') {
             $swooleRequest = $app::$container->get('request-swoole');
             $this->headerParams  = $swooleRequest->header;
             $this->serverParams  = $swooleRequest->server;
@@ -153,7 +153,7 @@ class Request
         $this->serverIp     = isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '';
         $this->clientIp     = isset($_SERVER['SERVER_ADDR'])? $_SERVER['SERVER_ADDR'] : '';
         $this->beginTime    = isset($_SERVER['REQUEST_TIME_FLOAT'])? $_SERVER['REQUEST_TIME_FLOAT'] : microtime(true);
-        if ($app->isCli === 'yes') {
+        if ($app->runningMode === 'cli') {
             // cli 模式
             $this->requestParams = isset($_REQUEST['argv'])? $_REQUEST['argv']: [];
             $this->getParams     = isset($_REQUEST['argv'])? $_REQUEST['argv']: [];

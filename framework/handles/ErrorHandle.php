@@ -55,7 +55,7 @@ class ErrorHandle implements Handle
      */
     public function register(App $app)
     {
-        $this->mode = $app->isSwoole? 'swoole': 'fpm';
+        $this->mode = $app->runningMode;
 
         set_error_handler([$this, 'errorHandler']);
 

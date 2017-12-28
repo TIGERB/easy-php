@@ -98,7 +98,7 @@ foreach ($argv as $v) {
 }
 
 // 设置cli模式
-putenv('IS_CLI=yes');
+putenv('EASY_MODE=cli');
 if (isset($input['method'])) {
     $method              = $input['method'];
     $method              = explode('.', $method);

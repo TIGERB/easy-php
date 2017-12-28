@@ -55,18 +55,18 @@ class App
     private $responseData;
 
     /**
-     * cli模式
+     * 运行模式
+     * 目前支持fpm/cli/swoole模式
+     * 默认为fpm
+     * 
+     * app running mode 
+     * support fpm/cli/swoole
+     * default value is fpm
      *
      * @var string
      */
-    private $isCli　= 'false';
+    private $runningMode = 'fpm';
 
-    /**
-     * swoole模式
-     *
-     * @var string
-     */
-    private $isSwoole = false;
 
     /**
      * 框架实例
@@ -101,8 +101,8 @@ class App
      */
     public function __construct($rootPath, Closure $loader)
     {
-        // cli模式
-        $this->isCli    = getenv('IS_CLI');
+        // 运行模式
+        $this->runningMode = getenv('EASY_MODE');
         // 根目录
         $this->rootPath = $rootPath;
 
@@ -262,7 +262,7 @@ class App
         if ($this->notOutput === true) {
             return;
         }
-        if ($this->isCli === 'yes') {
+        if ($this->runningMode === 'cli') {
             $closure()->cliModeSuccess($this->responseData);
             return;
         }

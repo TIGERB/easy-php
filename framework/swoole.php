@@ -41,6 +41,8 @@ try {
     $app = new Framework\App(__DIR__ . '/..', function () {
         return require(__DIR__ . '/Load.php');
     });
+    // set the app running mode
+    $app->runningMode = 'cli';
 
     //-----------------------------------------------------------------------//
     //                         LOADING HANDLE MODULE                         //

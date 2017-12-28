@@ -739,6 +739,7 @@ For example, php cli --method=demo.index.get --username=easy-php
 **Swoole Mode:**
 
 ```
+cd public && php server.php
 ```
 
 Get Help:
@@ -845,6 +846,7 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 - v0.8.0(2017/12/31)
     - use swoole
+    - fix infinite recursion for micromonomer router
 
 - v0.7.1(2017/08/29)
     - refactor router by the strategy design pattern 

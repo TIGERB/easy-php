@@ -18,14 +18,18 @@ use Framework\Exceptions\CoreHttpException;
 use Closure;
 
 /**
- * 路由入口.
+ * 路由入口
+ * 
+ * the router entrance
  *
  * @author TIERGB <https://github.com/TIGERB>
  */
 class EasyRouter implements Router
 {
     /**
-     * 框架实例.
+     * 框架实例
+     * 
+     * the framework instance
      *
      * @var App
      */
@@ -33,6 +37,8 @@ class EasyRouter implements Router
 
     /**
      * 配置实例
+     * 
+     * the config instance
      *
      * @var
      */
@@ -40,6 +46,8 @@ class EasyRouter implements Router
 
     /**
      * 请求对象实例
+     * 
+     * the request instance
      *
      * @var
      */
@@ -48,19 +56,25 @@ class EasyRouter implements Router
     /**
      * 默认模块.
      *
+     * default module
+     * 
      * @var string
      */
     private $moduleName = '';
 
      /**
-      * 默认控制器.
-      *
+      * 默认控制器
+      * 
+      * default controller
+      * 
       * @var string
       */
     private $controllerName = '';
 
     /**
      * 默认操作.
+     * 
+     * default action
      *
      * @var string
      */
@@ -68,13 +82,17 @@ class EasyRouter implements Router
 
     /**
      * 类文件路径.
+     * 
+     * class path
      *
      * @var string
      */
     private $classPath = '';
 
     /**
-     * 类文件路径.
+     * 类文件执行类型.
+     * 
+     * ececute type
      *
      * @var string
      */
@@ -82,6 +100,8 @@ class EasyRouter implements Router
 
     /**
      * 请求uri.
+     * 
+     * the request uri
      *
      * @var string
      */
@@ -89,6 +109,8 @@ class EasyRouter implements Router
 
     /**
      * 路由策略.
+     * 
+     * the current router strategy
      *
      * @var string
      */
@@ -96,6 +118,8 @@ class EasyRouter implements Router
     
     /**
      * 路由策略映射
+     * 
+     * the router strategy map
      *
      * @var array
      */
@@ -140,26 +164,26 @@ class EasyRouter implements Router
      */
     public function init(App $app)
     {
-        // 注入当前对象到容器中
+        // 注入当前对象到容器中 register this object to the service container
         $app::$container->set('router', $this);
         // request uri
         $this->request        = $app::$container->get('request');
         $this->requestUri     = $this->request->server('REQUEST_URI');
         // App
         $this->app            = $app;
-        // 获取配置
+        // 获取配置 get config
         $this->config         = $app::$container->getSingle('config');
-        // 设置默认模块
+        // 设置默认模块 set default module
         $this->moduleName     = $this->config->config['route']['default_module'];
-        // 设置默认控制器
+        // 设置默认控制器 set default controller
         $this->controllerName = $this->config->config['route']['default_controller'];
-        // 设置默认操作
+        // 设置默认操作 set default action
         $this->actionName     = $this->config->config['route']['default_action'];
 
-        // 路由决策
+        // 路由决策 judge the router strategy
         $this->strategyJudge();
 
-        // 路由策略
+        // 路由策略 the current router strategy
         (new $this->routeStrategyMap[$this->routeStrategy])->route($this);
 
         // 判断是app还是job
@@ -172,6 +196,32 @@ class EasyRouter implements Router
 
         // 启动路由
         $this->start();
+    }
+
+    /**
+     * 路由策略决策
+     *
+     * @param void
+     */
+    public function strategyJudge()
+    {
+        // 路由策略
+        if (! empty($this->routeStrategy)) {
+            return;
+        }
+
+        // 任务路由
+        if ($this->app->runningMode === 'cli' && $this->request->get('router_mode') === 'job') {
+            $this->routeStrategy = 'job';
+            return;
+        }
+
+        // 普通路由
+        if (strpos($this->requestUri, 'index.php') || $this->app->runningMode === 'cli') {
+            $this->routeStrategy = 'general';
+            return;
+        }
+        $this->routeStrategy = 'pathinfo';
     }
 
     /**
@@ -196,32 +246,6 @@ class EasyRouter implements Router
         $folderName        = ucfirst($this->config->config['application_folder_name']);
         $this->classPath   = "{$folderName}\\{$this->moduleName}\\Controllers\\{$controllerName}";
         $this->executeType = 'controller';
-    }
-
-    /**
-     * 路由策略决策
-     *
-     * @param void
-     */
-    public function strategyJudge()
-    {
-        // 路由策略
-        if (! empty($this->routeStrategy)) {
-            return;
-        }
-
-        // 任务路由
-        if ($this->app->isCli === 'yes' && $this->request->get('router_mode') === 'job') {
-            $this->routeStrategy = 'job';
-            return;
-        }
-
-        // 普通路由
-        if (strpos($this->requestUri, 'index.php') || $this->app->isCli === 'yes') {
-            $this->routeStrategy = 'general';
-            return;
-        }
-        $this->routeStrategy = 'pathinfo';
     }
 
     /**

@@ -38,7 +38,7 @@ class Pathinfo implements RouterInterface
         // 使用默认模块/控制器/操作逻辑
         if (!isset($uri[1][0]) || empty($uri[1][0])) {
             // CLI 模式不输出
-            if ($entrance->app->isCli === 'yes') {
+            if ($entrance->app->runningMode === 'cli') {
                 $entrance->app->notOutput = true;
             }
             return;
