@@ -43,6 +43,7 @@ $easy->runningMode = 'swoole';
  */
 $http->on('request', function ($request, $response) use ($easy) {	
     try {
+        // reject context
         $easy::$container->set('request-swoole', $request);
         $easy::$container->set('response-swoole', $response);
         // init router

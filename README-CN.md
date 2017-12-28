@@ -3,8 +3,8 @@
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.0-lightgrey.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
 
@@ -63,12 +63,14 @@ framework                       [Easy PHP核心框架目录]
 │      ├── CoreHttpException.php[核心http异常]
 ├── handles                     [框架运行时挂载处理机制类目录]
 │      ├── Handle.php           [处理机制接口]
+│      ├── EnvHandle.php        [环境变量处理机制类]
 │      ├── ErrorHandle.php      [错误处理机制类]
 │      ├── ExceptionHandle.php  [未捕获异常处理机制类]
 │      ├── ConfigHandle.php     [配置文件处理机制类]
 │      ├── NosqlHandle.php      [nosql处理机制类]
 │      ├── LogHandle.php        [log机制类]
 │      ├── UserDefinedHandle.php[用户自定义处理机制类]
+│      ├── RouterSwooleHan...   [swoole模式路由处理机制类]
 │      └── RouterHandle.php     [路由处理机制类]
 ├── orm                         [对象关系模型]
 │      ├── Interpreter.php      [sql解析器]
@@ -83,6 +85,7 @@ framework                       [Easy PHP核心框架目录]
 │      ├── Userdefined.php      [自定义路由]
 │      ├── Micromonomer.php     [微单体路由]
 │      ├── Job.php              [脚本任务路由]
+│      ├── EasySwooleRouter.php [swoole模式路由策略入口类]
 │      └── EasyRouter.php       [路由策略入口类]
 ├── nosql                       [nosql类目录]
 │    ├── Memcahed.php           [Memcahed类文件]
@@ -95,6 +98,7 @@ framework                       [Easy PHP核心框架目录]
 ├── Request.php                 [请求类]
 ├── Response.php                [响应类]
 ├── run.php                     [框架应用启用脚本]
+├── swoole.php                  [swoole模式框架应用启用脚本]
 frontend                        [前端源码和资源目录]
 ├── src                         [资源目录]
 │    ├── components             [vue组件目录]
@@ -114,6 +118,7 @@ public                          [公共资源目录，暴露到万维网]
 │    └── ...
 ├── index.html                  [前端入口文件,build生成的文件，不是发布分支忽略该文件]
 ├── index.php                   [后端入口文件]
+├── server.php                  [swoole模式后端入口文件]
 runtime                         [临时目录]
 ├── logs                        [日志目录]
 ├── build                       [php打包生成phar文件目录]
@@ -575,6 +580,12 @@ App::$container->getSingle('mongodb');
 [[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
 
 ##  Swoole模式
+
+支持swoole扩展下运行
+
+```
+cd public && php server.php
+```
 
 [[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/swoole.php)]
 

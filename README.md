@@ -3,8 +3,8 @@
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.0-lightgrey.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
 
@@ -68,6 +68,7 @@ framework                       [easy-php framework directory]
 │      ├── NosqlHandle.php      [nosql handle class]
 │      ├── LogHandle.php        [log handle class]
 │      ├── UserDefinedHandle.php[user defined handle class]
+│      ├── RouterSwooleHan...   [router handle class for swoole mode]
 │      └── RouterHandle.php     [router handle class]
 ├── orm                         [datebase object relation map class directory]
 │      ├── Interpreter.php      [sql Interpreter class]
@@ -82,6 +83,7 @@ framework                       [easy-php framework directory]
 │      ├── Userdefined.php      [userdefined strategy class]
 │      ├── Micromonomer.php     [micromonomer strategy class]
 │      ├── Job.php              [job strategy class]
+│      ├── EasySwooleRouter.php [router strategy entrance class for swoole mode]
 │      └── EasyRouter.php       [router strategy entrance class]
 ├── nosql                       [nosql directory]
 │    ├── Memcahed.php           [memcahed class file]
@@ -94,6 +96,7 @@ framework                       [easy-php framework directory]
 ├── Request.php                 [request object class file]
 ├── Response.php                [response object class file]
 ├── run.php                     [run this application script file]
+├── swoole.php                  [init the framework && swoole server]
 frontend                        [application frontend source code directory]
 ├── src                         [source folder]
 │    ├── components             [vue components]
@@ -113,6 +116,7 @@ public                          [this is a resource directory to expose service 
 │    └── ...
 ├── index.html                  [entrance html file]
 ├── index.php                   [entrance php script file]
+├── server.php                  [init the server with swoole]
 runtime                         [temporary file such as log]
 ├── logs                        [log directory]
 ├── build                       [phar directory build by build script]
@@ -572,6 +576,12 @@ App::$container->getSingle('mongodb');
 ```
 
 ##  Swoole Support
+
+This framework support swoole mode with the php extension swoole, just:
+
+```
+cd public && php server.php
+```
 
 [[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/swoole.php)]
 
