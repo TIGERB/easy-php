@@ -110,7 +110,7 @@ class EasySwooleRouter implements Router
         'general'      => 'Framework\Router\General',
         'pathinfo'     => 'Framework\Router\Pathinfo',
         'user-defined' => 'Framework\Router\Userdefined',
-        // 'micromonemer' => 'Framework\Router\Micromonomer',
+        'micromonomer' => 'Framework\Router\Micromonomer',
     ];
 
     /**
@@ -192,6 +192,11 @@ class EasySwooleRouter implements Router
      */
     public function strategyJudge()
     {
+        // 路由策略
+        if (! empty($this->routeStrategy)) {
+            return;
+        }
+
         // 普通路由
         if (strpos($this->requestUri, 'index.php') || $this->app->isCli === 'yes') {
             $this->routeStrategy = 'general';
@@ -234,6 +239,7 @@ class EasySwooleRouter implements Router
 
         // 调用操作
         $actionName = $this->actionName;
+
         // 获取返回值
         $this->app->responseData = $controller->$actionName();
     }

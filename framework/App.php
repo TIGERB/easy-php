@@ -225,7 +225,7 @@ class App
         $request->requestParams = $argus;
         $request->getParams     = $argus;
         $request->postParams    = $argus;
-        $router  = self::$container->getSingle('router');
+        $router  = self::$container->get('router');
         $router->moduleName     = $requestUri[0];
         $router->controllerName = $requestUri[1];
         $router->actionName     = $requestUri[2];

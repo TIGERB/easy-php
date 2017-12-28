@@ -103,7 +103,7 @@ class EasyRouter implements Router
         'general'      => 'Framework\Router\General',
         'pathinfo'     => 'Framework\Router\Pathinfo',
         'user-defined' => 'Framework\Router\Userdefined',
-        'micromonemer' => 'Framework\Router\Micromonomer',
+        'micromonomer' => 'Framework\Router\Micromonomer',
         'job'          => 'Framework\Router\Job'
     ];
 
@@ -141,7 +141,7 @@ class EasyRouter implements Router
     public function init(App $app)
     {
         // 注入当前对象到容器中
-        $app::$container->setSingle('router', $this);
+        $app::$container->set('router', $this);
         // request uri
         $this->request        = $app::$container->get('request');
         $this->requestUri     = $this->request->server('REQUEST_URI');
@@ -206,7 +206,7 @@ class EasyRouter implements Router
     public function strategyJudge()
     {
         // 路由策略
-        if (! empty($this->routeSrategy)) {
+        if (! empty($this->routeStrategy)) {
             return;
         }
 
@@ -220,10 +220,8 @@ class EasyRouter implements Router
         if (strpos($this->requestUri, 'index.php') || $this->app->isCli === 'yes') {
             $this->routeStrategy = 'general';
             return;
-        } else {
-            $this->routeStrategy = 'pathinfo';
-            return;
         }
+        $this->routeStrategy = 'pathinfo';
     }
 
     /**
@@ -259,6 +257,7 @@ class EasyRouter implements Router
 
         // 调用操作
         $actionName = $this->actionName;
+
         // 获取返回值
         $this->app->responseData = $controller->$actionName();
     }
