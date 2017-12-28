@@ -588,7 +588,7 @@ App::$container->getSingle('mongodb');
 cd public && php server.php
 ```
 
-[[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/swoole.php)]
+[[file: framework/swoole.php](https://github.com/TIGERB/easy-php/tree/master/framework/swoole.php)]
 
 ##  Job模式
 
@@ -739,7 +739,7 @@ php cli --run
 ```
 demo如下：
 
-<p align="center"><img width="30%" src="demo.gif"><p>
+<p align="center"><img width="30%" src="http://cdn.tigerb.cn/demo.gif"><p>
 
 **客户端脚本模式:**
 
@@ -862,7 +862,7 @@ cp ./.git-hooks/* ./git/hooks
 
 # DONE
 
-- v0.8.0(2017/12/31)
+- v0.8.0(2017/12/29)
     - 支持swoole扩展
     - 修复微单体路由无限递归问题
 
@@ -886,9 +886,9 @@ cp ./.git-hooks/* ./git/hooks
 
 ## 赞赏
 
-<img src="https://raw.githubusercontent.com/TIGERB/easy-tips/master/money-qrcode.jpg" width="300px">
+<img src="http://cdn.tigerb.cn/money-qrcode.jpg" width="300px">
 
 ## 交流群
 
-<img src="qrcode.jpg" width="200px">
+<img src="http://cdn.tigerb.cn/qrcode.jpg" width="200px">
 

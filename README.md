@@ -584,7 +584,7 @@ This framework support swoole mode with the php extension swoole, just:
 cd public && php server.php
 ```
 
-[[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/swoole.php)]
+[[file: framework/swoole.php](https://github.com/TIGERB/easy-php/tree/master/framework/swoole.php)]
 
 ##  Job Support
 
@@ -735,7 +735,7 @@ php cli --run
 ```
 demo as follows：
 
-<p align="center"><img width="30%" src="demo.gif"><p>
+<p align="center"><img width="30%" src="http://cdn.tigerb.cn/demo.gif"><p>
 
 **Cli Mode:**
 
@@ -853,7 +853,7 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 # DONE
 
-- v0.8.0(2017/12/31)
+- v0.8.0(2017/12/29)
     - use swoole
     - fix infinite recursion for micromonomer router
 
@@ -877,8 +877,8 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 ## APPRECIATION
 
-<img src="https://raw.githubusercontent.com/TIGERB/easy-tips/master/money-qrcode.jpg" width="300px">
+<img src="http://cdn.tigerb.cn/money-qrcode.jpg" width="300px">
 
 # CONTACT
 
-<img src="qrcode.jpg" width="200px">
+<img src="http://cdn.tigerb.cn/qrcode.jpg" width="200px">
