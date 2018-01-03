@@ -739,7 +739,7 @@ php cli --run
 ```
 demo如下：
 
-<p align="center"><img width="30%" src="http://cdn.tigerb.cn/demo.gif"><p>
+<p align="center"><img width="30%" src="demo.gif"><p>
 
 **客户端脚本模式:**
 
