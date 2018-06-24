@@ -96,7 +96,7 @@ class EasyRouter implements Router
      *
      * @var string
      */
-    private $executeType = '';
+    private $executeType = 'controller';
 
     /**
      * 请求uri.
@@ -186,8 +186,8 @@ class EasyRouter implements Router
         // 路由策略 the current router strategy
         (new $this->routeStrategyMap[$this->routeStrategy])->route($this);
 
-        // 判断是app还是job
-        $this->isAppOrJob($this);
+        // to do　等待优化
+        $this->makeClassPath($this);
 
         // 自定义路由判断
         if ((new $this->routeStrategyMap['user-defined'])->route($this)) {
@@ -225,19 +225,14 @@ class EasyRouter implements Router
     }
 
     /**
-     * 判断是app还是job
+     * get class path
      *
      * @return void
      */
-    public function isAppOrJob()
+    public function makeClassPath()
     {
         // 任务类
         if ($this->routeStrategy === 'job') {
-            $className         = $this->request->request('job');
-            $actionName        = $this->request->request('action');
-            $folderName        = ucfirst($this->config->config['jobs_folder_name']);
-            $this->classPath   = "{$folderName}\\{$this->moduleName}\\{$className}";
-            $this->executeType = 'job';
             return;
         }
 
@@ -245,7 +240,6 @@ class EasyRouter implements Router
         $controllerName    = ucfirst($this->controllerName);
         $folderName        = ucfirst($this->config->config['application_folder_name']);
         $this->classPath   = "{$folderName}\\{$this->moduleName}\\Controllers\\{$controllerName}";
-        $this->executeType = 'controller';
     }
 
     /**

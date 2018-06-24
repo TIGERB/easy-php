@@ -119,4 +119,4 @@ if (isset($input['method'])) {
 $_REQUEST['argv'] = $input;
 
 // 载入框架运行文件
-require('framework/run.php');
+require('../framework/run.php');

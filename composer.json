@@ -1,7 +1,7 @@
 {
     "name": "tigerb/easy-php",
     "description": "A Faster Lightweight Full-Stack PHP Framework",
-    "version": "0.7.1",
+    "version": "0.8.1",
     "type": "framework",
     "homepage": "http://php.tiegrb.cn/",
     "license": "MIT",
@@ -15,7 +15,8 @@
         "phpunit/phpunit": "^6.0"
     },
     "require": {
-        "mongodb/mongodb": "^1.1"
+        "mongodb/mongodb": "^1.1",
+        "easy-framework/easy-log": "^0.1.0"
     },
     "scripts": {
         "post-install-cmd": [

@@ -22,18 +22,18 @@ $ext = 'phar';
 $time = date('YmdHis', time());
 $packageName = "{$packageName}.{$time}.{$ext}";
 
-if (! file_exists(__DIR__ . '/runtime/build/')) {
-    mkdir(__DIR__ . '/runtime/build/');
+if (! file_exists(__DIR__ . '/../runtime/build/')) {
+    mkdir(__DIR__ . '/../runtime/build/');
 }
 
 $phar = new Phar(
-    __DIR__ . '/runtime/build/' . $packageName,
+    __DIR__ . '/../runtime/build/' . $packageName,
     0,
     $packageName
 );
 
-$phar->buildFromDirectory(__DIR__ . '/', '/\.php$/');
-$phar->buildFromDirectory(__DIR__ . '/', '/\.env$/');
+$phar->buildFromDirectory(__DIR__ . '/../', '/\.php$/');
+$phar->buildFromDirectory(__DIR__ . '/../', '/\.env$/');
 $phar->buildFromDirectory(__DIR__ . '/', '/^cli$/');
 
 $webIndex = "<?php
@@ -46,4 +46,4 @@ $phar->setStub(
     $webIndex
 );
 
-echo "Build success in 'runtime/build/{$packageName}' \n";
+echo "Build success in '/..runtime/build/{$packageName}' \n";

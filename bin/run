@@ -5,7 +5,7 @@
 os=$(uname -a | awk 'BEGIN{FS=" "} {print $1}')
 
 # step 1
-yarn install
+cd ../frontend && yarn install
 
 # step 2
 DOMAIN=http://localhost:60000 npm run demo
@@ -26,4 +26,4 @@ else
 fi
 
 # step 4
-cd public && php -S "localhost:60000"
+cd ../public && php -S "localhost:60000"

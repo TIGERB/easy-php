@@ -1,9 +1,9 @@
-<p align="center"><img width="60%" src="logo.png"><p>
+<p align="center"><img width="60%" src="http://cdn.tigerb.cn/logo.png"><p>
 
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.0-lightgrey.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.1-lightgrey.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
@@ -108,6 +108,9 @@ frontend                        [application frontend source code directory]
 ├── app.vue                     [vue root component]
 ├── index.template.html         [frontend entrance template file]
 ├── store.js                    [vuex store file]
+├── .babelrc                    [babel　config file]
+├── webpack.config.js           [webpack config file]
+├── yarn.lock                   [yarn　lock file]
 jobs                            [Jobs folder, where write you business script]
 ├── demo                        [Module folder]
 │    ├── Demo.php               [Job script example file]
@@ -129,12 +132,13 @@ vendor                          [composer vendor directory]
 .git-hooks                      [git hooks directory]
 ├── pre-commit                  [git pre-commit example file]
 ├── commit-msg                  [git commit-msg example file]
-.babelrc                        [babel　config file]
+bin                             [the auto script folder]
+├── build                       [build php code to phar file script]
+├── cli                         [run this framework with the php cli mode]
+├── run                         [quick start script]
 .env.example                    [the environment variables example file]
 .gitignore                      [git ignore config file]
 .travis.yml                     [travis-ci config file]
-build                           [build php code to phar file script]
-cli                             [run this framework with the php cli mode]
 LICENSE                         [lincese　file]
 logo.png                        [logo picture]
 composer.json                   [composer file]
@@ -143,15 +147,12 @@ package.json                    [dependence file for frontend]
 phpunit.xml                     [phpunit config file]
 README-CN.md                    [readme file chinese]
 README.md                       [readme file]
-run                             [quick start shell script]
-webpack.config.js               [webpack config file]
-yarn.lock                       [yarn　lock file]
 
 ```
 
 # Life Cycle
 
-<p align="center"><img width="90%" src="http://easy-php.tigerb.cn/_media/life_cycle_en.png"><p>
+<p align="center"><img width="90%" src="http://cdn.tigerb.cn/easy-php-en.png"><p>
 
 # Framework Module Description:
 
@@ -576,6 +577,32 @@ App::$container->getSingle('memcahed');
 App::$container->getSingle('mongodb');
 ```
 
+[[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
+
+##  Log
+
+I make the log class like a third part module that be used by composer, the project link <https://github.com/easy-framework/easy-log>
+
+How to use? as follows:
+
+```
+// env config
+[log]
+path = /runtime/logs/
+name = easy-php
+size = 512
+level= debug
+
+
+// How to use in your logic
+Log::debug('EASY PHP');
+Log::notice('EASY PHP');
+Log::warning('EASY PHP');
+Log::error('EASY PHP');
+```
+
+[[file: framework/handles/LogHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/LogHandle.php)]
+
 ##  Swoole Support
 
 This framework support swoole mode with the php extension swoole, just:
@@ -731,7 +758,7 @@ Run：
 
 Quick Start:
 ```
-php cli --run
+cd bin && php cli --run
 ```
 demo as follows：
 
@@ -845,13 +872,16 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 - Provide much friendly help for user
 - Module's config support module-defined mysql and nosql configuration
 - ORM provide more apis
-- Make different rank for log
 - Resolve config problem when publish our project
 - implement auto deploy by used phar
 - ...
 
 
 # DONE
+
+- v0.8.1(2017/06/24)
+    - use easy log
+    - add folder bin
 
 - v0.8.0(2017/12/29)
     - use swoole
@@ -880,5 +910,7 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 <img src="http://cdn.tigerb.cn/money-qrcode.jpg" width="300px">
 
 # CONTACT
+
+<img src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg" width="300px">
 
 <img src="http://cdn.tigerb.cn/qrcode.jpg" width="200px">

@@ -14,6 +14,7 @@ namespace Framework\Handles;
 use Framework\App;
 use Framework\Handles\Handle;
 use Framework\Exceptions\CoreHttpException;
+use Easy\Log;
 
 /**
  * 框架日志处理
@@ -25,30 +26,21 @@ use Framework\Exceptions\CoreHttpException;
 class LogHandle implements Handle
 {
     /**
-     * log file path
+     * log config
      *
      * @var string
      */
-    private $logPath = '';
+    private $logConfig = '';
 
     /**
-     * log file name
-     *
-     * @var string
-     */
-    private $logFileName = 'easy-php-framework-run';
-
-    /**
-     * 延时注册Logger实例到容器
+     * init the easy log
      *
      * @param  App    $app 框架实例
      * @return void
      */
     public function register(App $app)
     {
-        App::$container->setSingle('logger', function () {
-            return new LogHandle();
-        });
+        new LogHandle();
     }
 
     /**
@@ -63,35 +55,22 @@ class LogHandle implements Handle
          *
          * check log path env config
          */
-        $this->logPath = env('log_path');
-        if (empty($this->logPath) || ! isset($this->logPath['path'])) {
+        $this->logConfig = env('log');
+        if (empty($this->logConfig)) {
+            throw new CoreHttpException(400, 'log config is not defined');
+        }
+        if (! isset($this->logConfig['path'])) {
             throw new CoreHttpException(400, 'log path is not defined');
         }
-        $this->logPath = $this->logPath['path'];
-        $this->logPath = App::$app->rootPath . $this->logPath;
-        if (! file_exists($this->logPath)) {
-            mkdir($this->logPath, 0777, true);
+        if (! isset($this->logConfig['name'])) {
+            throw new CoreHttpException(400, 'log name is not defined');
         }
-
-        /**
-         * 构建日志文件名称
-         *
-         * build log file name
-         */
-        $this->logFileName .= '.' . date('Ymd', time());
-    }
-
-    /**
-     * write log
-     *
-     * @param  [type] $data log data
-     * @return void
-     */
-    public function write($data = [])
-    {
-        easy_log(
-            $data,
-            $this->logPath . $this->logFileName
-        );
+        if (! isset($this->logConfig['size'])) {
+            throw new CoreHttpException(400, 'log size is not defined');
+        }
+        $instance = Log::getInstance();
+        $instance->logFileName = $this->logConfig['name'];
+        $instance->logPath = App::$app->rootPath . $this->logConfig['path'];
+        $instance->logFileSize = $this->logConfig['size'];
     }
 }

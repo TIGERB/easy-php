@@ -10,7 +10,7 @@
 namespace App\Demo\Controllers;
 
 use Framework\App;
-use Framework\Logger;
+use Easy\Log; 
 
 /**
  * Index Controller
@@ -85,9 +85,21 @@ class Index
         App::$container->get('request');
         // 配置对象
         App::$container->getSingle('config');
-        // 日志对象
-        $logger = App::$container->getSingle('logger');
-        $logger->write(['Easy PHP logger']);
+
+        return [];
+    }
+
+    /**
+     * 写日志实例演示
+     *
+     * @return void
+     */
+    public function log()
+    {
+        Log::debug('EASY PHP');
+        Log::notice('EASY PHP');
+        Log::warning('EASY PHP');
+        Log::error('EASY PHP');
 
         return [];
     }
