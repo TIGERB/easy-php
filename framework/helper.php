@@ -40,17 +40,19 @@ function env($paramName = '')
  * @param  array  $data 数据
  * @return mixed
  */
-function dump($data = [])
-{
-    ob_start();
-    var_dump($data);
-    $output = ob_get_clean();
-    if (!extension_loaded('xdebug')) {
-        $output = preg_replace('/\]\=\>\n(\s+)/m', '] => ', $output);
-        $output = '<pre>' . htmlspecialchars($output, ENT_QUOTES) . '</pre>';
+if (! function_exists('debug')) {
+    function dump($data = [])
+    {
+        ob_start();
+        var_dump($data);
+        $output = ob_get_clean();
+        if (!extension_loaded('xdebug')) {
+            $output = preg_replace('/\]\=\>\n(\s+)/m', '] => ', $output);
+            $output = '<pre>' . htmlspecialchars($output, ENT_QUOTES) . '</pre>';
+        }
+        echo ($output);
+        return null;
     }
-    echo ($output);
-    return null;
 }
 
 /**
@@ -60,12 +62,28 @@ function dump($data = [])
  * @param  string $fileName log文件名 绝对路径
  * @return void
  */
-function easy_log($data = [], $fileName = 'debug')
-{
-    $time = date('Y-m-d H:i:s', time());
-    error_log(
-        "[{$time}]: " . json_encode($data, JSON_UNESCAPED_UNICODE)."\n",
-        3,
-        $fileName . '.log'
-    );
+if (! function_exists('log')) {
+    function log($data = [], $fileName = 'debug')
+    {
+        $time = date('Y-m-d H:i:s', time());
+        error_log(
+            "[{$time}]: " . json_encode($data, JSON_UNESCAPED_UNICODE)."\n",
+            3,
+            $fileName . '.log'
+        );
+    }
+}
+
+/**
+ * debug
+ *
+ * @param  array  $data  数据
+ * @return void
+ */
+if (! function_exists('debug')) {
+    function debug($data = [])
+    {
+        header('Content-Type:Application;');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
 }

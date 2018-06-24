@@ -60,8 +60,9 @@ class Job implements RouterInterface
         $entrance->actionName = $actionName;
 
         // 获job类
-        $jobName = ucfirst($jobName);
-        $appName = ucfirst($entrance->config->config['jobs_folder_name']);
-        $this->classPath = "{$appName}\\{$moduleName}\\{$jobName}";
+        $jobName    = ucfirst($jobName);
+        $moduleName = ucfirst($moduleName);
+        $appName    = ucfirst($entrance->config->config['jobs_folder_name']);
+        $entrance->classPath = "{$appName}\\{$moduleName}\\{$jobName}";
     }
 }

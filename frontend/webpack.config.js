@@ -14,12 +14,12 @@ var domain            = process.env.DOMAIN; // your domain process.env.domain
 webpackConfig.entry　 =　{
   app:[
     // main
-    './frontend/app.js',
+    './app.js',
   ],
 };
 
 webpackConfig.output = {
-  path: path.resolve(__dirname, './public/dist'),
+  path: path.resolve(__dirname, './../public/dist'),
   publicPath: domain+'/dist/',
   filename: production? '[name].[hash].js': '[name].js'
 };//　output
@@ -71,8 +71,8 @@ webpackConfig.plugins = [
   // make index.html
   new HtmlWebpackPlugin({
     title: 'easy-vue',
-    filename: path.resolve(__dirname, './public') + '/index.html',
-    template: './frontend/index.template.html'
+    filename: path.resolve(__dirname, './../public') + '/index.html',
+    template: './index.template.html'
   }),
   // separate css file
   new ExtractTextPlugin({

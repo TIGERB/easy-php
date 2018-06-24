@@ -1,4 +1,4 @@
-<p align="center"><img width="60%" src="logo.png"><p>
+<p align="center"><img width="60%" src="http://cdn.tigerb.cn/logo.png"><p>
 
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
@@ -110,6 +110,9 @@ frontend                        [前端源码和资源目录]
 ├── app.vue                     [根组件]
 ├── index.template.html         [前端入口文件模板]
 ├── store.js                    [vuex store文件]
+├── .babelrc                    [babel配置文件]
+├── webpack.config.js           [webpack配置文件]
+├── yarn.lock                   [yarn　lock文件]
 jobs                            [脚本目录，写业务脚本的地方]
 ├── demo                        [模块目录]
 │    ├── Demo.php               [脚本演示文件]
@@ -131,12 +134,13 @@ vendor                          [composer目录]
 .git-hooks                      [git钩子目录]
 ├── pre-commit                  [git pre-commit预commit钩子示例文件]
 ├── commit-msg                  [git commit-msg示例文件]
-.babelrc                        [babel配置文件]
+bin                             [自动化脚本目录]
+├── build                       [php打包脚本]
+├── cli                         [框架cli模式运行脚本]
+├── run                         [快速开始脚本]
 .env.example                    [环境变量示例文件]
 .gitignore                      [git忽略文件配置]
 .travis.yml                     [持续集成工具travis-ci配置文件]
-build                           [php打包脚本]
-cli                             [框架cli模式运行脚本]
 LICENSE                         [lincese文件]
 logo.png                        [框架logo图片]
 composer.json                   [composer配置文件]
@@ -145,9 +149,6 @@ package.json                    [前端依赖配置文件]
 phpunit.xml                     [phpunit配置文件]
 README-CN.md                    [中文版readme文件]
 README.md                       [readme文件]
-run                             [快速开始脚本]
-webpack.config.js               [webpack配置文件]
-yarn.lock                       [yarn　lock文件]
 
 ```
 
@@ -759,7 +760,7 @@ Command:
 
 快速开始一个demo:
 ```
-php cli --run
+cd bin && php cli --run
 ```
 demo如下：
 
@@ -916,6 +917,8 @@ cp ./.git-hooks/* ./git/hooks
 <img src="http://cdn.tigerb.cn/money-qrcode.jpg" width="300px">
 
 ## 交流群
+
+<img src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg" width="300px">
 
 <img src="http://cdn.tigerb.cn/qrcode.jpg" width="200px">
 

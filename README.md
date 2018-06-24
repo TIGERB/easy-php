@@ -1,4 +1,4 @@
-<p align="center"><img width="60%" src="logo.png"><p>
+<p align="center"><img width="60%" src="http://cdn.tigerb.cn/logo.png"><p>
 
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
@@ -108,6 +108,9 @@ frontend                        [application frontend source code directory]
 ├── app.vue                     [vue root component]
 ├── index.template.html         [frontend entrance template file]
 ├── store.js                    [vuex store file]
+├── .babelrc                    [babel　config file]
+├── webpack.config.js           [webpack config file]
+├── yarn.lock                   [yarn　lock file]
 jobs                            [Jobs folder, where write you business script]
 ├── demo                        [Module folder]
 │    ├── Demo.php               [Job script example file]
@@ -129,12 +132,13 @@ vendor                          [composer vendor directory]
 .git-hooks                      [git hooks directory]
 ├── pre-commit                  [git pre-commit example file]
 ├── commit-msg                  [git commit-msg example file]
-.babelrc                        [babel　config file]
+bin                             [the auto script folder]
+├── build                       [build php code to phar file script]
+├── cli                         [run this framework with the php cli mode]
+├── run                         [quick start script]
 .env.example                    [the environment variables example file]
 .gitignore                      [git ignore config file]
 .travis.yml                     [travis-ci config file]
-build                           [build php code to phar file script]
-cli                             [run this framework with the php cli mode]
 LICENSE                         [lincese　file]
 logo.png                        [logo picture]
 composer.json                   [composer file]
@@ -143,9 +147,6 @@ package.json                    [dependence file for frontend]
 phpunit.xml                     [phpunit config file]
 README-CN.md                    [readme file chinese]
 README.md                       [readme file]
-run                             [quick start shell script]
-webpack.config.js               [webpack config file]
-yarn.lock                       [yarn　lock file]
 
 ```
 
@@ -757,7 +758,7 @@ Run：
 
 Quick Start:
 ```
-php cli --run
+cd bin && php cli --run
 ```
 demo as follows：
 
@@ -909,5 +910,7 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 <img src="http://cdn.tigerb.cn/money-qrcode.jpg" width="300px">
 
 # CONTACT
+
+<img src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg" width="300px">
 
 <img src="http://cdn.tigerb.cn/qrcode.jpg" width="200px">
