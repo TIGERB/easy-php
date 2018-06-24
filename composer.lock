@@ -4,9 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a38313b647d8d7975194d65677e67a46",
-    "content-hash": "549e5dbbc9227ecb414ae14ab91d02c1",
+    "hash": "c7f6f8494671b000675d4cdaedae160d",
+    "content-hash": "ee333caca6044e4f6f8101e100b01e1c",
     "packages": [
+        {
+            "name": "easy-framework/easy-log",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/easy-framework/easy-log.git",
+                "reference": "8e5301689174a6ea154c805860278833a88782e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/easy-framework/easy-log/8e5301689174a6ea154c805860278833a88782e5.zip",
+                "reference": "8e5301689174a6ea154c805860278833a88782e5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Easy\\": "/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "TIGERB",
+                    "email": "tigerbcode@gmail.com"
+                }
+            ],
+            "description": "Write log easily",
+            "homepage": "https://github.com/easy-framework",
+            "keywords": [
+                "log",
+                "php-log"
+            ],
+            "time": "2018-06-23 14:56:55"
+        },
         {
             "name": "mongodb/mongodb",
             "version": "1.1.2",

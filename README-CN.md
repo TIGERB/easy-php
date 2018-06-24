@@ -1,9 +1,9 @@
-<p align="center"><img width="60%" src="logo.png"><p>
+<p align="center"><img width="60%" src="http://cdn.tigerb.cn/logo.png"><p>
 
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.0-lightgrey.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.1-lightgrey.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
@@ -110,6 +110,9 @@ frontend                        [前端源码和资源目录]
 ├── app.vue                     [根组件]
 ├── index.template.html         [前端入口文件模板]
 ├── store.js                    [vuex store文件]
+├── .babelrc                    [babel配置文件]
+├── webpack.config.js           [webpack配置文件]
+├── yarn.lock                   [yarn　lock文件]
 jobs                            [脚本目录，写业务脚本的地方]
 ├── demo                        [模块目录]
 │    ├── Demo.php               [脚本演示文件]
@@ -131,12 +134,13 @@ vendor                          [composer目录]
 .git-hooks                      [git钩子目录]
 ├── pre-commit                  [git pre-commit预commit钩子示例文件]
 ├── commit-msg                  [git commit-msg示例文件]
-.babelrc                        [babel配置文件]
+bin                             [自动化脚本目录]
+├── build                       [php打包脚本]
+├── cli                         [框架cli模式运行脚本]
+├── run                         [快速开始脚本]
 .env.example                    [环境变量示例文件]
 .gitignore                      [git忽略文件配置]
 .travis.yml                     [持续集成工具travis-ci配置文件]
-build                           [php打包脚本]
-cli                             [框架cli模式运行脚本]
 LICENSE                         [lincese文件]
 logo.png                        [框架logo图片]
 composer.json                   [composer配置文件]
@@ -145,9 +149,6 @@ package.json                    [前端依赖配置文件]
 phpunit.xml                     [phpunit配置文件]
 README-CN.md                    [中文版readme文件]
 README.md                       [readme文件]
-run                             [快速开始脚本]
-webpack.config.js               [webpack配置文件]
-yarn.lock                       [yarn　lock文件]
 
 ```
 
@@ -580,6 +581,30 @@ App::$container->getSingle('mongodb');
 
 [[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
 
+##  日志模块
+
+日志作为一个第三方独立的模块使用，达到模块化的目的，日志类项目地址<https://github.com/easy-framework/easy-log>
+
+如何使用？如下，
+
+```
+// env 配置示例
+[log]
+path = /runtime/logs/
+name = easy-php
+size = 512
+level= debug
+
+
+// 业务中如何打日志
+Log::debug('EASY PHP');
+Log::notice('EASY PHP');
+Log::warning('EASY PHP');
+Log::error('EASY PHP');
+```
+
+[[file: framework/handles/LogHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/LogHandle.php)]
+
 ##  Swoole模式
 
 支持swoole扩展下运行
@@ -735,7 +760,7 @@ Command:
 
 快速开始一个demo:
 ```
-php cli --run
+cd bin && php cli --run
 ```
 demo如下：
 
@@ -855,12 +880,15 @@ cp ./.git-hooks/* ./git/hooks
 - 提供更友善的开发api帮助
 - 模块支持数据库nosql自定义配置
 - ORM提供更多链式操作api
-- 框架log行为进行级别分类
 - 想办法解决上线部署是配置文件问题
 - 基于phar文件打包部署
 - ...
 
 # DONE
+
+- v0.8.1(2018/06/24)
+    - 重构日志类
+    - 增加bin目录统一存放脚本文件
 
 - v0.8.0(2017/12/29)
     - 支持swoole扩展
@@ -889,6 +917,8 @@ cp ./.git-hooks/* ./git/hooks
 <img src="http://cdn.tigerb.cn/money-qrcode.jpg" width="300px">
 
 ## 交流群
+
+<img src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg" width="300px">
 
 <img src="http://cdn.tigerb.cn/qrcode.jpg" width="200px">
 
