@@ -15,7 +15,8 @@
         "phpunit/phpunit": "^6.0"
     },
     "require": {
-        "mongodb/mongodb": "^1.1"
+        "mongodb/mongodb": "^1.1",
+        "easy-framework/easy-log": "^0.1.0"
     },
     "scripts": {
         "post-install-cmd": [

@@ -13,6 +13,7 @@ namespace Framework\Exceptions;
 
 use Exception;
 use Framework\App;
+use Easy\Log;
 
 /**
  * 核心http异常
@@ -75,7 +76,7 @@ class CoreHttpException extends Exception
         ];
 
         // log
-        App::$container->getSingle('logger')->write($data);
+        Log::error(json_encode($data));
 
         // response
         header('Content-Type:Application/json; Charset=utf-8');
@@ -102,7 +103,7 @@ class CoreHttpException extends Exception
         ];
 
         // log
-        App::$container->getSingle('logger')->write($data);
+        Log::error(json_encode($data));
 
         // response
         $reponse = App::$container->get('response-swoole');
@@ -131,7 +132,7 @@ class CoreHttpException extends Exception
         ];
 
         // log
-        App::$container->getSingle('logger')->write($data);
+        Log::error(json_encode($data));
 
         header('Content-Type:Application/json; Charset=utf-8');
         die(json_encode($data));
@@ -157,7 +158,7 @@ class CoreHttpException extends Exception
         ];
 
         // log
-        App::$container->getSingle('logger')->write($data);
+        Log::error(json_encode($data));
 
         $reponse = App::$container->get('response-swoole');
         $reponse->header('Content-Type', 'Application/json');

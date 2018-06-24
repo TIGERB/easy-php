@@ -3,7 +3,7 @@
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.0-lightgrey.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.1-lightgrey.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
@@ -580,6 +580,30 @@ App::$container->getSingle('mongodb');
 
 [[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
 
+##  日志模块
+
+日志作为一个第三方独立的模块使用，达到模块化的目的，日志类项目地址<https://github.com/easy-framework/easy-log>
+
+如何使用？如下，
+
+```
+// env 配置示例
+[log]
+path = /runtime/logs/
+name = easy-php
+size = 512
+level= debug
+
+
+// 业务中如何打日志
+Log::debug('EASY PHP');
+Log::notice('EASY PHP');
+Log::warning('EASY PHP');
+Log::error('EASY PHP');
+```
+
+[[file: framework/handles/LogHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/LogHandle.php)]
+
 ##  Swoole模式
 
 支持swoole扩展下运行
@@ -855,12 +879,15 @@ cp ./.git-hooks/* ./git/hooks
 - 提供更友善的开发api帮助
 - 模块支持数据库nosql自定义配置
 - ORM提供更多链式操作api
-- 框架log行为进行级别分类
 - 想办法解决上线部署是配置文件问题
 - 基于phar文件打包部署
 - ...
 
 # DONE
+
+- v0.8.1(2018/06/24)
+    - 重构日志类
+    - 增加bin目录统一存放脚本文件
 
 - v0.8.0(2017/12/29)
     - 支持swoole扩展

@@ -3,7 +3,7 @@
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.0-lightgrey.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.1-lightgrey.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
@@ -576,6 +576,32 @@ App::$container->getSingle('memcahed');
 App::$container->getSingle('mongodb');
 ```
 
+[[file: framework/nosql/*](https://github.com/TIGERB/easy-php/tree/master/framework/nosql)]
+
+##  Log
+
+I make the log class like a third part module that be used by composer, the project link <https://github.com/easy-framework/easy-log>
+
+How to use? as follows:
+
+```
+// env config
+[log]
+path = /runtime/logs/
+name = easy-php
+size = 512
+level= debug
+
+
+// How to use in your logic
+Log::debug('EASY PHP');
+Log::notice('EASY PHP');
+Log::warning('EASY PHP');
+Log::error('EASY PHP');
+```
+
+[[file: framework/handles/LogHandle.php](https://github.com/TIGERB/easy-php/blob/master/framework/handles/LogHandle.php)]
+
 ##  Swoole Support
 
 This framework support swoole mode with the php extension swoole, just:
@@ -845,13 +871,16 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 - Provide much friendly help for user
 - Module's config support module-defined mysql and nosql configuration
 - ORM provide more apis
-- Make different rank for log
 - Resolve config problem when publish our project
 - implement auto deploy by used phar
 - ...
 
 
 # DONE
+
+- v0.8.1(2017/06/24)
+    - use easy log
+    - add folder bin
 
 - v0.8.0(2017/12/29)
     - use swoole
