@@ -76,7 +76,6 @@ class Load
         $classPath   = $path . '/'.str_replace('\\', '/', $class) . '.php';
         if (!file_exists($classPath)) {
             // 框架级别加载文件不存在　composer加载
-            return;
             throw new CoreHttpException(404, "$classPath Not Found");
         }
         self::$map[$classOrigin] = $classPath;
