@@ -40,7 +40,7 @@ function env($paramName = '')
  * @param  array  $data 数据
  * @return mixed
  */
-if (! function_exists('debug')) {
+if (! function_exists('dump')) {
     function dump($data = [])
     {
         ob_start();
