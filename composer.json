@@ -1,7 +1,7 @@
 {
     "name": "tigerb/easy-php",
     "description": "A Faster Lightweight Full-Stack PHP Framework",
-    "version": "0.8.2",
+    "version": "0.8.3",
     "type": "framework",
     "homepage": "http://php.tiegrb.cn/",
     "license": "MIT",
@@ -19,13 +19,15 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "cp .env.example .env",
-            "chmod -R 777 runtime",
             "composer dump-autoload --optimize"
         ],
         "post-root-project-cmd": [
+            "cp .env.example .env",
+            "chmod -R 777 runtime",
+            "git init && git add -A && git commit -m 'feat(all): project init commit'",
+            "cp -r ./.git-hooks/* ./.git/hooks && chmod +x ./.git/hooks/pre-commit && chmod +x ./.git/hooks/commit-msg",
             "composer install",
-            "cp ./.git-hooks/* ./git/hooks"
+            "composer dump-autoload --optimize"
         ],
         "pre-status-cmd": [
             "cp .env.example .env",

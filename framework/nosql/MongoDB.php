@@ -28,7 +28,7 @@ class MongoDB
      *
      * Init
      */
-    public　static function init()
+    public static function init()
     {
         $config = App::$container->getSingle('config');
         $config = $config->config['mongoDB'];
