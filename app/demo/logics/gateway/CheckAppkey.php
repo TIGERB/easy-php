@@ -28,7 +28,7 @@ class CheckAppkey extends Check
     public function doCheck(Request $request)
     {
         // 获取app key配置
-        $appKeyMap = $request->env('app_key_map');
+        $appKeyMap = env('app_key_map');
         // app key
         $appKey    = $request->request('app_key');
 
