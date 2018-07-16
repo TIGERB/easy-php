@@ -5,6 +5,7 @@
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.3-lightgrey.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
+<a href="https://easy-framework.github.io/easy-env/"><img src="https://img.shields.io/badge/docker%20env-support-green.svg" alt="Docker env"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
 
@@ -783,6 +784,10 @@ cd public && php server.php
 获取帮助:
 
 使用命令 php cli 或者 php cli --help
+
+# docker环境
+
+本框架提供docker开发环境，一行命令几分钟构建你的开发环境，详细请点击[easy-env](https://easy-framework.github.io/easy-env/)查看。
 
 # 性能-fpm
 

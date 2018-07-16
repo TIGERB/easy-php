@@ -5,6 +5,7 @@
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.3-lightgrey.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
+<a href="https://easy-framework.github.io/easy-env/"><img src="https://img.shields.io/badge/docker%20env-support-green.svg" alt="Docker env"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 </p>
 
@@ -781,6 +782,10 @@ cd public && php server.php
 Get Help:
 
 Use php cli OR php cli --help
+
+# Docker env
+
+Docker env is support by this framework, you will build the env just by one command quickly. Get more please click [easy-env](https://easy-framework.github.io/easy-env/).
 
 # Performance with php-fmp
 

@@ -26,6 +26,7 @@
             "chmod -R 777 runtime",
             "git init && git add -A && git commit -m 'feat(all): project init commit'",
             "cp -r ./.git-hooks/* ./.git/hooks && chmod +x ./.git/hooks/pre-commit && chmod +x ./.git/hooks/commit-msg",
+            "rm ./.travis.yml && rm ./.varci.yml",
             "composer install",
             "composer dump-autoload --optimize"
         ],

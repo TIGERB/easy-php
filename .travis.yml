@@ -12,7 +12,7 @@ before_install:
 #   -in id_rsa.enc -out ~/.ssh/id_rsa -d
 # - chmod 600 ~/.ssh/id_rsa
 # - echo -e "Host ip\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+# - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 - composer install
 
 after_success:
