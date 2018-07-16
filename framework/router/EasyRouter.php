@@ -269,7 +269,7 @@ class EasyRouter implements Router
 
         // 实例化当前控制器
         $controller = new $this->classPath();
-        if (! method_exists($controller, $this->actionName)) {
+        if (! is_callable([$controller, $this->actionName])) {
             throw new CoreHttpException(404, 'Action:'.$this->actionName);
         }
 
