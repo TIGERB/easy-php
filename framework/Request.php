@@ -137,7 +137,7 @@ class Request
             $this->headerParams  = $swooleRequest->header;
             $this->serverParams  = $swooleRequest->server;
             $this->method        = $this->serverParams['request_method'];
-            $this->serverIp      = $this->serverParams['remote_addr'];
+            $this->serverIp      = $this->serverParams['server_addr'];
             $this->clientIp      = $this->serverParams['remote_addr'];
             $this->beginTime     = $this->serverParams['request_time_float'];
             $this->getParams     = isset($swooleRequest->get)? $swooleRequest->get: [];
@@ -150,8 +150,8 @@ class Request
 
         $this->serverParams = $_SERVER;
         $this->method       = isset($_SERVER['REQUEST_METHOD'])? strtolower($_SERVER['REQUEST_METHOD']) : 'get';
-        $this->serverIp     = isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '';
-        $this->clientIp     = isset($_SERVER['SERVER_ADDR'])? $_SERVER['SERVER_ADDR'] : '';
+        $this->serverIp     = isset($_SERVER['SERVER_ADDR'])? $_SERVER['SERVER_ADDR'] : '';
+        $this->clientIp     = isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '';
         $this->beginTime    = isset($_SERVER['REQUEST_TIME_FLOAT'])? $_SERVER['REQUEST_TIME_FLOAT'] : microtime(true);
         if ($app->runningMode === 'cli') {
             // cli 模式
