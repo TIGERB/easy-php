@@ -34,9 +34,9 @@ trait Interpreter
      *
      * query params
      *
-     * @var string
+     * @var array
      */
-    public  $params    = '';
+    public  $params    = [];
 
     /**
      * 排序条件
