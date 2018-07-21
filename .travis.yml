@@ -3,7 +3,7 @@
 
 language: php
 php:
-- '7.0'
+- '7.1'
 branches:
   only:
   - master
@@ -14,6 +14,7 @@ before_install:
 # - echo -e "Host ip\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 # - echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 - composer install
+- composer rebuild
 
 after_success:
 # - ssh username@ip 'cd /path/project_name && git pull origin release'

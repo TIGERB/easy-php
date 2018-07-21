@@ -1,7 +1,7 @@
 {
     "name": "tigerb/easy-php",
     "description": "A Faster Lightweight Full-Stack PHP Framework",
-    "version": "0.8.3",
+    "version": "0.8.4",
     "type": "framework",
     "homepage": "http://php.tiegrb.cn/",
     "license": "MIT",
@@ -30,7 +30,7 @@
             "composer install",
             "composer dump-autoload --optimize"
         ],
-        "pre-status-cmd": [
+        "rebuild": [
             "cp .env.example .env",
             "rm -rf runtime/*"
         ]

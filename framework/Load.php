@@ -74,11 +74,16 @@ class Load
         $class       = implode('\\', $classInfo);
         $path        = self::$namespaceMap['Framework'];
         $classPath   = $path . '/'.str_replace('\\', '/', $class) . '.php';
-        if (!file_exists($classPath)) {
-            // 框架级别加载文件不存在　composer加载
-            return;
-            throw new CoreHttpException(404, "$classPath Not Found");
-        }
+        /**
+         * [tideways optimize]
+         * 通过tideways分析file_exists性能消耗偏多 注释掉 文件不存在 直接底层异常
+         * 此处性能提升10ms左右
+         */
+        // if (!file_exists($classPath)) {
+        //     // 框架级别加载文件不存在　composer加载
+        //     return;
+        //     throw new CoreHttpException(404, "$classPath Not Found");
+        // }
         self::$map[$classOrigin] = $classPath;
         require $classPath;
     }
