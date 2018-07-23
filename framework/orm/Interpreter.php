@@ -85,7 +85,7 @@ trait Interpreter
         if (empty($data)) {
             throw new CoreHttpException("argument data is null", 400);
         }
-
+        $this->params = NULL;//初始化，避免参数被污染
         $fieldString = '';
         $valueString = '';
         $i = 0;
@@ -191,7 +191,7 @@ trait Interpreter
         if (empty($data)) {
             return;
         }
-
+        $this->params = NULL;//避免被污染
         $count = count($data);
 
         /* 单条件 */
