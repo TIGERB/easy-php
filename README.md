@@ -2,11 +2,13 @@
 
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"> <img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.4-lightgrey.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
 <a href="https://easy-framework.github.io/easy-env/"><img src="https://img.shields.io/badge/docker%20env-support-green.svg" alt="Docker env"></a>
+<a href="#backers" alt="sponsors on Open Collective"><img src="https://opencollective.com/easy-php/backers/badge.svg" /></a> <a href="#sponsors" alt="Sponsors on Open Collective"><img src="https://opencollective.com/easy-php/sponsors/badge.svg" /></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
+
 </p>
 
 <p align="center"> A Faster Lightweight Full-Stack PHP Framework <p>
@@ -914,8 +916,40 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 <img src="http://cdn.tigerb.cn/money-qrcode.jpg" width="300px">
 
+### Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/easy-php/contributors.svg?width=890&button=false" /></a>
+
+
+### Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/easy-php#backer)]
+
+<a href="https://opencollective.com/easy-php#backers" target="_blank"><img src="https://opencollective.com/easy-php/backers.svg?width=890"></a>
+
+
+### Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/easy-php#sponsor)]
+
+<a href="https://opencollective.com/easy-php/sponsor/0/website" target="_blank"><img src="https://opencollective.com/easy-php/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/easy-php/sponsor/1/website" target="_blank"><img src="https://opencollective.com/easy-php/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/easy-php/sponsor/2/website" target="_blank"><img src="https://opencollective.com/easy-php/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/easy-php/sponsor/3/website" target="_blank"><img src="https://opencollective.com/easy-php/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/easy-php/sponsor/4/website" target="_blank"><img src="https://opencollective.com/easy-php/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/easy-php/sponsor/5/website" target="_blank"><img src="https://opencollective.com/easy-php/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/easy-php/sponsor/6/website" target="_blank"><img src="https://opencollective.com/easy-php/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/easy-php/sponsor/7/website" target="_blank"><img src="https://opencollective.com/easy-php/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/easy-php/sponsor/8/website" target="_blank"><img src="https://opencollective.com/easy-php/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/easy-php/sponsor/9/website" target="_blank"><img src="https://opencollective.com/easy-php/sponsor/9/avatar.svg"></a>
+
+
 # CONTACT
 
 <img src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg" width="300px">
 
 <img src="http://cdn.tigerb.cn/qrcode.jpg" width="200px">
+
+
+
