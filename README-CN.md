@@ -11,6 +11,8 @@
 
 <p align="center"> 从0开始构建一个属于你自己的PHP框架 <p>
 
+<p align="center"><img width="50%" src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg"><p>
+
 <p align="center"> <a href="./README.md">英文版</a>　<p>
 
 # 如何构建一个自己的PHP框架
