@@ -259,11 +259,28 @@ class App
      */
     public function response(Closure $closure)
     {
+        /**
+         * 错误处理handle里 fatal error是通过register_shutdown_function注册的函数获取的
+         * 防止fatal error时输出两会json 所以response也注册到register_shutdown_function的队列中
+         * 
+         * TODO 这个地方要重构
+         */
+        register_shutdown_function([$this, 'responseShutdownFun'], $closure);
+    }
+
+    /**
+     * shutdown response
+     *
+     * @param Closure $closure
+     * @return void
+     */
+    public function responseShutdownFun(Closure $closure)
+    {
         if ($this->notOutput === true) {
             return;
         }
         if ($this->runningMode === 'cli') {
-            $closure()->cliModeSuccess($this->responseData);
+            $closure($this)->cliModeSuccess($this->responseData);
             return;
         }
 
@@ -271,9 +288,9 @@ class App
                                    ->config['rest_response'];
                                    
         if ($useRest) {
-            $closure()->restSuccess($this->responseData);
+            $closure($this)->restSuccess($this->responseData);
         }
-        $closure()->response($this->responseData);
+        $closure($this)->response($this->responseData);
     }
 
     /**

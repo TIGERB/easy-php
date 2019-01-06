@@ -32,6 +32,13 @@ class ErrorHandle implements Handle
     private $mode = 'fmp';
 
     /**
+     * app instance
+     *
+     * @var Framework\App
+     */
+    private $app = null;
+
+    /**
      * 错误信息
      *
      * @var array
@@ -56,6 +63,7 @@ class ErrorHandle implements Handle
     public function register(App $app)
     {
         $this->mode = $app->runningMode;
+        $this->app = $app;
 
         // do not report the error by php self
         // E_ERROR | E_WARNING | E_PARSE | E_NOTICE | E_ALL

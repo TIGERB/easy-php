@@ -52,42 +52,50 @@ try {
      * Load all kinds of handles
      */
     $app->load(function () {
-        // 加载预环境参数机制 Loading env handle
+        // 加载预环境参数机制
+        // Loading env handle
         return new EnvHandle();
     });
 
     $app->load(function () {
-        // 加载预定义配置机制 Loading config handle
+        // 加载预定义配置机制
+        // Loading config handle
         return new ConfigHandle();
     });
 
     $app->load(function () {
-        // 加载日志处理机制 Loading log handle
+        // 加载日志处理机制
+        // Loading log handle
         return new LogHandle();
     });
 
     $app->load(function () {
-        // 加载错误处理机制 Loading error handle
+        // 加载错误处理机制
+        // Loading error handle
         return new ErrorHandle();
     });
 
     $app->load(function () {
-        //  加载异常处理机制 Loading exception handle.
+        // 加载异常处理机制
+        // Loading exception handle
         return new ExceptionHandle();
     });
 
     $app->load(function () {
-        // 加载nosql机制 Loading nosql handle
+        // 加载nosql机制
+        // Loading nosql handle
         return new NosqlHandle();
     });
 
     $app->load(function () {
-        // 加载用户自定义机制 Loading user-defined handle
+        // 加载用户自定义机制
+        // Loading user-defined handle
         return new UserDefinedHandle();
     });
 
     $app->load(function () {
-        // 加载路由机制 Loading route handle
+        // 加载路由机制
+        // Loading route handle
         return new RouterHandle();
     });
 
@@ -117,8 +125,8 @@ try {
      *
      * End
      */
-    $app->response(function () {
-        return new Response();
+    $app->response(function ($app) {
+        return new Response($app);
     });
 } catch (CoreHttpException $e) {
     /**

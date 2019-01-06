@@ -11,6 +11,7 @@
 
 namespace Framework;
 
+use Framework\App;
 use Framework\Exceptions\CoreHttpException;
 
 /**

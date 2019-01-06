@@ -11,6 +11,8 @@
 
 namespace Framework;
 
+use Framework\App;
+
 /**
  * 响应
  *
@@ -18,12 +20,20 @@ namespace Framework;
  */
 class Response
 {
+
+    /**
+     * app instance
+     *
+     * @var Framework\App
+     */
+    private $app = null;
+
     /**
      * 构造函数
      */
-    public function __construct()
+    public function __construct(App $app)
     {
-        #code...
+        $this->app = $app;
     }
 
     /**

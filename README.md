@@ -895,8 +895,8 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 - v0.8.5(2018/01/06)
     - fix error_report
-    - fix 
-
+    - fix when __coreError is occur the response is output 200 but it also out put __coreError
+    
 - v0.8.1(2018/06/24)
     - use easy log
     - add folder bin

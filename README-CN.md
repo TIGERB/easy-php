@@ -899,6 +899,10 @@ cp ./.git-hooks/* ./git/hooks
 
 # DONE
 
+- v0.8.5(2018/01/06)
+    - 使用error_report并设置为0，使得错误统一由框架的错误handle处理
+    - 修复当__coreError发生时，会把__coreError和正常返回值同事输出的问题
+
 - v0.8.1(2018/06/24)
     - 重构日志类
     - 增加bin目录统一存放脚本文件

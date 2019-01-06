@@ -22,6 +22,9 @@ use Easy\Log;
  */
 class CoreHttpException extends Exception
 {
+
+    private static $hadException = false;
+
     /**
      * 响应异常code
      *
@@ -78,9 +81,19 @@ class CoreHttpException extends Exception
         // log
         Log::error(json_encode($data));
 
-        // response
-        header('Content-Type:Application/json; Charset=utf-8');
-        die(json_encode($data, JSON_UNESCAPED_UNICODE));
+        /**
+         * response
+         * 
+         * 错误处理handle里 fatal error是通过register_shutdown_function注册的函数获取的
+         * 防止fatal error时输出两会json 所以response也注册到register_shutdown_function的队列中
+         * 
+         * TODO 这个地方要重构
+         */
+        register_shutdown_function(function () use ($data)
+        {
+            header('Content-Type:Application/json; Charset=utf-8');
+            die(json_encode($data, JSON_UNESCAPED_UNICODE));
+        });
     }
 
     /**
@@ -120,6 +133,17 @@ class CoreHttpException extends Exception
      */
     public static function reponseErr($e)
     {
+        /**
+         * 防止同时输出多个错误json
+         */
+        if (self::$hadException) {
+            // log
+            Log::error(json_encode($data));
+            return;
+        }
+
+        self::$hadException = true;
+        
         $data = [
             '__coreError' => [
                 'code'    => 500,
@@ -135,7 +159,7 @@ class CoreHttpException extends Exception
         Log::error(json_encode($data));
 
         header('Content-Type:Application/json; Charset=utf-8');
-        die(json_encode($data));
+        die(json_encode($data, JSON_UNESCAPED_UNICODE));
     }
 
     /**
