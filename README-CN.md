@@ -13,6 +13,12 @@
 
 <p align="center"> <a href="./README.md">英文版</a>　<p>
 
+# Docker 环境
+
+> 一行命令构建所有开发环境依赖
+
+[![easy-env](https://asciinema.org/a/219911.svg)](https://asciinema.org/a/219911?autoplay=1)
+
 # 如何构建一个自己的PHP框架
 
 为什么我们要去构建一个自己的PHP框架？可能绝大多数的人都会说“市面上已经那么多的框架了，还造什么轮子？”。我的观点“造轮子不是目的，造轮子的过程中汲取到知识才是目的”。
