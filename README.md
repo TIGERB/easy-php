@@ -1,19 +1,18 @@
-<p align="center"><img width="60%" src="http://cdn.tigerb.cn/logo.png"><p>
+<p align="center"><img width="50%" src="http://cdn.tigerb.cn/logo.png"><p>
 
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"> <img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
-<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.4-lightgrey.svg" alt="Version"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://codecov.io/gh/TIGERB/easy-php/branch/master/graph/badge.svg" alt="Code Coverage"></a>
+<a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/version-0.8.5-lightgrey.svg" alt="Version"></a>
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://img.shields.io/badge/php-5.4%2B-blue.svg" alt="PHP Version"></a>
 <a href="https://easy-framework.github.io/easy-env/"><img src="https://img.shields.io/badge/docker%20env-support-green.svg" alt="Docker env"></a>
-<a href="#backers" alt="sponsors on Open Collective"><img src="https://opencollective.com/easy-php/backers/badge.svg" /></a> <a href="#sponsors" alt="Sponsors on Open Collective"><img src="https://opencollective.com/easy-php/sponsors/badge.svg" /></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/cocoapods/l/AFNetworking.svg" alt="License"></a>
 
 </p>
 
 <p align="center"> A Faster Lightweight Full-Stack PHP Framework <p>
 
-<p align="center"><img width="50%" src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg"><p>
+<p align="center"><img width="30%" src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg"><p>
 
 <p align="center"> <a href="./README-CN.md">中文版</a>　<p>
 
@@ -893,6 +892,10 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 
 # DONE
+
+- v0.8.5(2018/01/06)
+    - fix error_report
+    - fix 
 
 - v0.8.1(2018/06/24)
     - use easy log

@@ -57,8 +57,12 @@ class ErrorHandle implements Handle
     {
         $this->mode = $app->runningMode;
 
+        // do not report the error by php self
+        // E_ERROR | E_WARNING | E_PARSE | E_NOTICE | E_ALL
+        error_reporting(0);
+        
+        // report the by the set_error_handler&register_shutdown_function::error_get_last
         set_error_handler([$this, 'errorHandler']);
-
         register_shutdown_function([$this, 'shutdown']);
     }
 
