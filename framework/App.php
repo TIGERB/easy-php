@@ -65,7 +65,7 @@ class App
      *
      * @var string
      */
-    private $runningMode = 'fpm';
+    public $runningMode = 'fpm';
 
 
     /**
