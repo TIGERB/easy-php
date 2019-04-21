@@ -23,6 +23,11 @@ use Easy\Log;
 class CoreHttpException extends Exception
 {
 
+    /**
+     * 本次请求是否发生了异常
+     *
+     * @var boolean
+     */
     private static $hadException = false;
 
     /**
@@ -67,9 +72,11 @@ class CoreHttpException extends Exception
     public function reponse()
     {
         $data = [
+            'code'    => $this->code,
+            'message' => $this->message,
             '__coreError' => [
-                'code'    => $this->getCode(),
-                'message' => $this->getMessage(),
+                'e_code'    => $this->getCode(),
+                'e_message' => $this->getMessage(),
                 'infomations'  => [
                     'file'  => $this->getFile(),
                     'line'  => $this->getLine(),
@@ -104,9 +111,11 @@ class CoreHttpException extends Exception
     public function reponseSwoole()
     {
         $data = [
+            'code'    => $this->code,
+            'message' => $this->message,
             '__coreError' => [
-                'code'    => $this->getCode(),
-                'message' => $this->getMessage(),
+                'e_code'    => $this->getCode(),
+                'e_message' => $this->getMessage(),
                 'infomations'  => [
                     'file'  => $this->getFile(),
                     'line'  => $this->getLine(),
@@ -145,9 +154,11 @@ class CoreHttpException extends Exception
         self::$hadException = true;
         
         $data = [
+            'code' => 500,
+            'message' => 'Internet Server Error',
             '__coreError' => [
-                'code'    => 500,
-                'message' => $e,
+                'e_code'  => 500,
+                'e_message' => $e,
                 'infomations'  => [
                     'file'  => $e['file'],
                     'line'  => $e['line'],
@@ -171,9 +182,11 @@ class CoreHttpException extends Exception
     public static function reponseErrSwoole($e)
     {
         $data = [
+            'code'    => 500,
+            'message' => 'Internet Server Error',
             '__coreError' => [
-                'code'    => 500,
-                'message' => $e,
+                'e_code'    => 500,
+                'e_message' => $e,
                 'infomations'  => [
                     'file'  => $e['file'],
                     'line'  => $e['line'],
