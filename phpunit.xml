@@ -21,7 +21,7 @@
     </filter>
     <php>
         <env name="APP_ENV" value="testing"/>
-        <env name="IS_CLI" value="yes"/>
+        <env name="EASY_MODE" value="cli"/>
     </php>
     <logging>
         <log type="coverage-clover" target="clover.xml" />
