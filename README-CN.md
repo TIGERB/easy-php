@@ -11,7 +11,7 @@
 
 <p align="center"> 从0开始构建一个属于你自己的PHP框架 <p>
 
-<p align="center"><img width="36%" src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg"><p>
+<p align="center"><img width="36%" src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg?imageMogr2/thumbnail/260x260!/format/webp/blur/1x0/quality/90|imageslim"><p>
 
 <p align="center"> <a href="./README.md">英文版</a>　<p>
 
@@ -939,7 +939,7 @@ cp ./.git-hooks/* ./git/hooks
 
 ## 交流群
 
-<img src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg" width="300px">
+<img src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg?imageMogr2/thumbnail/260x260!/format/webp/blur/1x0/quality/90|imageslim" width="300px">
 
 <img src="http://cdn.tigerb.cn/qrcode.jpg" width="200px">
 

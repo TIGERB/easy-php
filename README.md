@@ -12,7 +12,7 @@
 
 <p align="center"> A Faster Lightweight Full-Stack PHP Framework <p>
 
-<p align="center"><img width="30%" src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg"><p>
+<p align="center"><img width="30%" src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg?imageMogr2/thumbnail/260x260!/format/webp/blur/1x0/quality/90|imageslim"><p>
 
 <p align="center"> <a href="./README-CN.md">中文版</a>　<p>
 
@@ -962,7 +962,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 # CONTACT
 
-<img src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg" width="300px">
+<img src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg?imageMogr2/thumbnail/260x260!/format/webp/blur/1x0/quality/90|imageslim" width="300px">
 
 <img src="http://cdn.tigerb.cn/qrcode.jpg" width="200px">
 
