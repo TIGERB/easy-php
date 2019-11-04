@@ -33,7 +33,7 @@
     "vue-template-compiler": "^2.2.4",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.2",
-    "yarn": "^0.21.3"
+    "yarn": "^1.17.3"
   },
   "dependencies": {
     "animate.css": "^3.5.2",
