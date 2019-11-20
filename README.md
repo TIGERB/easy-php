@@ -12,7 +12,10 @@
 
 <p align="center"> A Faster Lightweight Full-Stack PHP Framework <p>
 
-<p align="center"><img width="30%" src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg?imageMogr2/thumbnail/260x260!/format/webp/blur/1x0/quality/90|imageslim"><p>
+<p align="center">
+           <img width="30%" src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg?imageMogr2/thumbnail/260x260!/format/webp/blur/1x0/quality/90|imageslim">
+           <img width="30%" src="https://mmbiz.qpic.cn/mmbiz_jpg/zm9WZ2XoW59T36fKnWNMwUib1IKUibVAtBGiaicJ2f3aKuAXU52cA4wsgYoEGkKSgMbm0qzgevQMsA9l1xJPYHf0NA/640">
+<p>
 
 <p align="center"> <a href="./README-CN.md">中文版</a>　<p>
 
