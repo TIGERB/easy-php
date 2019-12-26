@@ -524,8 +524,8 @@ assert@^1.1.1:
     util "0.10.3"
 
 assign-deep@^0.4.3:
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/assign-deep/-/assign-deep-0.4.7.tgz#7f66886a0bdae6d652abb1497f6edfc2c7ab14cf"
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/assign-deep/-/assign-deep-0.4.8.tgz#92089f55f7b55872b1828d9c51f860427f08bae6"
   dependencies:
     assign-symbols "^0.1.1"
     is-primitive "^2.0.0"
