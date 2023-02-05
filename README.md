@@ -1,4 +1,4 @@
-<p align="center"><img width="50%" src="http://cdn.tigerb.cn/logo.png"><p>
+<p align="center"><img width="50%" src="http://blog-1251019962.cos.ap-beijing.myqcloud.com/qiniu_img_2022/logo.png"><p>
 
 <p align="center">
 <a href="https://github.com/TIGERB/easy-php/releases"><img src="https://api.travis-ci.org/TIGERB/easy-php.svg?branch=master" alt="Build Status"></a>
@@ -13,7 +13,7 @@
 <p align="center"> A Faster Lightweight Full-Stack PHP Framework <p>
 
 <p align="center">
-           <img width="30%" src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg?imageMogr2/thumbnail/260x260!/format/webp/blur/1x0/quality/90|imageslim">
+           <img width="30%" src="http://blog-1251019962.cos.ap-beijing.myqcloud.com/qiniu_img_2022/wechat-blog-qrcode.jpg?imageMogr2/thumbnail/260x260!/format/webp/blur/1x0/quality/90|imageslim">
 <p>
 
 <p align="center"> <a href="./README-CN.md">中文版</a>　<p>
@@ -164,7 +164,7 @@ README.md                       [readme file]
 
 # Life Cycle
 
-<p align="center"><img width="90%" src="http://cdn.tigerb.cn/easy-php-en.png"><p>
+<p align="center"><img width="90%" src="http://blog-1251019962.cos.ap-beijing.myqcloud.com/qiniu_img_2022/easy-php-en.png"><p>
 
 # Framework Module Description:
 
@@ -931,7 +931,7 @@ project address: [https://github.com/TIGERB/easy-php](https://github.com/TIGERB/
 
 ## APPRECIATION
 
-<img src="http://cdn.tigerb.cn/money-qrcode.jpg" width="300px">
+<img src="http://blog-1251019962.cos.ap-beijing.myqcloud.com/qiniu_img_2022/money-qrcode.jpg" width="300px">
 
 ### Contributors
 
@@ -964,9 +964,9 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 # CONTACT
 
-<img src="http://cdn.tigerb.cn/wechat-blog-qrcode.jpg?imageMogr2/thumbnail/260x260!/format/webp/blur/1x0/quality/90|imageslim" width="300px">
+<img src="http://blog-1251019962.cos.ap-beijing.myqcloud.com/qiniu_img_2022/wechat-blog-qrcode.jpg?imageMogr2/thumbnail/260x260!/format/webp/blur/1x0/quality/90|imageslim" width="300px">
 
-<img src="http://cdn.tigerb.cn/qrcode.jpg" width="200px">
+<img src="http://blog-1251019962.cos.ap-beijing.myqcloud.com/qiniu_img_2022/qrcode.jpg" width="200px">
 
 
 
