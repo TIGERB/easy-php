@@ -5055,13 +5055,12 @@ meow@^3.3.0:
     trim-newlines "^1.0.0"
 
 merge-deep@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/merge-deep/-/merge-deep-3.0.1.tgz#75ee9a3d9c5dbb2f74e3a40d0d2bfefa36b6187b"
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/merge-deep/-/merge-deep-3.0.3.tgz#1a2b2ae926da8b2ae93a0ac15d90cd1922766003"
   dependencies:
     arr-union "^3.1.0"
     clone-deep "^0.2.4"
     kind-of "^3.0.2"
-    lazy-cache "^1.0.3"
 
 merge-descriptors@1.0.1:
   version "1.0.1"
